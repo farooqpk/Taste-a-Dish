@@ -1,0 +1,74 @@
+
+
+<div class="heading">
+   <h3>your cart</h3>
+   <p><a href="/">home </a> <span> / cart</span></p>
+</div>
+{{#if products}}
+<section class="products">
+
+ <!--  <h1 class="title">your cart</h1> -->
+
+   <div class="cart-total">
+      <p>grand total :₹<span id="total">{{total}}</span></p>
+      <a href="/place-order" class="btn">place order</a>
+      </div>
+   
+
+   <div class="box-container">
+
+
+       {{#each products}}
+      <div class="box">
+         
+         <button class="fas fa-times"   onclick="removeCart('{{this._id}}','{{this.product._id}}','{{this.product.Name}}')"></button>
+         <img src="/product-images/{{product._id}}.jpg" alt="">
+         <div class="name">{{this.product.Name}}</div>
+         <div class="flex">
+            <div class="price"><span>₹</span>{{this.product.Price}}</div>
+           
+           <button class=" but"  onclick="changeQuantity('{{this._id}}', '{{this.product._id}}', '{{../User._id}}',-1)">-</button>  
+           
+            <span class="name" id="{{this.product._id}}">{{this.quantity}}</span> 
+             <button class=" but"  onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../User._id}}',1)">+</button> 
+          
+         </div>
+         
+      </div>
+           {{/each}}
+
+
+
+   </div>
+     
+
+</section>
+{{else}}
+ <h1 class="title">cart is empty</h1>
+
+{{/if}}
+
+
+<style>
+   .but{
+   
+   padding:1.3rem 1.3rem;
+   
+   font-size: 1.9rem;
+   
+   border-radius: 100%;
+   
+}
+
+</style>
+
+
+
+
+
+
+
+
+
+
+

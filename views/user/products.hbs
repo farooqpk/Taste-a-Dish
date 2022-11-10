@@ -1,0 +1,57 @@
+
+<div class="heading">
+    {{#each products}}
+   <h3>{{this.Category}} menu</h3>
+    {{/each}}
+   <p><a href="/">home </a> <span> / menu</span></p>
+</div>
+
+<section class="products">
+
+  <!-- <h1 class="title">latest dishes</h1>  -->
+ 
+   <div class="box-container">
+    
+     {{#each products}}
+   
+         <div class="box"> 
+         
+         <button class="fas fa-heart" onclick="addWishlist('{{this._id}}')"></button>
+          <button class="fas fa-shopping-cart"  onclick="addToCart('{{this._id}}'); checkUser();" ></button> 
+         <img src="/product-images/{{this._id}}.jpg" alt="">
+         <a href="" class="cat">{{this.Description}}</a>
+         <div class="name">{{this.Name}}</div>
+         <div class="flex">
+           <div class="price"><span>₹</span>{{this.Price}}</div>
+            
+         </div>
+         </div>
+     
+        {{/each}}
+   </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

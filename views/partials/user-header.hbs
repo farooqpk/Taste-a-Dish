@@ -1,0 +1,56 @@
+
+
+
+
+ 
+<header class="header">
+
+   <section class="flex">
+
+      <a href="/" class="logo">yum-yum 😋</a>
+
+      <nav class="navbar">
+         <a href="/">home</a>
+         <a href="#about">about</a>
+         <a href="/all-products">menu</a>
+         {{#if User}}
+         <a href="/view-order">orders</a>
+         {{/if}}
+         <a href="#contact">contact</a>
+      </nav>
+
+      <div class="icons">
+        
+         <a href="/cart"><i class="fas fa-shopping-cart"></i><span id="cart-count">{{cartCount}} </span></a>
+         
+          <a href=""><i class="fas fa-heart"></i></a>
+         <div id="user-btn" class="fas fa-user"></div>
+         <div id="menu-btn" class="fas fa-bars"></div>
+        
+      </div>
+
+      <div class="profile">
+          {{#if User}}
+         <p class="name">{{User.Name}}</p>
+         <div class="flex">
+            <a href="/profile" class="btn">profile</a>
+            <a href="/logout" class="delete-btn">logout</a>
+         </div>
+          {{else}}
+           
+          <div class="flex">
+            <a href="/login" class="btn">login</a>
+            <a href="/signup" class="delete-btn">signup</a>
+         </div>
+        
+         {{/if}}
+      </div>
+
+   </section>
+
+</header>
+
+
+
+
+

@@ -1,0 +1,74 @@
+
+
+
+
+<div class="heading">
+   <h3>your orders</h3>
+   <p><a href="/">home </a> <span> / orders</span></p>
+</div>
+
+<section class="orders">
+
+  
+
+   <div class="box-container">
+
+      {{#each orders}}
+
+      <div class="box">
+         <p> placed on : <span>{{this.date}}</span> </p>
+         <p> name : <span>{{this.name}}</span> </p>
+         <p> number : <span>{{this.deliveryDetails.mobile}}</span> </p>
+          <p> pincode : <span>{{this.deliveryDetails.pincode}}</span> </p>
+        
+         <p> total price : <span>₹{{this.totalPrice}}</span> </p>
+         <p> payment method : <span>{{this.paymentMethod}}</span> </p>
+         <p> payment status : <span>{{this.status}}</span> </p>
+          <p> address : <span>{{this.deliveryDetails.address}}</span> </p>
+
+          <a href="/ordered-product/{{this._id}}" class="butn" >view items</a>
+      </div>
+
+    {{/each}}
+
+   </div>
+
+</section>
+
+
+<style>
+   .butn{
+      background-color:	rgb(92, 184, 92) ;
+      color: white ;
+      display: inline-block ;
+   margin-top: 1rem ;
+   padding:1.3rem 3rem ;
+   cursor: pointer ;
+   font-size: 2rem  ;
+   text-transform: capitalize  ;
+   }
+   .butn:hover{
+   letter-spacing: .2rem ;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

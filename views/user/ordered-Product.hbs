@@ -1,0 +1,35 @@
+
+
+
+<div class="heading">
+   <h3>ordered products</h3>
+  
+</div>
+
+
+
+
+<section class="products">
+
+  
+ 
+   <div class="box-container">
+    {{#each orderProduct}}
+     
+     
+         <div class="box"> 
+        
+         
+         <img src="/product-images/{{product._id}}.jpg" alt="">
+         <a href="" class="cat">{{product.Description}}</a>
+         <h3 class="name">{{product.Name}}</h3>
+         <div class="flex">
+           <div class="price"><span>₹</span>{{product.Price}}</div>
+            
+         </div>
+         </div>
+      
+       {{/each}}
+   </div>
+ 
+</section>

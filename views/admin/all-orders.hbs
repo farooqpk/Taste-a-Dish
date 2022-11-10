@@ -1,0 +1,128 @@
+
+
+{{#if orderList}}
+<section class="mt-5">
+    <div class="container">
+      <div class="row">
+       
+      
+
+     <h1 style="margin-left: 10.2em;">All orders</h1>
+      
+        <table class="table mt-5">
+         
+  <thead>
+    
+    <tr>
+      
+      <th scope="col">Date   </th>
+      <th scope="col">Name  </th>
+      <th scope="col">Mobile </th>
+      <th scope="col">Pincode</th>
+      <th scope="col">Address</th>
+      <th scope="col">Total  </th>
+      <th scope="col">method</th>
+     
+      <th scope="col">products</th>
+       <th scope="col">Status </th>
+ 
+ 
+    </tr>
+  </thead>
+  {{#each orderList}}
+  <tbody>
+    <tr>
+     
+     
+    <td>{{this.date}}</td>
+     <td>{{this.name}}</td>
+     <td>{{this.deliveryDetails.mobile}}</td>
+      <td>{{this.deliveryDetails.pincode}}</td>
+      <td>{{this.deliveryDetails.address}}</td>
+      <td>{{this.totalPrice}}</td>
+       <td>{{this.paymentMethod}}</td>
+      
+      
+      <td>
+       <a href="/admin/orderedProducts/{{this._id}}" class="btn btn-success btn-sm" style="width: 70%; height: 70%; border-radius: 100%;" >View</a> 
+      </td>
+    <td>
+         <select  class="form-select" style="background-color: rgb(0, 0, 0); border-radius:6px; color: white;" aria-label="Default select example" onchange="changeOrderstatus(value,'{{this._id}}')" >
+          <option  selected>{{this.status}}</option>
+          <option value="shipped">shipped</option>
+          <option value="processing">processing</option>
+          <option value="delivered">delivered</option>
+          <option value="cancelled">cancelled</option>
+
+         </select>
+        
+          
+    </td>
+  
+
+    </tr>
+  
+    
+  </tbody>
+{{/each}}
+</table>
+ </div>
+    </div>
+</section>
+
+{{else}}
+
+<h1 style="margin-left: 9.3em;"> no orders!</h1>
+  
+  {{/if}}
+
+<script>
+
+function changeOrderstatus(status,orderId){
+  //console.log(id)
+  //alert(id)
+  $.ajax({
+   url:'/admin/change-order-status/'+orderId,
+   method:'post',
+   data:{status:status},
+   success:(response)=>{
+      alert('order status changed')
+      location.reload()
+   }
+  })
+ }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<script>
+  const btn=document.getElementById('btnCol')
+  btn.addEventListener('click',function onClick(){
+    btn.style.color='white'
+    btn.style.backgroundColor='green'
+    
+  })
+</script>
+
+
+
+
+<!-  <a href="/admin/shipp-item/{{this._id}}" class="btn-btn-primary"> shipp</a> -!>
+

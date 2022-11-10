@@ -1,0 +1,152 @@
+
+
+<div class="heading">
+   <h3>checkout</h3>
+   <p><a href="/">home </a> <span> / checkout</span></p>
+</div>
+
+<section class="checkout">
+
+<form >
+      <div class="cart-items">
+         <h3>cart items</h3> 
+      {{#each cartItems}}
+         <p><span class="name">{{product.Name}}</span><span class="price">({{this.quantity}})</span></p>
+      {{/each}}
+         <p><span class="name">shipping charge</span><span class="price" style="color: rgb(13, 236, 13);">FREE</span></p>
+         <p class="grand-total"><span class="name">grand total :</span> <span class="price">₹{{total}}</span></p>
+         <a href="/cart" class="btn">view cart</a>
+      </div>
+</form>
+</section>
+
+<section class="form-container">
+
+<form id="checkout-form">
+
+    <h3>Enter delivary address</h3>
+      <div>
+       <input type="text" class="box" id="name" placeholder="enter your name" name="name" value="{{userProfile.Name}}" required>
+        <input type="tel" class="box" id="mobile" placeholder="enter your mobile" name="mobile" value="{{userProfile.Number}}" required>
+         <input type="tel" class="box" id="pincode" placeholder="enter your pincode" name="pincode"  required>
+           <textarea class="box" id="address" rows="7" name="address" placeholder="enter your address..." required></textarea>
+         <input type="text" class="box" name="userId" value="{{User._id}}" hidden>
+         </div>
+
+        <section class="form-container"> 
+            <h3>payment method</h3>
+            <div class="box">
+              <input  type="radio"  name="payment-method" value="COD" required>
+               <label  for="">cash on delivary</label>
+                <input style="margin-left:5rem;" type="radio"  name="payment-method" value="ONLINE" required>
+               <label for="">online Payment</label>
+            </div>
+                  <input type="submit"  class="btn" name="submit" value="checkout" >
+         </section>
+
+</form>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+$("#checkout-form").submit((e)=>{
+  e.preventDefault()
+  
+   $.ajax({
+     url:'/place-order',
+    method:'post',
+     data:$('#checkout-form').serialize(),
+     
+     success:(response)=>{
+ 
+ 
+ if(response.successCOD){
+ 
+   location.href='/success'
+ }else{
+   
+    razorpayPayment(response)
+ }
+    
+     }
+   })
+ })
+ 
+
+
+
+
+function razorpayPayment(order){
+
+  var options = {
+    "key": "rzp_test_DAYSovsG3ZoCcH", // Enter the Key ID generated from the Dashboard
+    "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Farooq Store",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature)
+
+         verifyPayment(response,order)
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+
+var rzp1 = new Razorpay(options);
+rzp1.open();
+
+}
+
+
+
+
+function verifyPayment(payment,order){
+  $.ajax({
+    url:'/verify-payment',
+    data:{
+      payment,
+      order
+    },
+    method:'post',
+    success:(response)=>{
+          if (response.status) {
+            location.href='/success'
+          }else{
+            alert('payment failed')
+          }
+    }
+  })
+}
+
+ 
+
+</script>
+
+
+
+

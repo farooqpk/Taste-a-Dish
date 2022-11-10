@@ -1,0 +1,31 @@
+
+<div class="heading">
+   <h3>all menu</h3>
+   <p><a href="/">home </a> <span> / menu</span></p>
+</div>
+<section class="products">
+
+  <!-- <h1 class="title">latest dishes</h1> -->
+ 
+   <div class="box-container">
+    {{#each allProducts}}
+     
+     
+         <div class="box"> 
+         <a href="" class="fas fa-heart"></a>
+          <button class="fas fa-shopping-cart"  onclick="addToCart('{{this._id}}'); checkUser();" ></button> 
+         <img src="/product-images/{{this._id}}.jpg" alt="">
+         <a href="" class="cat">{{this.Description}}</a>
+         <div class="name">{{this.Name}}</div>
+         <div class="flex">
+           <div class="price"><span>₹</span>{{this.Price}}</div>
+            
+         </div>
+         </div>
+      
+       {{/each}}
+   </div>
+ 
+</section>
+
+

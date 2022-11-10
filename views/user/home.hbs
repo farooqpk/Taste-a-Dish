@@ -1,0 +1,173 @@
+
+
+<section class="home">
+
+   <div class="swiper home-slider">
+
+      <div class="swiper-wrapper">
+
+         <div class="swiper-slide slide">
+            <div class="content">
+               <span>order online</span>
+               <h3>delicious pizza</h3>
+               <a href="/all-products" class="btn">see menus</a>
+            </div>
+            <div class="image">
+               <img src="/images/home-img-1.png" alt="">
+            </div>
+         </div>
+
+         <div class="swiper-slide slide">
+            <div class="content">
+               <span>order online</span>
+               <h3>double hamburger</h3>
+               <a href="/all-products" class="btn">see menus</a>
+            </div>
+            <div class="image">
+               <img src="/images/home-img-2.png" alt="">
+            </div>
+         </div>
+
+         <div class="swiper-slide slide">
+            <div class="content">
+               <span>order online</span>
+               <h3>roasted chicken</h3>
+               <a href="/all-products" class="btn">see menus</a>
+            </div>
+            <div class="image">
+               <img src="/images/home-img-3.png" alt="">
+            </div>
+         </div>
+
+      </div>
+
+      <div class="swiper-pagination"></div>
+
+   </div>
+
+</section>
+
+<section class="category">
+
+   <h1 class="title">food category</h1>
+
+   <div class="box-container">
+      {{#each category}}
+      <a href="/products/{{this.cat_name}}" class="box">
+         <img src="/images/{{this._id}}.jpg" alt="">
+         <h3>{{this.cat_name}}</h3>
+      </a>
+
+      {{/each}}
+    
+   </div>
+      <a href="/all-products" class="btn" style="display: flex; justify-content: center;" >veiw all</a>
+
+</section>
+
+
+
+
+    
+
+
+
+
+<section class="about" id="about">
+ <h1 class="title">about us</h1>
+   <div class="row">
+
+      <div class="image">
+         <img src="/images/about-img.svg" alt="">
+      </div>
+
+      <div class="content">
+         <h3>why choose us?</h3>
+         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis non odit nihil, doloremque sunt aut placeat culpa. Adipisci minima, neque necessitatibus incidunt nemo eveniet mollitia quis facere vel consectetur culpa?</p>
+         <a href="/all-products" class="btn">our menu</a>
+      </div>
+
+   </div>
+
+</section>
+
+<section class="steps">
+
+   <h1 class="title">3 simple steps</h1>
+
+   <div class="box-container">
+
+      <div class="box">
+         <img src="/images/step-1.png" alt="">
+         <h3>select food</h3>
+         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, hic.</p>
+      </div>
+
+      <div class="box">
+         <img src="/images/step-2.png" alt="">
+         <h3>30 minutes delivery</h3>
+         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, hic.</p>
+      </div>
+
+      <div class="box">
+         <img src="/images/step-3.png" alt="">
+         <h3>enjoy food!</h3>
+         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, hic.</p>
+      </div>
+
+   </div>
+
+</section>
+
+
+<section class="contact" id="contact">
+ <h1 class="title">contact us</h1>
+   <div class="row">
+
+      <div class="image">
+         <img src="/images/contact-img.svg" alt="">
+      </div>
+
+      <form id="contact-us">
+         <h3>tell us something!</h3>
+         <input type="text" name="name"  id="name" required placeholder="enter your name"  class="box">
+         <input type="tel" name="number" id="number" required minlength="10" maxlength="10" placeholder="enter your number"  class="box" >
+         <input type="email" name="email" id="email" required placeholder="enter your email" class="box">
+         <textarea name="msg" placeholder="enter your message" id="message" required class="box" cols="30" rows="10" maxlength="500"></textarea>
+         <input type="submit" value="send message" class="btn" name="send">
+      </form>
+
+   </div>
+
+</section>
+
+
+<script>
+   
+$("#contact-us").submit((e)=>{
+e.preventDefault()
+$.ajax({
+   url:'/contact-us',
+   data:$("#contact-us").serialize(),
+    method:"post",
+   success:(response)=>{
+      if(response.status){
+         window.alert('thankyou for your message ')
+      }
+   }
+})
+})
+
+
+var swiper = new Swiper(".home-slider", {
+   loop:true,
+   grabCursor:true,
+   effect: "flip",
+   pagination: {
+      el: ".swiper-pagination",
+      clickable:true,
+   },
+});
+
+
+</script>
