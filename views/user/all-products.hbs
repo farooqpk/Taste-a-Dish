@@ -12,7 +12,7 @@
      
      
          <div class="box"> 
-         <a href="" class="fas fa-heart"></a>
+        <button class="fas fa-heart" onclick="addWishlist('{{this._id}}'); checkUser();"></button>
           <button class="fas fa-shopping-cart"  onclick="addToCart('{{this._id}}'); checkUser();" ></button> 
          <img src="/product-images/{{this._id}}.jpg" alt="">
          <a href="" class="cat">{{this.Description}}</a>

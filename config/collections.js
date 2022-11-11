@@ -5,5 +5,6 @@ module.exports={
     ORDER_COLLECTIONS:'order',
     ADMIN_COLLECTIONS:'admin',
     CATEGORY_COLLECTIONS:'category',
-    USER_MESSAGES:'userMsg'
+    USER_MESSAGES:'userMsg',
+    WISHLIST_COLLECTIONS:'wishlist'
 }

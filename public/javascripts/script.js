@@ -1,20 +1,26 @@
 
 
-function addWishlist(proId){
+//wishlist add to cart separate function to avoid reloading in every add to cart
+ function addWishCart(proId){
+ 
   $.ajax({
-    url:"/add-whishList/"+proId,
-    method:"get",
-    success:(response)=>{
+    url: "/add-to-cart/" + proId,
+   method: "get",
+   success: (response)=>{
       if(response.status){
-        window.alert("added")
-      }
+        let count = $("#cart-count").html();
+        count=parseInt(count)+1
+        $("#cart-count").html(count)
+      location.reload()
+    
+     }
     }
   })
 }
 
 
  function addToCart(proId){
-  
+ 
    $.ajax({
      url: "/add-to-cart/" + proId,
     method: "get",
@@ -32,7 +38,7 @@ function addWishlist(proId){
 
  function checkUser(){
    $.ajax({
-     url: "/add" ,
+     url: "/add-check" ,
      method: "get",
      success: (response) => {
        if (response.status) {
@@ -42,36 +48,6 @@ function addWishlist(proId){
      }
    })
  }
-
-
-
-
-// function addToCart(proId) {
-  
-//   $.ajax({
-//     url: "/add" ,
-//     method: "get",
-//     success: (response) => {
-//       if (response.status) {
-//         location.href= '/login'
-//       }else{
-//         $.ajax({
-//           url: "/add-to-cart/" + proId,
-//           method: "get",
-//           success: (response) => {
-//             if (response.status) {
-//               let count = $("#cart-count").html();
-//               count=parseInt(count)+1
-//               $("#cart-count").html(count)
-//             }
-//           },
-//         });
-//       }
-//     }
-//   })
-  
-// }
-
 
 
 
@@ -130,3 +106,32 @@ function removeCart(cartId,proId,proName){
 
 
 
+function addWishlist(proId){
+  $.ajax({
+    url:"/add-wishList/"+proId,
+    method:"get",
+   success:(response)=>{
+    if(response.status){
+      let count = $("#wish-count").html();
+      count=parseInt(count)+1
+      $("#wish-count").html(count)
+    }
+   }
+  })
+}
+
+function removeWish(wishId,proId){
+  $.ajax({
+    url:'/remove-wish',
+    method:'post',
+    data:{
+      wish:wishId,
+      product:proId
+    },
+    success:(response)=>{
+      if(response.status){
+        location.reload()
+      }
+    }
+  })
+}

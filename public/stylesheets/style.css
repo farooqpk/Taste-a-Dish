@@ -308,7 +308,8 @@ section{
 }
 
 .products .box-container .box .fa-heart,
-.products .box-container .box .fa-shopping-cart{
+.products .box-container .box .fa-shopping-cart
+{
    position: absolute;
    top:1rem;
    display: block;
@@ -331,6 +332,8 @@ section{
    right: -10rem;
 }
 
+
+
 .products .box-container .box:hover .fa-heart{
    left: 1rem;
 }
@@ -339,8 +342,11 @@ section{
    right: 1rem;
 }
 
+
+
 .products .box-container .box .fa-heart:hover,
-.products .box-container .box .fa-shopping-cart:hover{
+.products .box-container .box .fa-shopping-cart:hover
+{
    background-color: var(--black);
    color:var(--white);
 }
@@ -416,6 +422,26 @@ section{
 .products .box-container .box .sub-total span{
    color:var(--black);
 }
+
+.products .box-container .box .fa-close{
+   font-size: 2rem;
+   background-color: var(--red);
+   color:var(--white);
+   height: 4.5rem;
+   width: 4.5rem;
+   cursor: pointer;
+   border:var(--border);
+   position: absolute;
+   top:1rem;
+   display: block;
+   text-align: center;
+   line-height: 4.3rem;
+}
+
+.products .box-container .box .fa-close:hover{
+   background-color: var(--black);
+}
+
 
 .products .box-container .box .fa-times{
    font-size: 2rem;
@@ -769,7 +795,7 @@ section{
 
 
 
-/* 
+
 
 .footer .box-container{
    display: grid;
@@ -801,13 +827,15 @@ section{
    font-size: 1.5rem;
    color:var(--light-color);
    display: block;
-} */
+} 
 
-.footer .credit{
+.footer{
    
-   left: 0;
-  bottom: 0;
-  width: 100%;
+   bottom:0; left:0; right: 0;
+  
+}
+.footer .credit{
+  
    background-color: var(--black);
    text-align: center;
    padding:3rem 2rem;
@@ -820,8 +848,6 @@ section{
    color:var(--yellow);
 }
 
-
- 
 
 
 

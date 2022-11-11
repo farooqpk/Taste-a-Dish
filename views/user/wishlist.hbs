@@ -1,0 +1,40 @@
+{{#if products}}
+
+<div class="heading">
+   <h3>my wishlist</h3>
+   <p><a href="/">home </a></p>
+</div>
+
+
+
+
+
+<section class="products">
+   <div class="box-container">
+
+{{#each products}}
+      <div class="box">
+          <button class="fa fa-close" onclick="removeWish('{{this._id}}','{{product._id}}')"></button>
+           <button class="fas fa-shopping-cart"  onclick="addWishCart('{{product._id}}');" ></button> 
+         
+         <img src="/product-images/{{product._id}}.jpg" alt="">
+         <div class="name">{{product.Name}}</div>
+         <div class="flex">
+            <div class="price"><span>₹</span>{{product.Price}}</div>
+       
+         </div>
+         
+      </div>
+      {{/each}}
+   </div>
+     
+
+</section>
+
+{{else}}
+<section class="products">
+<h1 class="title">You have no wishlist</h1>
+
+</section>
+
+{{/if}}
