@@ -140,7 +140,7 @@ router.post("/change-product-quantity",(req, res, next) => {
   });
 });
 
-router.post("/remove-cart", (req, res, next) => {
+router.delete("/remove-cart", (req, res, next) => {
   userHelpers.removeCart(req.body).then(() => {
     res.json({status:true});
   });
@@ -272,13 +272,18 @@ router.get('/add-wishList/:id',(req,res)=>{
 })
 
 
-router.post('/remove-wish',(req,res)=>{
+router.delete('/remove-wish',(req,res)=>{
   console.log(req.body);
   userHelpers.removeWish(req.body).then(()=>{
     res.json({status:true})
   })
 })
 
+router.delete('/cancel-order',(req,res)=>{
+   userHelpers.cancelOrder(req.body.id).then((response)=>{
+     res.json({status:true})
+   })
+})
 
 
 

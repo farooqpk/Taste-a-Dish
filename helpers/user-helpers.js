@@ -587,7 +587,18 @@ resolve()
       })
       })
     
+  },
+
+  cancelOrder:(orderId)=>{
+   return new Promise((resolve,reject)=>{
+    db.get().collection(collection.ORDER_COLLECTIONS).deleteOne({_id:objectId(orderId)}).then((res)=>{
+      resolve(res)
+    })
+   })
+
   }
+
+  
 
 
 

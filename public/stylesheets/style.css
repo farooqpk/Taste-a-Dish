@@ -848,6 +848,30 @@ section{
    color:var(--yellow);
 }
 
+/* 
+.loader-container{
+   position: fixed;
+   top:0; left:0;
+   height:100%; 
+   width:100%;
+   z-index: 10000;
+   background:#fff;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   overflow: hidden;
+}
+
+.loader-container img{
+   width:35rem;
+}
+
+.loader-container.fade-out{
+   top:-110%;
+   opacity:0;
+} */
+
+
 
 
 
@@ -905,4 +929,7 @@ section{
    }
 
 } 
+
+
+
 

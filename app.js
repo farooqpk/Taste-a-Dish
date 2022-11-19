@@ -19,7 +19,7 @@ var fileUpload=require('express-fileupload')
 
 
 
-//its used to remove cache of browser back button
+//its used to remove cache of browser when clicking back button
 app.use(function(req, res, next) { 
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
    next();

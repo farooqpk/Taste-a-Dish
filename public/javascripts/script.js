@@ -90,7 +90,7 @@ function removeCart(cartId,proId,proName){
       cart:cartId,
       product:proId
     },
-    method:"post",
+    method:"delete",
     success:(response)=>{
      if(response.status==true){
       location.reload()
@@ -123,7 +123,7 @@ function addWishlist(proId){
 function removeWish(wishId,proId){
   $.ajax({
     url:'/remove-wish',
-    method:'post',
+    method:'delete',
     data:{
       wish:wishId,
       product:proId
@@ -132,6 +132,18 @@ function removeWish(wishId,proId){
       if(response.status){
         location.reload()
       }
+    }
+  })
+}
+
+
+function cancelOrder(orderId){
+  $.ajax({
+    url:'/cancel-order',
+    method:'delete',
+    data:{id:orderId},
+    success:(response)=>{
+    location.reload()
     }
   })
 }
