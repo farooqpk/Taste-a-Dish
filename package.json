@@ -9,6 +9,7 @@
     "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
     "express": "~4.16.1",
     "express-fileupload": "^1.4.0",
     "express-handlebars": "^6.0.6",
@@ -20,6 +21,7 @@
     "mongodb": "^4.9.0",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.19",
-    "razorpay": "^2.8.3"
+    "razorpay": "^2.8.3",
+    "twilio": "^3.83.3"
   }
 }

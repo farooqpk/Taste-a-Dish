@@ -1,4 +1,4 @@
-
+require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -10,12 +10,13 @@ var db=require('./config/connection')
 var session=require('express-session')
 var Handlebars=require('handlebars')
 
-
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 
 var app = express();
-var fileUpload=require('express-fileupload')
+var fileUpload=require('express-fileupload');
+const { dirname } = require('path');
+
 
 
 

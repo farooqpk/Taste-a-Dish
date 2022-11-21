@@ -11,25 +11,78 @@ const { stringify } = require("querystring");
 const { ObjectID } = require("bson");
 const { resolve } = require("path");
 
+ const serviceID=process.env.TWILIO_SERVICE_ID 
+const accountSid = process.env.TWILIO_ACCOUNT_SID
+ const authToken =process.env.TWILIO_AUTH_TOKEN
+ 
+ const client = require('twilio')(accountSid, authToken);
+
 
 var instance = new Razorpay({
-  key_id: 'rzp_test_DAYSovsG3ZoCcH',
-  key_secret: 'Hh4go4BSxVlrVVxDqz91GAaU'
+  key_id: process.env.KEY_ID,
+  key_secret: process.env. KEY_SECRET
   
 });
 
+ function generateOTP() {
+   // Declare a digits variable 
+  // which stores all digits
+   var digits = '0123456789';
+   let OTP = '';
+   for (let i = 0; i < 4; i++ ) {
+   OTP += digits[Math.floor(Math.random() * 10)];
+   }
+   return OTP;
+   }
+
+
+   
 module.exports = {
+
   doSignup:(userData)=>{
     return new Promise(async (resolve, reject) => {
       userData.Password = await bcrypt.hash(userData.Password, 10);
-      db.get()
-        .collection(collection.USER_COLLECTIONS)
-        .insertOne(userData)
-        .then((data) => {
-          resolve(userData);
-        });
+      let otp=generateOTP()
+    let Otp=otp
+         client.messages 
+         .create({ 
+           body: Otp,  
+            messagingServiceSid: process.env.MESSAGING_SERVICE_SID,      
+            to: '91'+userData.Number 
+          }) 
+         .then(message => console.log(message.sid)) 
+         .done();
+         db.get().collection(collection.OTP_COLLECTION).insertOne({onetimepassword:Otp}).then(()=>{
+          resolve(userData)
+         })
+        resolve(userData)
     });
   },
+
+
+verifyOtp: (userOtp,userData) =>{
+  
+  return new Promise(async (resolve, reject) => {
+    
+    let checkotp = await db.get().collection(collection.OTP_COLLECTION).findOne({ onetimepassword: userOtp });
+
+    if (checkotp) {
+    console.log('checkotp und');
+      db.get().collection(collection.USER_COLLECTIONS).insertOne(userData).then((data) => {
+        // db.get().collection(collection.OTP_COLLECTION).deleteOne({onetimepassword: userOtp})
+        
+        resolve(userData);
+      });
+    }else{
+      console.log('otp illa');
+    reject()
+    }
+
+  });
+},
+
+    
+
   doLogin: (userData) => {
     return new Promise(async (resolve, reject) => {
       let loginStatus = false;
@@ -374,7 +427,7 @@ instance.orders.create(options, function(err,order){
 verifyPayment:(details)=>{
  return new Promise((resolve,reject)=>{
   const crypto=require('crypto')
-  let hmac=crypto.createHmac('sha256', 'Hh4go4BSxVlrVVxDqz91GAaU');
+  let hmac=crypto.createHmac('sha256', process.env.KEY_SECRET);
   hmac.update(details['payment[razorpay_order_id]']+'|'+details['payment[razorpay_payment_id]'])
   hmac=hmac.digest('hex')
   if(hmac==details['payment[razorpay_signature]']){

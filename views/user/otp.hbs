@@ -1,0 +1,68 @@
+ 
+ 
+ 
+ 
+ 
+ 
+<section class="form-container">
+
+   <form action="/verify-otp" method="post">
+      <h3>verify otp</h3>
+       {{#if otpErr}}
+<p class="error" style="color: red;">{{otpErr}}</p>
+
+{{/if}}
+      <input type="text" maxlength="4"  minlength="4" name="otp" placeholder="enter your otp" class="box" required>
+        <button type="submit" class="btn">verify</button>
+      
+   </form>
+
+</section>
+ 
+ 
+ 
+ <style>
+
+form input{
+  font-size: 3em !important;
+  text-align:center !important;
+  
+}
+ </style>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
