@@ -55,7 +55,7 @@ module.exports = {
          db.get().collection(collection.OTP_COLLECTION).insertOne({onetimepassword:Otp}).then(()=>{
           resolve(userData)
          })
-        resolve(userData)
+       
     });
   },
 
@@ -68,8 +68,8 @@ verifyOtp: (userOtp,userData) =>{
 
     if (checkotp) {
     console.log('checkotp und');
-      db.get().collection(collection.USER_COLLECTIONS).insertOne(userData).then((data) => {
-        // db.get().collection(collection.OTP_COLLECTION).deleteOne({onetimepassword: userOtp})
+      db.get().collection(collection.USER_COLLECTIONS).insertOne(userData).then(() => {
+         db.get().collection(collection.OTP_COLLECTION).deleteOne({onetimepassword: userOtp})
         
         resolve(userData);
       });

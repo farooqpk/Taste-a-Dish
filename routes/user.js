@@ -8,7 +8,7 @@ var router = express.Router();
 var productHelpers = require("../helpers/product-helpers");
 
 const userHelpers = require("../helpers/user-helpers");
-
+let Userdata=null
 
 
 const verifyLogin = async(req, res, next) => {
@@ -76,32 +76,33 @@ router.get("/signup", (req, res) => {
 
 router.get('/otp',(req,res)=>{
   res.render('user/otp', { "otpErr": req.session.userOtpErr })
+  req.session.userOtpErr=false;
 })
 
 
 
 router.post("/signup", (req, res) => {
   userHelpers.doSignup(req.body).then((userData) => {
+    Userdata=userData
     res.redirect('/otp')
 
-    router.post('/verify-otp',(req,res)=>{
-        userHelpers.verifyOtp(req.body.otp,userData).then((response)=>{  
-          
-            req.session.user = response;
-            req.session.userLoggedIn = true;
-            res.redirect("/");
-          
-       }).catch(()=>{
-       
-          req.session.userOtpErr  = "invalid otp";
-          res.redirect('/otp')
-       })
-    })
+   
   });
 });
 
-
-
+router.post('/verify-otp',(req,res)=>{
+  userHelpers.verifyOtp(req.body.otp,Userdata).then((response)=>{  
+    
+      req.session.user = response;
+      req.session.userLoggedIn = true;
+      res.redirect("/");
+    // Userdata=null
+   
+ }).catch(()=>{
+  req.session.userOtpErr  = "invalid otp";
+  res.redirect('/otp')
+ })
+})
 
 
 router.post("/login", (req, res) => {

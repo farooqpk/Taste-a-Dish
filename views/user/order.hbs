@@ -27,7 +27,12 @@
           <p> address : <span>{{this.deliveryDetails.address}}</span> </p>
 
           <a href="/ordered-product/{{this._id}}" class="butn" >view items</a>
-          <button class="delete-btn" onclick="cancelOrder('{{this._id}}')">cancel order</button>
+          <br>
+           <a href="" class="btn" >invoice</a> 
+           
+          <br>
+         <button class="delete-btn" onclick="cancelOrder('{{this._id}}')">cancel</button>
+           
       </div>
 
     {{/each}}
