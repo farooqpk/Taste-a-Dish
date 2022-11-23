@@ -96,7 +96,7 @@ router.post('/verify-otp',(req,res)=>{
       req.session.user = response;
       req.session.userLoggedIn = true;
       res.redirect("/");
-    // Userdata=null
+   
    
  }).catch(()=>{
   req.session.userOtpErr  = "invalid otp";

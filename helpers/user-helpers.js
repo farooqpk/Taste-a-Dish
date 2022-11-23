@@ -24,62 +24,104 @@ var instance = new Razorpay({
   
 });
 
- function generateOTP() {
-   // Declare a digits variable 
-  // which stores all digits
-   var digits = '0123456789';
-   let OTP = '';
-   for (let i = 0; i < 4; i++ ) {
-   OTP += digits[Math.floor(Math.random() * 10)];
-   }
-   return OTP;
-   }
+//  function generateOTP() {
+//    // Declare a digits variable 
+//   // which stores all digits
+//    var digits = '0123456789';
+//    let OTP = '';
+//    for (let i = 0; i < 4; i++ ) {
+//    OTP += digits[Math.floor(Math.random() * 10)];
+//    }
+//    return OTP;
+//    }
 
 
    
 module.exports = {
 
-  doSignup:(userData)=>{
-    return new Promise(async (resolve, reject) => {
-      userData.Password = await bcrypt.hash(userData.Password, 10);
-      let otp=generateOTP()
-    let Otp=otp
-         client.messages 
-         .create({ 
-           body: Otp,  
-            messagingServiceSid: process.env.MESSAGING_SERVICE_SID,      
-            to: '91'+userData.Number 
-          }) 
-         .then(message => console.log(message.sid)) 
-         .done();
-         db.get().collection(collection.OTP_COLLECTION).insertOne({onetimepassword:Otp}).then(()=>{
-          resolve(userData)
-         })
-       
+
+
+doSignup:(userData)=>{
+ return new Promise(async (resolve, reject) => {
+ userData.Password = await bcrypt.hash(userData.Password, 10);
+
+client.verify.v2
+.services(serviceID)
+.verifications.create({ to: '+91'+userData.Number, channel: "sms" })
+.then((verification) => console.log(verification.status));
+resolve(userData)
+
     });
   },
+
 
 
 verifyOtp: (userOtp,userData) =>{
   
   return new Promise(async (resolve, reject) => {
     
-    let checkotp = await db.get().collection(collection.OTP_COLLECTION).findOne({ onetimepassword: userOtp });
+const check= await client.verify.services(serviceID)
+.verificationChecks
+.create({to: '+91'+userData.Number, code: userOtp}).catch(e => {
+  console.log(e);
+  res.status(500).send(e)
+  reject()
+})
 
-    if (checkotp) {
-    console.log('checkotp und');
-      db.get().collection(collection.USER_COLLECTIONS).insertOne(userData).then(() => {
-         db.get().collection(collection.OTP_COLLECTION).deleteOne({onetimepassword: userOtp})
-        
-        resolve(userData);
-      });
-    }else{
-      console.log('otp illa');
-    reject()
-    }
+console.log(check.status);
 
+if(check.status ===  'approved'){
+  db.get().collection(collection.USER_COLLECTIONS).insertOne(userData).then((data)=>{
+    resolve(userData)
+  })
+}else{
+  reject()
+}
   });
 },
+
+
+//   doSignup:(userData)=>{
+//     return new Promise(async (resolve, reject) => {
+//       userData.Password = await bcrypt.hash(userData.Password, 10);
+//       let otp=generateOTP()
+//     let Otp=otp
+//          client.messages 
+//          .create({ 
+//            body: Otp,  
+//             messagingServiceSid: process.env.MESSAGING_SERVICE_SID,      
+//             to: '91'+userData.Number 
+//           }) 
+//          .then(message => console.log(message.sid)) 
+//          .done();
+//          db.get().collection(collection.OTP_COLLECTION).insertOne({onetimepassword:Otp}).then(()=>{
+//           resolve(userData)
+//          })
+       
+//     });
+//   },
+
+
+// verifyOtp: (userOtp,userData) =>{
+  
+//   return new Promise(async (resolve, reject) => {
+    
+//     let checkotp = await db.get().collection(collection.OTP_COLLECTION).findOne({ onetimepassword: userOtp });
+
+//     if (checkotp) {
+//     console.log('checkotp und');
+//       db.get().collection(collection.USER_COLLECTIONS).insertOne(userData).then(() => {
+//          db.get().collection(collection.OTP_COLLECTION).deleteOne({onetimepassword: userOtp})
+        
+//         resolve(userData);
+//       });
+//     }else{
+//       console.log('otp illa');
+//     reject()
+//     }
+
+//   });
+// },
 
     
 
