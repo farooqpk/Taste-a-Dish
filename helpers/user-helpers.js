@@ -16,7 +16,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID
  const authToken =process.env.TWILIO_AUTH_TOKEN
  
  const client = require('twilio')(accountSid, authToken);
-
+ 
 
 var instance = new Razorpay({
   key_id: process.env.KEY_ID,
@@ -131,7 +131,9 @@ if(check.status ===  'approved'){
       let response = {};
       let user = await db.get().collection(collection.USER_COLLECTIONS).findOne({ Email: userData.Email });
       if (user) {
+        console.log('user und');
         bcrypt.compare(userData.Password, user.Password).then((status) => {
+          console.log(status);
           if (status) {
             console.log("login success");
             response.user = user;
@@ -691,6 +693,15 @@ resolve()
     })
    })
 
+  },
+
+  generateInvoice:(orderId)=>{
+    return new Promise(async(resolve,reject)=>{
+   console.log(orderId);
+ let orderDetails=await db.get().collection(collection.ORDER_COLLECTIONS).findOne({_id:objectId(orderId)})
+resolve(orderDetails)
+ 
+    })
   }
 
   

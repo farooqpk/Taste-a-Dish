@@ -1,0 +1,159 @@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<section id="invoice">
+<div class="container">
+
+  <table width="100%">
+    <tr>
+      <td width="75px"><div class="logotype">Taste a Dish</div></td>
+      <td width="300px"><div style="border-left: 15px solid #fff;padding-left: 30px;font-size: 26px;font-weight: bold;letter-spacing: -1px;height: 73px;line-height: 75px;">Order invoice</div></td>
+      <td></td>
+    </tr>
+  </table> 
+  <br><br>
+
+
+  <h3> contact us </h3>
+  
+  <p>tasteadish@gamil.com</p>
+  <p>773636736</p>
+  <br>
+  
+  <table width="100%" style="border-collapse: collapse;">
+    <tr>
+      <td widdth="50%" style="background:#eee;padding:20px;">
+        <strong>Date:</strong> {{orderDetails.date}}<br>
+        <strong>Delivery status:</strong>{{orderDetails.status}}<br>
+        <strong>Delivery type:</strong> {{orderDetails.paymentMethod}}<br>
+      </td>
+      <td style="background:#eee;padding:20px;">
+        <strong>Order-id:</strong> {{orderDetails._id}}<br>
+        <strong>name:</strong> {{orderDetails.name}}<br>
+        <strong>Phone:</strong> {{orderDetails.deliveryDetails.mobile}}<br>
+        
+      </td>
+    </tr>
+  </table>
+
+  <br>
+  <h3 style="text-align: center;">Your address</h3>
+  <br>
+  <table width="100%" style="border-collapse: collapse;">
+    <tr>
+      <td widdth="50%" style="background:#eee;padding:20px;">
+        
+        <strong>address:</strong> {{orderDetails.deliveryDetails.address}}<br>
+        <strong>Pincode:</strong>  {{orderDetails.deliveryDetails.pincode}}
+      </td>
+     
+    </tr>
+  </table>
+
+
+<br>
+
+ 
+  <h3 style="text-align: center;">Your items</h3>
+  <br>
+
+   <table width="100%" style="border-collapse: collapse;border-bottom:1px solid #eee;">
+     <tr>
+       <td width="20%" class="column-header">item</td>
+       <td width="20%" class="column-header">category</td>
+       <td width="20%" class="column-header">quantity</td>
+       <td width="20%" class="column-header">Price</td>
+      
+     </tr>
+     {{#each orderItems}}
+     <tr>
+       
+       <td class="row">{{product.Name}}</td>
+       <td class="row">{{product.Category}}</td>
+       <td class="row">{{this.quantity}}</td>
+       <td class="row">{{product.Price}}</td>
+       
+     </tr>
+     {{/each}}
+  </table><br>
+
+  <table width="100%" style="background:#eee;padding:20px;">
+    <tr>
+      <td>
+        <table width="300px" style="float:right">
+         
+          <tr>
+            <td><strong>Shipping fee:</strong></td>    
+            <td style="text-align:right">Free</td>
+          </tr>
+         
+          <tr>
+            <td><strong>Grand total:</strong></td>    
+            <td style="text-align:right"><strong>₹{{orderDetails.totalPrice}}</strong></td>
+          </tr>
+        </table>
+       </td>
+    </tr>
+  </table>
+ <br>
+</div><!-- container -->
+</section>
+
+
+<div style="text-align: center;">
+<button class="delete-btn" onclick="generatePdf()">Download<i class="fa fa-download"></i></button>
+</div>
+
+
+<style>
+    body {font-family: Helvetica, sans-serif;font-size:13px;}
+.container{max-width: 680px; margin:0 auto;}
+.logotype{background:#000;color:#fff;width:75px;height:75px;  line-height: 75px; text-align: center; font-size:11px;}
+.column-title{background:#eee;text-transform:uppercase;padding:15px 5px 15px 15px;font-size:11px}
+.column-detail{border-top:1px solid #eee;border-bottom:1px solid #eee;}
+.column-header{background:#eee;text-transform:uppercase;padding:15px;font-size:11px;border-right:1px solid #eee;}
+.row{padding:7px 14px;border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;}
+.alert{background: #ffd9e8;padding:20px;margin:20px 0;line-height:22px;color:#333}
+.socialmedia{background:#eee;padding:20px; display:inline-block}
+</style>
+
+
+<script>
+  function generatePdf(){
+    const element=document.getElementById("invoice")
+
+    html2pdf().from(element).save();
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

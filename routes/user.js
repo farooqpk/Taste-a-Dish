@@ -1,6 +1,7 @@
 var express = require("express");
 const { Db } = require("mongodb");
 
+
 const { response } = require("../app");
 const { CART_COLLECTIONS } = require("../config/collections");
 const categoryHelpers = require("../helpers/category-helpers");
@@ -311,7 +312,17 @@ router.delete('/cancel-order',(req,res)=>{
    })
 })
 
+router.get('/invoice/:id',async(req,res)=>{
 
+  let orderItems = await userHelpers.orderedProduct(req.params.id);
+  userHelpers.generateInvoice(req.params.id).then((orderDetails)=>{
+    
+res.render('user/invoice',{orderDetails,orderItems,User:req.session.user})
+   
+  })
+ 
+
+})
 
 
 

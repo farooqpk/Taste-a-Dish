@@ -24,11 +24,12 @@
          <p> total price : <span>₹{{this.totalPrice}}</span> </p>
          <p> payment method : <span>{{this.paymentMethod}}</span> </p>
          <p> payment status : <span>{{this.status}}</span> </p>
-          <p> address : <span>{{this.deliveryDetails.address}}</span> </p>
-
+        <p> address : <span> {{this.deliveryDetails.address}} </span> </p>
+       
+         
           <a href="/ordered-product/{{this._id}}" class="butn" >view items</a>
           <br>
-           <a href="" class="btn" >invoice</a> 
+           <a href="/invoice/{{this._id}}" class="btn" >invoice</a> 
            
           <br>
          <button class="delete-btn" onclick="cancelOrder('{{this._id}}')">cancel</button>
