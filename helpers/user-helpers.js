@@ -702,8 +702,35 @@ resolve()
 resolve(orderDetails)
  
     })
-  }
+  },
 
+  addorUpdateAddress:(details,userId)=>{
+
+    return new Promise((resolve,reject)=>{
+      const query = { user: objectId(userId) };
+      const update = { $set: { 
+        user: objectId(userId) ,
+        street: details.street,
+        city: details.city,
+        district: details.district,
+        state: details.state,
+        country: details.country,
+        pincode: details.pincode
+      }};
+      const options = { upsert: true };
+
+db.get().collection(collection.ADDRESS_COLLECTION).updateOne(query, update, options).then(()=>{
+  resolve()
+})
+    })
+  },
+
+   getAddress:(userId)=>{
+    return new Promise(async(resolve,reject)=>{
+     let  address= await db.get().collection(collection.ADDRESS_COLLECTION).findOne({user:objectId(userId)})
+     resolve(address)
+    })
+   }
   
 
 

@@ -320,9 +320,27 @@ router.get('/invoice/:id',async(req,res)=>{
 res.render('user/invoice',{orderDetails,orderItems,User:req.session.user})
    
   })
- 
-
 })
+
+router.get('/addorUpdate-address',verifyLogin,async(req,res)=>{
+
+   let getAddress=await userHelpers.getAddress(req.session.user._id)
+  res.render('user/address',{User:req.session.user,getAddress})
+})
+
+router.post('/addorUpdate-address',verifyLogin,(req,res)=>{
+  console.log(req.body);
+  userHelpers.addorUpdateAddress(req.body,req.session.user._id).then(()=>{
+res.redirect('/')
+  })
+})
+
+
+
+
+
+
+
 
 
 

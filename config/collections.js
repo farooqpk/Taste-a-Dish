@@ -7,5 +7,6 @@ module.exports={
     CATEGORY_COLLECTIONS:'category',
     USER_MESSAGES:'userMsg',
     WISHLIST_COLLECTIONS:'wishlist',
-    OTP_COLLECTION:'otp'
+    OTP_COLLECTION:'otp',
+    ADDRESS_COLLECTION:'address'
 }
