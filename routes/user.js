@@ -70,7 +70,8 @@ router.get("/login", (req, res) => {
 });
 
 router.get("/signup", (req, res) => {
-  res.render("user/signup");
+  res.render("user/signup",{"userExist":req.session.userExist});
+  req.session.userExist=false
 });
 
 
@@ -88,7 +89,11 @@ router.post("/signup", (req, res) => {
     res.redirect('/otp')
 
    
-  });
+  }).catch(()=>{
+    req.session.userExist = "email is already exist";
+    res.redirect("/signup");
+  })
+
 });
 
 router.post('/verify-otp',(req,res)=>{

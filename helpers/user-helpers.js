@@ -43,14 +43,22 @@ module.exports = {
 
 doSignup:(userData)=>{
  return new Promise(async (resolve, reject) => {
- userData.Password = await bcrypt.hash(userData.Password, 10);
 
-client.verify.v2
-.services(serviceID)
-.verifications.create({ to: '+91'+userData.Number, channel: "sms" })
-.then((verification) => console.log(verification.status));
-resolve(userData)
+let userExist= await db.get().collection(collection.USER_COLLECTIONS).findOne({Email:userData.Email})
 
+if(userExist){
+  reject()
+}
+else{
+
+  userData.Password = await bcrypt.hash(userData.Password, 10);
+
+  client.verify.v2
+  .services(serviceID)
+  .verifications.create({ to: '+91'+userData.Number, channel: "sms" })
+  .then((verification) => console.log(verification.status));
+  resolve(userData)
+}
     });
   },
 
@@ -410,7 +418,7 @@ resolve(cart.products)
 viewOrderDetails:(userId)=>{
 console.log('id is '+userId);
 return new Promise(async(resolve,reject)=>{
-  
+
   let orderDetails=await db.get().collection(collection.ORDER_COLLECTIONS).find({userId:objectId(userId)}).sort({'date':-1}).toArray()
  
  // console.log(orderDetails);
