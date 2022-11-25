@@ -26,12 +26,24 @@
 
     <h3>Enter delivary address</h3>
       <div>
+        
        <input type="text" class="box" id="name" placeholder="enter your name" name="name" value="{{userProfile.Name}}" required>
         <input type="tel" class="box" id="mobile" placeholder="enter your mobile" name="mobile" value="{{userProfile.Number}}" required>
-         <input type="tel" class="box" id="pincode" placeholder="enter your pincode" name="pincode"  required>
-           <textarea class="box" id="address" rows="7" name="address" placeholder="enter your address..." required></textarea>
+        <input type="text" maxlength="15" placeholder="area name" required class="box" name="street">
+      <input type="text" maxlength="15" placeholder="city name" required class="box" name="city">
+       <input type="text" maxlength="15" placeholder="district name" required class="box" name="district">
+      <input type="text" maxlength="15" placeholder="state name" required class="box" name="state">
+      <input type="text" maxlength="10" placeholder="country name" required class="box" name="country">
+      <input type="tel" maxlength="6" minlength="6"  placeholder="pin code" required class="box" name="pincode">
+
+          
+
          <input type="text" class="box" name="userId" value="{{User._id}}" hidden>
          </div>
+
+
+
+
 
         <section class="form-container"> 
             <h3>payment method</h3>

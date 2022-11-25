@@ -359,7 +359,7 @@ getTotalAmount:(userId)=>{
 },
 
 placeOrder:(orderDetails,products,totalPrice)=>{
-  console.log('ethy');
+  
 return new Promise((resolve,reject)=>{
   let orderStatus=orderDetails['payment-method']==='COD'?'placed':'pending'
   
@@ -367,7 +367,11 @@ return new Promise((resolve,reject)=>{
     deliveryDetails:{
       mobile:orderDetails.mobile,
       pincode:orderDetails.pincode,
-      address:orderDetails.address
+      street:orderDetails.street,
+      city:orderDetails.city,
+      state:orderDetails.state,
+      country:orderDetails.country,
+      district:orderDetails.district
     },
     name:orderDetails.name,
     userId:objectId(orderDetails.userId),
@@ -406,6 +410,7 @@ resolve(cart.products)
 viewOrderDetails:(userId)=>{
 console.log('id is '+userId);
 return new Promise(async(resolve,reject)=>{
+  
   let orderDetails=await db.get().collection(collection.ORDER_COLLECTIONS).find({userId:objectId(userId)}).sort({'date':-1}).toArray()
  
  // console.log(orderDetails);

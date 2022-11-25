@@ -1,10 +1,10 @@
-
+{{#if products}}
 
 <div class="heading">
    <h3>your cart</h3>
    <p><a href="/">home </a> <span> / cart</span></p>
 </div>
-{{#if products}}
+
 <section class="products">
 
  <!--  <h1 class="title">your cart</h1> -->
@@ -44,7 +44,11 @@
 
 </section>
 {{else}}
- <h1 class="title">cart is empty</h1>
+
+<div class="heading">
+   <h3>You have no cart</h3>
+   <p><a href="/">home </a></p>
+</div>
 
 {{/if}}
 

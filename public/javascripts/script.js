@@ -138,12 +138,17 @@ function removeWish(wishId,proId){
 
 
 function cancelOrder(orderId){
-  $.ajax({
-    url:'/cancel-order',
-    method:'delete',
-    data:{id:orderId},
-    success:(response)=>{
-    location.reload()
-    }
-  })
+  if(confirm('are you sure to remove ?')==true){
+    $.ajax({
+      url:'/cancel-order',
+      method:'delete',
+      data:{id:orderId},
+      success:(response)=>{
+      location.reload()
+      }
+    })
+  }else{
+    return false
+  }
+ 
 }

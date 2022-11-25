@@ -323,7 +323,6 @@ res.render('user/invoice',{orderDetails,orderItems,User:req.session.user})
 })
 
 router.get('/addorUpdate-address',verifyLogin,async(req,res)=>{
-
    let getAddress=await userHelpers.getAddress(req.session.user._id)
   res.render('user/address',{User:req.session.user,getAddress})
 })
