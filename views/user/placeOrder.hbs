@@ -29,12 +29,12 @@
         
        <input type="text" class="box" id="name" placeholder="enter your name" name="name" value="{{userProfile.Name}}" required>
         <input type="tel" class="box" id="mobile" placeholder="enter your mobile" name="mobile" value="{{userProfile.Number}}" required>
-        <input type="text" maxlength="15" placeholder="area name" required class="box" name="street">
-      <input type="text" maxlength="15" placeholder="city name" required class="box" name="city">
-       <input type="text" maxlength="15" placeholder="district name" required class="box" name="district">
-      <input type="text" maxlength="15" placeholder="state name" required class="box" name="state">
-      <input type="text" maxlength="10" placeholder="country name" required class="box" name="country">
-      <input type="tel" maxlength="6" minlength="6"  placeholder="pin code" required class="box" name="pincode">
+        <input type="text" maxlength="15" placeholder="area name" required class="box" name="street" value="{{getAddress.street}}">
+      <input type="text" maxlength="15" placeholder="city name" required class="box" name="city" value="{{getAddress.city}}">
+       <input type="text" maxlength="15" placeholder="district name" required class="box" name="district" value="{{getAddress.district}}">
+      <input type="text" maxlength="15" placeholder="state name" required class="box" name="state" value="{{getAddress.state}}">
+      <input type="text" maxlength="10" placeholder="country name" required class="box" name="country" value="{{getAddress.country}}">
+      <input type="tel" maxlength="6" minlength="6"  placeholder="pin code" required class="box" name="pincode" value="{{getAddress.pincode}}">
 
           
 
@@ -49,9 +49,9 @@
             <h3>payment method</h3>
             <div class="box">
               <input  type="radio"  name="payment-method" value="COD" required>
-               <label  for="">cash on delivary</label>
+               <label  for="">COD</label>
                 <input style="margin-left:5rem;" type="radio"  name="payment-method" value="ONLINE" required>
-               <label for="">online Payment</label>
+               <label for="">ONLINE</label>
             </div>
                   <input type="submit"  class="btn" name="submit" value="checkout" >
          </section>

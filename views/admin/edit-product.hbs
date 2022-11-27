@@ -1,35 +1,49 @@
-<section>
-    <div class="container mt-4">
+
+
+
+<section class="mt-5 " style="margin-top: 6rem !important;">
+  <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <h2 class="text-center">Edit Product</h2>
-            <form action="/admin/edit-product/{{product._id}}" enctype="multipart/form-data" method="post">
-                <label for="">Name</label>
-                <input type="text" name="Name" id="name" class="form-control" value="{{product.Name}}">
+      <div class="col-md-12">
+        <h2 class="text-center fw-bold" style="font-family: Georgia, 'Times New Roman', Times, serif;">Edit Product</h2>
+        <form action="/admin/edit-product/{{product._id}}" enctype="multipart/form-data" method="post">
+          <label for="">Name</label>
+          <input type="text" name="Name" id="name" class="form-control" value="{{product.Name}}"  required>
 
-                 <label for="">Category</label>
-                <input type="text" name="Category" id="category" class="form-control" value="{{product.Category}}">
+          <label for="">Category</label>
+          <input type="text" name="Category" id="category" class="form-control" value="{{product.Category}}" required>
 
-                 <label for="">Price</label>
-                <input type="text" name="Price" id="price" class="form-control" value="{{product.Price}}">
+          <label for="">Price</label>
+          <input type="text" name="Price" id="price" class="form-control" value="{{product.Price}}" required>
 
-                 <label for="">Description</label>
-                <input type="text" name="Description" id="description" class="form-control" value="{{product.Description}}">
+          <label for="">Description</label>
+          <input type="text" name="Description" id="description" class="form-control" value="{{product.Description}}" required>
 
-                 <label for="">Image</label>
+          <label for="">Image</label>
                  <img src="/product-images/{{product._id}}.jpg" alt="" style="width: 100px; height: auto;" id="imgView" class="pt-3">
                 <input type="file" name="Image" id="image" class="form-control" onchange="viewImage(event)" required>
 
-                <button type="submit" class="btn btn-success mt-4">Sumbit</button>
-            </form>
-        </div>
+          <button type="submit" class="btn btn-success mt-4">Save</button>
+        </form>
+      </div>
 
     </div>
-    </div>
+  </div>
 </section>
+
 
 <script>
     function viewImage(event){
         document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
     }
-</script>
+</script> 
+
+
+<style>
+  label{
+    font-weight: bolder !important;
+  }
+</style>
+
+
+

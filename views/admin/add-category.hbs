@@ -1,25 +1,29 @@
-<section>
-  <div class="container mt-4">
+<section class="mt-5 " style="margin-top: 6rem !important; " >
+  <div class="container">
     <div class="row">
-      <div class="col-md-6">
-        <h2 class="text-center">Add category</h2>
-        <form
-          action="/admin/add-category"
-          enctype="multipart/form-data"
-          method="post"
-        >
-          <label for="">category</label>
-          <input type="text" name="cat_name" id="cat_name" class="form-control" required/>
+      <div class="col-md-12">
+        
+        <h2 class="text-center fw-bold" style="font-family: Georgia, 'Times New Roman', Times, serif;">Add category</h2>
+        <form action="/admin/add-category" enctype="multipart/form-data" method="post">
+          <label style="" for="">Category</label>
+          <input type="text" name="cat_name" id="cat_name" class="form-control" required />
 
-          
 
-          <label for="">image upload</label>
-          <input type="file" name="Image" id="image" class="form-control" required/>
 
-          <button type="submit" class="btn btn-success mt-4">Sumbit</button>
+          <label for="">Image Upload</label>
+          <input type="file" name="Image" id="image" class="form-control" required />
+
+          <button type="submit" class="btn btn-success mt-4">Save</button>
         </form>
       </div>
 
     </div>
   </div>
 </section>
+
+
+<style>
+  label{
+    font-weight: bolder !important;
+  }
+</style>

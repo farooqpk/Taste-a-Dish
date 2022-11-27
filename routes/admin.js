@@ -15,11 +15,11 @@ const verifyAdmin = (req, res, next) => {
 
 
 
-/* GET users listing. */
+
 router.get('/', verifyAdmin,function(req, res) {
   let Admin=req.session.admin
 productHelpers.getAllProducts().then((products)=>{
-  res.render('admin/view-products',{admin:true,products,Admin});
+  res.render('admin/admin-home',{admin:true,products,Admin});
 
 })
 });
@@ -27,7 +27,7 @@ productHelpers.getAllProducts().then((products)=>{
 
 
 router.get('/add-product',verifyAdmin,function(req,res){
-  res.render('admin/add-product',{admin:true})
+  res.render('admin/add-product',{ admin:true,Admin:req.session.admin})
 
 })
 
@@ -48,7 +48,7 @@ router.post('/add-product',verifyAdmin,(req,res)=>{
  })
 })
 
-router.get('/delete-product/:id',(req,res)=>{
+router.get('/delete-product/:id',verifyAdmin,(req,res)=>{
 let prodId=req.params.id
 console.log(prodId);
 productHelpers.deleteProduct(prodId).then((response)=>{
@@ -59,10 +59,10 @@ res.redirect('/admin/')
 router.get('/edit-product/:id',verifyAdmin,async(req,res)=>{
  let product=await productHelpers.getProductDetails(req.params.id)
  console.log(product);
- res.render('admin/edit-product',{product,admin:true})
+ res.render('admin/edit-product',{product,admin:true,Admin:req.session.admin})
 })
 
-router.post('/edit-product/:id',(req,res)=>{
+router.post('/edit-product/:id',verifyAdmin,(req,res)=>{
  
   let image = './public/product-images/' + req.params.id + '.jpg'
    productHelpers.updateProduct(req.params.id, req.body).then(() => {
@@ -77,26 +77,27 @@ router.post('/edit-product/:id',(req,res)=>{
 })
 
 
-router.get('/all-Users',verifyAdmin,(req,res)=>{
-  console.log('ready');
-  res.render('admin/all-users',{admin:true})
+router.get('/all-Users',verifyAdmin,async(req,res)=>{
+  let allUsers=await adminHelpers.allUserDetails()
+  console.log(allUsers);
+  res.render('admin/all-users',{admin:true,Admin:req.session.admin,allUsers})
   
 })
 router.get('/all-Orders',verifyAdmin,function(req,res){
   adminHelpers.viewOrderDetails().then((orderList)=>{
-res.render('admin/all-orders',{orderList,admin:true})
+res.render('admin/all-orders',{orderList,admin:true,Admin:req.session.admin})
   })
 })
 
-router.get('/orderedProducts/:id',(req,res)=>{
+router.get('/orderedProducts/:id',verifyAdmin,(req,res)=>{
  console.log(req.params.id);
  var orderId=req.params.id
  adminHelpers.getOrderedProducts(orderId).then((orderItems)=>{
-     res.render('admin/order-products',{admin:true,orderItems})
+     res.render('admin/order-products',{admin:true,orderItems,Admin:req.session.admin})
  })
 })
 
-router.post('/change-order-status/:id',(req,res)=>{
+router.post('/change-order-status/:id',verifyAdmin,(req,res)=>{
   console.log(req.params.id);
   console.log(req.body);
   adminHelpers.changeOrderStatus(req.params.id, req.body).then((response)=>{
@@ -136,11 +137,11 @@ router.get("/Logout", (req, res) => {
 });
 
 
-router.get('/add-category',(req,res)=>{
-  res.render('admin/add-category',{admin:true})
+router.get('/add-category',verifyAdmin,(req,res)=>{
+  res.render('admin/add-category',{admin:true,Admin:req.session.admin})
 })
 
-router.post('/add-category',(req,res)=>{
+router.post('/add-category',verifyAdmin,(req,res)=>{
   
   categoryHelpers.addCategory(req.body).then((id)=>{
       

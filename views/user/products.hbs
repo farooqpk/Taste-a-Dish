@@ -19,7 +19,9 @@
          <button class="fas fa-heart" onclick="addWishlist('{{this._id}}'); checkUser();"></button>
           <button class="fas fa-shopping-cart"  onclick="addToCart('{{this._id}}'); checkUser();" ></button> 
          <img src="/product-images/{{this._id}}.jpg" alt="">
-         <a href="" class="cat">{{this.Description}}</a>
+         <a  class="cat">{{this.Description}}</a>
+          <br>
+          <a  class="cat">{{this.Category}}</a>
          <div class="name">{{this.Name}}</div>
          <div class="flex">
            <div class="price"><span>₹</span>{{this.Price}}</div>

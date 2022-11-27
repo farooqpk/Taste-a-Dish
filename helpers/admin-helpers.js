@@ -92,7 +92,13 @@ dologin:(adminData)=>{
 
 },
 
+allUserDetails:()=>{
+  return new Promise(async(resolve,reject)=>{
+  let users=await db.get().collection(collection.USER_COLLECTIONS).find().toArray()
 
+  resolve(users)
+  })
+}
 
 
 

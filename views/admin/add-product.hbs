@@ -1,42 +1,34 @@
-<section>
-  <div class="container mt-4">
+<section class="mt-5 " style="margin-top: 6rem !important;">
+  <div class="container">
     <div class="row">
-      <div class="col-md-6">
-        <h2 class="text-center">Add Product</h2>
-        <form
-          action="/admin/add-product"
-          enctype="multipart/form-data"
-          method="post"
-        >
+      <div class="col-md-12">
+        <h2 class="text-center fw-bold" style="font-family: Georgia, 'Times New Roman', Times, serif;">Add Product</h2>
+        <form action="/admin/add-product" enctype="multipart/form-data" method="post">
           <label for="">Name</label>
-          <input type="text" name="Name" id="name" class="form-control" />
+          <input type="text" name="Name" id="name" class="form-control" / required>
 
           <label for="">Category</label>
-          <input
-            type="text"
-            name="Category"
-            id="category"
-            class="form-control"
-          />
+          <input type="text" name="Category" id="category" class="form-control" /required>
 
           <label for="">Price</label>
-          <input type="text" name="Price" id="price" class="form-control" />
+          <input type="text" name="Price" id="price" class="form-control" /required>
 
           <label for="">Description</label>
-          <input
-            type="text"
-            name="Description"
-            id="description"
-            class="form-control"
-          />
+          <input type="text" name="Description" id="description" class="form-control" /required>
 
           <label for="">Image</label>
-          <input type="file" name="Image" id="image" class="form-control" />
+          <input type="file" name="Image" id="image" class="form-control" /required>
 
-          <button type="submit" class="btn btn-success mt-4">Sumbit</button>
+          <button type="submit" class="btn btn-success mt-4">Save</button>
         </form>
       </div>
 
     </div>
   </div>
 </section>
+
+<style>
+  label{
+    font-weight: bolder !important;
+  }
+</style>

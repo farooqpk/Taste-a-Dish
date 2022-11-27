@@ -182,8 +182,9 @@ router.get("/place-order", verifyLogin, async (req, res) => {
   let total = await userHelpers.getTotalAmount(req.session.user._id);
   let cartItems=await userHelpers.getCartProducts(req.session.user._id)
   let userProfile=await userHelpers.getUserProfile(req.session.user._id)
- 
-  res.render("user/placeOrder", { User: req.session.user, total,cartItems ,userProfile});
+  let getAddress=await userHelpers.getAddress(req.session.user._id)
+
+  res.render("user/placeOrder", { User: req.session.user, total,cartItems ,userProfile,getAddress});
 });
 
 

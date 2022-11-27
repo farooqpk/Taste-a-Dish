@@ -1,57 +1,109 @@
+{{#if Admin}}
+
+<header class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="/admin/">Taste a Dish</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+                    aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
+                        class="fas fa-search"></i></button>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
 
+                    <li><a class="dropdown-item" href="#!">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="/admin/Logout">Logout</a></li>
 
-
-
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/admin/">Admin-panel</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item ">
-                    <a class="nav-link" href="/admin/">All Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/all-Orders">All Orders</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/all-Users">All Users</a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/add-category">Add category</a>
-                </li>
-                   
-            </ul> 
-                 
-     
-                 
-      <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-   
-  {{#if Admin}}
-{{Admin.Name}}
-{{else}}
- Account
-    {{/if}}
-   
-   
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    {{#if Admin}}
- <a class="dropdown-item" href="/admin/Logout">logout</a>
-{{else}}
- <a class="dropdown-item" href="/admin/Login">login</a>
-    
-   {{/if}}
-    
-  </div>
-</div>
-</div>
-       
+                </ul>
+            </li>
+        </ul>
     </nav>
+
+
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <a class="nav-link" href="/admin/">
+                            <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                            Dashboard
+                        </a>
+
+
+
+                        <div class="sb-sidenav-menu-heading">options</div>
+                        <a class="nav-link" href="/admin/add-product">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Add Products
+                        </a>
+
+                        <a class="nav-link" href="/admin/add-category">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Add Category
+                        </a>
+
+
+                        <div class="sb-sidenav-menu-heading">Pages</div>
+
+                        <a class="nav-link" href="/admin/#locate">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            All products
+                        </a>
+                        <a class="nav-link" href="/admin/all-Orders">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            All orders
+                        </a>
+                        <a class="nav-link" href="/admin/all-Users">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            All Users
+                        </a>
+
+
+
+
+
+
+                        <div class="sb-sidenav-menu-heading">Addons</div>
+                        <a class="nav-link" href="charts.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Charts
+                        </a>
+                        <a class="nav-link" href="tables.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Tables
+                        </a>
+                    </div>
+                </div>
+
+
+            </nav>
+        </div>
+    </div>
+
+
 </header>
+
+{{/if}}
+
+
+
+

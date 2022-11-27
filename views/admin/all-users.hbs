@@ -1,0 +1,60 @@
+{{#if allUsers}}
+
+
+<section class="card mb-4 mt-5 container" style="margin-top: 7rem !important; ">
+
+    <div class="card mb-4 mt-5">
+        <div class="card-header text-center fw-bold"
+            style="font-size:1.8em; font-family: Georgia, 'Times New Roman', Times, serif;">
+
+            All Users
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+
+                    <tr>
+
+                      
+                        <th scope="col">Name </th>
+                        <th scope="col">Mobile </th>
+                        <th scope="col">Email</th>
+
+                    </tr>
+                </thead>
+                {{#each allUsers}}
+                <tbody>
+                    <tr>
+
+
+                       
+                        <td>{{this.Name}}</td>
+                        <td>{{this.Number}}</td>
+                        <td>{{this.Email}}</td>
+
+                        <td>
+                            <a href="" class="btn btn-warning ">Block</a>
+                        </td>
+                        <td>
+                            <a href="" class="btn btn-danger ">Remove</a>
+                        </td>
+
+
+
+                    </tr>
+
+
+                </tbody>
+                {{/each}}
+            </table>
+        </div>
+    </div>
+
+</section>
+{{else}}
+
+
+
+<h1 class="text-center fw-bold mt-5"> There Is No Users</h1>
+
+{{/if}}
