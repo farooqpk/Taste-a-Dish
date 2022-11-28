@@ -136,7 +136,52 @@ removeCategory:(catId)=>{
       resolve()
     })
   })
+},
+
+
+
+removeUser:(userId)=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.USER_COLLECTIONS).deleteOne({_id:objectId(userId)}).then(()=>{
+      resolve()
+    })
+  })
+},
+
+getoneUser:(userId)=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.USER_COLLECTIONS).findOne({_id:objectId(userId)}).then((user)=>{
+      resolve(user)
+    })
+  })
+},
+
+editUser:(userId,userDetails)=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.USER_COLLECTIONS).updateOne({_id:objectId(userId)},
+    {
+      $set:{
+        Name:userDetails.Name,
+        Email:userDetails.Email,
+        Number:userDetails.Number
+      }
+    }).then(()=>{
+      resolve()
+    })
+  })
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

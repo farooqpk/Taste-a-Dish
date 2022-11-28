@@ -200,7 +200,25 @@ router.post('/popular-dish/:id',(req,res)=>{
    })
 })
 
+router.get('/removeUser/:id',(req,res)=>{
+  console.log(req.params.id);
+   adminHelpers.removeUser(req.params.id).then(()=>{
+    res.redirect('/admin/all-Users')
+   })
+})
 
+router.get('/editUser/:id',async(req,res)=>{
+  let user=await adminHelpers.getoneUser(req.params.id)
+  res.render('admin/edit-user',{admin:true,Admin:req.session.admin,user})
+})
+
+router.post('/editUser/:id',async(req,res)=>{
+  console.log(req.body);
+   adminHelpers.editUser(req.params.id,req.body).then(()=>{    
+     console.log(('edited'));
+     res.redirect('/admin/all-Users')
+ })
+})
 
 
 

@@ -33,10 +33,13 @@
                         <td>{{this.Email}}</td>
 
                         <td>
-                            <a href="" class="btn btn-warning ">Block</a>
+                            <a href="" class="btn btn-warning btn-sm">Block</a>
+                        </td>
+                         <td>
+                            <a href="/admin/editUser/{{this._id}}" class="btn btn-info btn-sm" onclick="return confirm('Are you sure to edit ')">Edit</a>
                         </td>
                         <td>
-                            <a href="" class="btn btn-danger ">Remove</a>
+                            <a href="/admin/removeUser/{{this._id}}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete ')">Remove</a>
                         </td>
 
 
@@ -58,3 +61,4 @@
 <h1 class="text-center fw-bold mt-5"> There Is No Users</h1>
 
 {{/if}}
+

@@ -1,0 +1,25 @@
+<section class="mt-5 " style="margin-top: 6rem !important;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center fw-bold" style="font-family: Georgia, 'Times New Roman', Times, serif;">Edit User
+                    Details</h2>
+                <form action="/admin/editUser/{{user._id}}" enctype="multipart/form-data" method="post">
+
+                    <label style="" for="">Name</label>
+                    <input type="text" name="Name" id="" value="{{user.Name}}" class="form-control" />
+                    <label style="" for="">Email</label>
+                    <input type="email" name="Email" id="" value="{{user.Email}}" class="form-control" />
+                    <label style="" for="">Mobile</label>
+                    <input type="tel" name="Number" id="" value="{{user.Number}}" class="form-control" />
+                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
