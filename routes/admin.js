@@ -66,10 +66,11 @@ router.post('/edit-product/:id',verifyAdmin,(req,res)=>{
  
   let image = './public/product-images/' + req.params.id + '.jpg'
    productHelpers.updateProduct(req.params.id, req.body).then(() => {
-    res.redirect('/admin/')
+   
     image = req.files.Image
     if (image) {
       image.mv('./public/product-images/' + req.params.id + '.jpg',)
+      res.redirect('/admin/')
     } else {
       res.redirect('/admin/')
     }
@@ -155,16 +156,35 @@ router.post('/add-category',verifyAdmin,(req,res)=>{
         }
       })
     }
+  })
+  })
+
+  router.get('/all-category',verifyAdmin,async(req,res)=>{
+    let category=await adminHelpers.allCategory()
+
+    res.render('admin/all-categories',{admin:true,Admin:req.session.admin,category})
+  })
+  
+router.get('/edit-category/:id',(req,res)=>{
+  console.log(req.params.id);
+   adminHelpers.specificCategory(req.params.id).then((category)=>{
+    res.render('admin/edit-category',{admin:true,Admin:req.session.admin,category})
+   })
+})
+
+router.post('/edit-category/:id',(req,res)=>{
+   adminHelpers.editCategory(req.params.id,req.body.cat_name).then(()=>{
     
-   
-  })
-  })
+    image = req.files.Image
+    if (image) {
+      image.mv('./public/images/' + req.params.id + '.jpg',)
+      res.redirect('/admin/')
+    } else {
+      res.redirect('/admin/')
+    }
 
-  
-
-  
-
-
+   })
+})
 
 
 

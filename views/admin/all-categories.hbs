@@ -1,0 +1,61 @@
+{{#if category}}
+
+
+<section class="card mb-4 mt-5 container" style="margin-top: 7rem !important; ">
+
+    <div class="card mb-4 mt-5">
+        <div class="card-header text-center fw-bold"
+            style="font-size:1.8em; font-family: Georgia, 'Times New Roman', Times, serif;">
+
+            All Categories
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple" ">
+                <thead>
+
+                    <tr>
+
+                        <th scope=" col">Name</th>
+
+                <th scope="col">Image </th>
+
+
+                </tr>
+                </thead>
+                {{#each category}}
+                <tbody>
+                    <tr>
+
+                        <td>{{this.cat_name}}</td>
+
+                        <td><img style="width: 50px; height: 50px;" src="/images/{{this._id}}.jpg" alt=""></td>
+
+
+
+                        <td>
+                            <a href="/admin/edit-category/{{this._id}}" class="btn btn-primary ">Edit</a>
+
+                        </td>
+
+
+                        <td>
+                            <a href="" class="btn btn-danger ">Remove</a>
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+                {{/each}}
+            </table>
+        </div>
+    </div>
+
+</section>
+{{else}}
+
+
+
+<h1 class="text-center fw-bold mt-5" style="margin-top: 5rem!important;"> There Is No Categories</h1>
+
+{{/if}}

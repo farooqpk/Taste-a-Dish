@@ -98,6 +98,36 @@ allUserDetails:()=>{
 
   resolve(users)
   })
+},
+
+allCategory:()=>{
+  return new Promise((resolve,reject)=>{
+  db.get().collection(collection.CATEGORY_COLLECTIONS).find().toArray().then((category)=>[
+resolve(category)
+  ])
+  })
+},
+
+specificCategory:(catId)=>{
+  return new Promise((resolve,reject)=>{
+    console.log(catId);
+    db.get().collection(collection.CATEGORY_COLLECTIONS).findOne({_id:objectId(catId)}).then((category)=>{
+      resolve(category)
+    })
+  })
+},
+
+editCategory:(catId,catName)=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.CATEGORY_COLLECTIONS).updateOne({_id:objectId(catId)},
+    {
+      $set:{
+        cat_name:catName
+      }
+    }).then(()=>{
+      resolve()
+    })
+  })
 }
 
 
