@@ -61,16 +61,45 @@
       {{/each}}
     
    </div>
-      <a href="/all-products" class="btn" style="display: flex; justify-content: center;" >veiw all</a>
+     
+</section>
 
+{{#if popularDishes}}
+<section class="products">
+
+   <h1 class="title">popular dishes</h1> 
+ 
+   <div class="box-container">
+    {{#each popularDishes}}
+     
+     
+         <div class="box"> 
+        <button class="fas fa-heart" onclick="addWishlist('{{this._id}}'); checkUser();"></button>
+          <button class="fas fa-shopping-cart"  onclick="addToCart('{{this._id}}'); checkUser();" ></button> 
+         <img src="/product-images/{{this._id}}.jpg" alt="">
+         <a href="" class="cat">{{this.Description}}</a>
+         <br>
+          <a href="" class="cat">{{this.Category}}</a>
+         <div class="name">{{this.Name}}</div>
+         <div class="flex">
+           <div class="price"><span>₹</span>{{this.Price}}</div>
+            
+         </div>
+         </div>
+      
+       {{/each}}
+   </div>
+    <div class="more-btn">
+      <a href="/all-products" class="btn">veiw all</a>
+   </div>
+  
 </section>
 
 
+{{/if}}
 
 
     
-
-
 
 
 <section class="about" id="about">

@@ -5,8 +5,15 @@ var objectId=require('mongodb').ObjectId
 module.exports={
 
 addProduct:(product,callback)=>{
-    
-    db.get().collection('product').insertOne(product).then((data)=>{
+    let prodDetails={
+        Name:product.Name,
+        Category:product.Category,
+        Price:product.Price,
+        Description:product.Description,
+        popular:"false",
+        Date:new Date()
+    }
+    db.get().collection('product').insertOne(prodDetails).then((data)=>{
       
         callback(data.insertedId)
     })
@@ -47,6 +54,50 @@ return new Promise((resolve,reject)=>{
            resolve()
     })
 })
+},
+
+
+popularDish:(proId,popularStatus)=>{
+    return new Promise((resolve,reject)=>{
+
+        db.get().collection(collection.PRODUCT_COLLECTIONS).updateOne({_id:objectId(proId)},{
+            $set:{popular:popularStatus}
+        }).then(()=>{
+            resolve()
+        })
+    })
+},
+
+
+getPopularDishes:()=>{
+    return new Promise(async(resolve,reject)=>{
+        let popularDishes=await db.get().collection(collection.PRODUCT_COLLECTIONS).find({popular:"true"}).toArray()
+        if(popularDishes){
+            resolve(popularDishes)
+        }else{
+            reject()
+        }
+        
+    })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -54,7 +54,7 @@
                >view</a>
             </td>
             <td>
-              <select  class="form-select bg-secondary" aria-label="Default select example" 
+              <select  class="form-select bg-secondary btn-sm" aria-label="Default select example" 
                 onchange="changeOrderstatus(value,'{{this._id}}')"   style="width: fit-content; color: white;">
                 <option selected>{{this.status}}</option>
                 <option value="shipped">shipped</option>
@@ -102,7 +102,7 @@ if(confirm('are you sure to change ?')==true){
       data: { status: status },
       success: (response) => {
         alert('order status changed')
-        location.reload()
+       
 
       }
     })

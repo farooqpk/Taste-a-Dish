@@ -33,8 +33,8 @@ router.get("/", async function (req, res, next) {
     wishCount = await userHelpers.getWishCount(User._id);
   }
    let category=await categoryHelpers.getAllCategory()
-  
-  res.render("./user/home", { User, cartCount,category,wishCount});
+  let popularDishes=await productHelpers.getPopularDishes()
+  res.render("./user/home", { User, cartCount,category,wishCount,popularDishes});
  
   
  

@@ -33,8 +33,7 @@ router.get('/add-product',verifyAdmin,function(req,res){
 
 
 router.post('/add-product',verifyAdmin,(req,res)=>{
-/// console.log(req.body);
- ///console.log(req.files.Image);
+
  productHelpers.addProduct(req.body,(id)=>{
   let image=req.files.Image
   console.log(id);
@@ -192,6 +191,45 @@ router.get('/remove-category/:id',(req,res)=>{
     res.redirect('/admin/all-category')
   })
 })
+
+
+router.post('/popular-dish/:id',(req,res)=>{
+ 
+   productHelpers.popularDish(req.params.id,req.body.popular).then(()=>{
+     res.json({status:true})
+   })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
 
