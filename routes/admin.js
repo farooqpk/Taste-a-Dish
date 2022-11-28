@@ -187,6 +187,11 @@ router.post('/edit-category/:id',(req,res)=>{
 })
 
 
+router.get('/remove-category/:id',(req,res)=>{
+  adminHelpers.removeCategory(req.params.id).then(()=>{
+    res.redirect('/admin/all-category')
+  })
+})
 
 module.exports = router;
 

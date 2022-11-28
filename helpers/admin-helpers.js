@@ -128,6 +128,14 @@ editCategory:(catId,catName)=>{
       resolve()
     })
   })
+},
+
+removeCategory:(catId)=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.CATEGORY_COLLECTIONS).deleteOne({_id:objectId(catId)}).then(()=>{
+      resolve()
+    })
+  })
 }
 
 
