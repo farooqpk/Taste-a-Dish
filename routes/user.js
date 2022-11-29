@@ -4,7 +4,8 @@ const { Db } = require("mongodb");
 
 const { response } = require("../app");
 const { CART_COLLECTIONS } = require("../config/collections");
-const categoryHelpers = require("../helpers/category-helpers");
+const adminHelpers = require("../helpers/admin-helpers");
+
 var router = express.Router();
 var productHelpers = require("../helpers/product-helpers");
 
@@ -32,9 +33,10 @@ router.get("/", async function (req, res, next) {
     cartCount = await userHelpers.getCartCount(User._id);
     wishCount = await userHelpers.getWishCount(User._id);
   }
-   let category=await categoryHelpers.getAllCategory()
+   let category=await productHelpers.getAllCategory()
   let popularDishes=await productHelpers.getPopularDishes()
-  res.render("./user/home", { User, cartCount,category,wishCount,popularDishes});
+  let banner=await adminHelpers.getBanner()
+  res.render("./user/home", { User, cartCount,category,wishCount,popularDishes,banner});
  
   
  

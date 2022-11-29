@@ -6,13 +6,13 @@
         <h2 class="text-center fw-bold" style="font-family: Georgia, 'Times New Roman', Times, serif;">Edit category</h2>
         <form action="/admin/edit-category/{{category._id}}" enctype="multipart/form-data" method="post">
           <label style="" for="">Category</label>
-          <input type="text" name="cat_name" id="cat_name" value="{{category.cat_name}}" class="form-control" required />
+          <input type="text" name="cat_name" id="cat_name" value="{{category.cat_name}}" class="form-control"  />
 
 
 
           <label for="">Image Upload</label>
            <img src="/images/{{category._id}}.jpg" alt="" style="width: 100px; height: auto;" id="imgView" class="pt-3">
-                <input type="file" name="Image" id="image" class="form-control" onchange="viewImage(event)" required>
+                <input type="file" name="Image" id="image" class="form-control" onchange="viewImage(event)" >
 
           <button type="submit" class="btn btn-success mt-4">Save</button>
         </form>

@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 var productHelpers=require('../helpers/product-helpers')
 var adminHelpers=require('../helpers/admin-helpers')
-var categoryHelpers=require('../helpers/category-helpers')
-
 
 const verifyAdmin = (req, res, next) => {
   if (req.session.adminLoggedIn) {
@@ -18,22 +16,24 @@ const verifyAdmin = (req, res, next) => {
 
 router.get('/', verifyAdmin,function(req, res) {
   let Admin=req.session.admin
-productHelpers.getAllProducts().then((products)=>{
-  res.render('admin/admin-home',{admin:true,products,Admin});
 
-})
+  res.render('admin/admin-home',{admin:true,Admin});
+
+
 });
 
 
 
-router.get('/add-product',verifyAdmin,function(req,res){
-  res.render('admin/add-product',{ admin:true,Admin:req.session.admin})
+router.get('/add-product',verifyAdmin,async(req,res)=>{
+  let category=await adminHelpers.allCategory()
+
+  res.render('admin/add-product',{ admin:true,Admin:req.session.admin,category})
 
 })
 
 
 router.post('/add-product',verifyAdmin,(req,res)=>{
-
+console.log(req.body);
  productHelpers.addProduct(req.body,(id)=>{
   let image=req.files.Image
   console.log(id);
@@ -57,21 +57,18 @@ res.redirect('/admin/')
 
 router.get('/edit-product/:id',verifyAdmin,async(req,res)=>{
  let product=await productHelpers.getProductDetails(req.params.id)
- console.log(product);
- res.render('admin/edit-product',{product,admin:true,Admin:req.session.admin})
+ let category=await adminHelpers.allCategory()
+ res.render('admin/edit-product',{product,admin:true,Admin:req.session.admin,category})
 })
 
 router.post('/edit-product/:id',verifyAdmin,(req,res)=>{
  
-  let image = './public/product-images/' + req.params.id + '.jpg'
    productHelpers.updateProduct(req.params.id, req.body).then(() => {
    
-    image = req.files.Image
-    if (image) {
+    res.redirect('/admin/all-products')
+    if(req.files){
+      let image = req.files.Image
       image.mv('./public/product-images/' + req.params.id + '.jpg',)
-      res.redirect('/admin/')
-    } else {
-      res.redirect('/admin/')
     }
   })
 })
@@ -143,7 +140,7 @@ router.get('/add-category',verifyAdmin,(req,res)=>{
 
 router.post('/add-category',verifyAdmin,(req,res)=>{
   
-  categoryHelpers.addCategory(req.body).then((id)=>{
+  productHelpers.addCategory(req.body).then((id)=>{
       
     let image=req.files.Image
     if(image){
@@ -173,15 +170,11 @@ router.get('/edit-category/:id',(req,res)=>{
 
 router.post('/edit-category/:id',(req,res)=>{
    adminHelpers.editCategory(req.params.id,req.body.cat_name).then(()=>{
-    
-    image = req.files.Image
-    if (image) {
-      image.mv('./public/images/' + req.params.id + '.jpg',)
-      res.redirect('/admin/')
-    } else {
-      res.redirect('/admin/')
-    }
-
+res.redirect('/admin/all-category')
+if(req.files){
+  let image = req.files.Image
+  image.mv('./public/images/' + req.params.id + '.jpg',)
+}
    })
 })
 
@@ -220,13 +213,66 @@ router.post('/editUser/:id',async(req,res)=>{
  })
 })
 
+router.get('/all-products',(req,res)=>{
+  productHelpers.getAllProducts().then((products)=>{
+    res.render('admin/view-products',{admin:true,products,Admin:req.session.admin});
+  
+  })
+})
+
+router.get('/add-banner',(req,res)=>{
+  res.render('admin/add-banner',{admin:true,Admin:req.session.admin})
+})
+
+router.post('/add-banner',(req,res)=>{
+  adminHelpers.addbanner(req.body).then((id)=>{
+    let image=req.files.Image
+   if(image){
+    image.mv('./public/banner-images/'+id+'.jpg',(err,done)=>{
+      if(!err){
+        res.redirect('/admin/')
+      }else{
+        console.log(err);
+      }
+    })
+   }
+  })
+})
 
 
+router.get('/all-banners',async(req,res)=>{
+  let allBanner=await adminHelpers.getBanner()
+  if(allBanner){
+    res.render('admin/view-banners',{admin:true,Admin:req.session.admin,allBanner})
+  }
+})
+
+router.get('/edit-banner/:id',async(req,res)=>{
+
+  let banner= await adminHelpers.requiredBanner(req.params.id)
+if(banner){
+ 
+  res.render('admin/edit-banners',{admin:true,Admin:req.session.admin,banner})
+}
+})
 
 
+router.post('/edit-banner/:id',(req,res)=>{
+  console.log(req.body);
+   adminHelpers.editBanner(req.params.id,req.body).then((id)=>{
+res.redirect('/admin/all-banners')
+if(req.files){
+  let image = req.files.Image
+  image.mv('./public/banner-images/' + req.params.id + '.jpg',)
+}
+   })
+})
 
-
-
+router.get('/remove-banner/:id',(req,res)=>{
+  adminHelpers.removeBanner(req.params.id).then(()=>{
+    res.redirect('/admin/all-banners')
+  })
+})
 
 
 

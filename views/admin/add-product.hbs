@@ -7,17 +7,25 @@
           <label for="">Name</label>
           <input type="text" name="Name" id="name" class="form-control" / required>
 
-          <label for="">Category</label>
-          <input type="text" name="Category" id="category" class="form-control" /required>
-
+          
           <label for="">Price</label>
           <input type="text" name="Price" id="price" class="form-control" /required>
 
           <label for="">Description</label>
           <input type="text" name="Description" id="description" class="form-control" /required>
+<label for="">Category</label>
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" name="Category" required>
+ 
+  {{#each category}}
+  <option value="{{this.cat_name}}">{{this.cat_name}}</option>
+  {{/each}}
+</select>
+
 
           <label for="">Image</label>
-          <input type="file" name="Image" id="image" class="form-control" /required>
+          <img src="/product-images/{{product._id}}.jpg" alt="" style="width: 100px; height: auto;" id="imgView"
+            class="pt-3">
+          <input type="file" name="Image" id="image" class="form-control" onchange="viewImage(event)" required>
 
           <button type="submit" class="btn btn-success mt-4">Save</button>
         </form>
@@ -28,7 +36,14 @@
 </section>
 
 <style>
-  label{
+  label {
     font-weight: bolder !important;
   }
 </style>
+
+
+<script>
+  function viewImage(event) {
+    document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+  }
+</script>

@@ -1,44 +1,27 @@
 
 
+
 <section class="home">
 
+{{#if banner}}
    <div class="swiper home-slider">
 
       <div class="swiper-wrapper">
 
+{{#each banner}}
          <div class="swiper-slide slide">
             <div class="content">
-               <span>order online</span>
-               <h3>delicious pizza</h3>
+               <span>{{this.short_name}}</span>
+               <h3>{{this.head_name}}</h3>
                <a href="/all-products" class="btn">see menus</a>
             </div>
             <div class="image">
-               <img src="/images/home-img-1.png" alt="">
+               <img src="/banner-images/{{this._id}}.jpg" alt="">
             </div>
          </div>
-
-         <div class="swiper-slide slide">
-            <div class="content">
-               <span>order online</span>
-               <h3>double hamburger</h3>
-               <a href="/all-products" class="btn">see menus</a>
-            </div>
-            <div class="image">
-               <img src="/images/home-img-2.png" alt="">
-            </div>
-         </div>
-
-         <div class="swiper-slide slide">
-            <div class="content">
-               <span>order online</span>
-               <h3>roasted chicken</h3>
-               <a href="/all-products" class="btn">see menus</a>
-            </div>
-            <div class="image">
-               <img src="/images/home-img-3.png" alt="">
-            </div>
-         </div>
-
+         {{/each}}
+{{/if}}
+        
       </div>
 
       <div class="swiper-pagination"></div>
@@ -46,6 +29,11 @@
    </div>
 
 </section>
+
+
+
+
+
 
 
 {{#if category}}

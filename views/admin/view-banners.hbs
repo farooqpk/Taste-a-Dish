@@ -1,0 +1,50 @@
+{{#if allBanner}}
+
+
+<div class="card mb-4 mt-5 container" style="margin-top: 7rem !important; ">
+    <div class="card-header text-center fw-bold"
+        style="font-size:1.8em; font-family: Georgia, 'Times New Roman', Times, serif;">
+
+        All Banners
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>image</th>
+                    <th scope="col">short name</th>
+                    <th scope="col">head name</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#each allBanner}}
+
+                <tr>
+                    <td><img style="width: 50px; height: 50px;" src="/banner-images/{{this._id}}.jpg" alt=""></td>
+                    <td>{{this.short_name}}</td>
+                    <td>{{this.head_name}}</td>
+
+
+                    <td> <a href="/admin/edit-banner/{{this._id}}" class="btn btn-primary btn-sm">Edit</a></td>
+                    <td> <a href="/admin/remove-banner/{{this._id}}" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you want to delete')">Delete</a>
+                    </td>
+
+
+
+                </tr>
+
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{{else}}
+<div class="card-header text-center fw-bold "
+    style="font-size:1.8em; font-family: Georgia, 'Times New Roman', Times, serif; margin-top: 7rem;">
+    There Is No Banners
+</div>
+{{/if}}

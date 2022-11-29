@@ -169,6 +169,53 @@ editUser:(userId,userDetails)=>{
       resolve()
     })
   })
+},
+
+
+addbanner:(details)=>{
+  return new Promise((resolve,reject)=>{
+db.get().collection(collection.BANNER_COLLECTION).insertOne(details).then((data)=>{
+  resolve(data.insertedId)
+})
+  })
+},
+
+getBanner:()=>{
+  return new Promise((resolve,reject)=>{
+db.get().collection(collection.BANNER_COLLECTION).find().toArray().then((banner)=>{
+  resolve(banner)
+})
+  })
+},
+
+requiredBanner:(bannerId)=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.BANNER_COLLECTION).findOne({_id:objectId(bannerId)}).then((banner)=>{
+      resolve(banner)
+    })
+  })
+},
+
+editBanner:(bannerId,bannerDetail)=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.BANNER_COLLECTION).updateOne({_id:objectId(bannerId)},
+    {
+      $set:{
+        short_name:bannerDetail.short_name,
+        head_name:bannerDetail.head_name
+      }
+    }).then((data)=>{
+      resolve(data.insertedId)
+    })
+  })
+},
+
+removeBanner:(bannerId)=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.BANNER_COLLECTION).deleteOne({_id:objectId(bannerId)}).then(()=>{
+      resolve()
+    })
+  })
 }
 
 

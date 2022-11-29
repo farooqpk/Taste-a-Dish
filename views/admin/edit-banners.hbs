@@ -1,0 +1,42 @@
+<section class="mt-5 " style="margin-top: 6rem !important; ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <h2 class="text-center fw-bold" style="font-family: Georgia, 'Times New Roman', Times, serif;">Edit
+                    Banner</h2>
+                <form action="/admin/edit-banner/{{banner._id}}" enctype="multipart/form-data" method="post">
+                   
+                    <label style="" for="">short name</label>
+                    <input type="text" name="short_name" id="" value="{{banner.short_name}}" class="form-control" />
+
+                    <label style="" for="">head name</label>
+                    <input type="text" name="head_name" id="" value="{{banner.head_name}}" class="form-control" />
+
+
+                    <label for="">Image Upload</label>
+                    <img src="/banner-images/{{banner._id}}.jpg" alt="" style="width: 100px; height: auto;" id="imgView"
+                        class="pt-3">
+                    <input type="file" name="Image" id="image" class="form-control" onchange="viewImage(event)">
+
+                    <button type="submit" class="btn btn-success mt-4">Save</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<style>
+    label {
+        font-weight: bolder !important;
+    }
+</style>
+
+
+<script>
+    function viewImage(event) {
+        document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+    }
+</script>

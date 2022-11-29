@@ -11,8 +11,8 @@
 
 
           <label for="">Image Upload</label>
-          <input type="file" name="Image" id="image" class="form-control" required />
-
+          <img src="" alt="" style="width: 100px; height: auto;" id="imgView" class="pt-3">
+                <input type="file" name="Image" id="image" class="form-control" onchange="viewImage(event)" required>
           <button type="submit" class="btn btn-success mt-4">Save</button>
         </form>
       </div>
@@ -27,3 +27,10 @@
     font-weight: bolder !important;
   }
 </style>
+
+
+<script>
+function viewImage(event){
+        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>
