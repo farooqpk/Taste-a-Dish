@@ -229,6 +229,52 @@ changeUserStatus:(userId,Status)=>{
       resolve()
     })
   })
+},
+
+getAdminData:()=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.ADMIN_COLLECTIONS).findOne().then((admin)=>{
+      resolve(admin)
+    })
+  })
+},
+
+updateAdmin:(adminData,adminId)=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.ADMIN_COLLECTIONS).updateOne({_id:objectId(adminId)},
+    {
+      $set:{
+        Name:adminData.Name,
+        Email:adminData.Email
+      }
+    }).then((data)=>{
+      resolve()
+    })
+  })
+},
+
+updateAdminPass:(passDetails,adminId)=>{
+  return new Promise(async(resolve,reject)=>{
+    passDetails.Password = await bcrypt.hash(passDetails.Password, 10);
+    passDetails.newPassword=await bcrypt.hash(passDetails.newPassword,10)
+   
+   let admin=await db.get().collection(collection.ADMIN_COLLECTIONS).findOne({_id:objectId(adminId)})
+   if(admin){
+    bcrypt.compare(passDetails.Password, admin.Password).then(()=>{
+       db.get().collection(collection.ADMIN_COLLECTIONS).updateOne({_id:objectId(adminId)},
+       {
+        $set:{
+          Password:passDetails.newPassword
+        }
+       }).then(()=>{
+        resolve()
+       })
+    })
+   }else{
+    reject(err)
+   }
+
+  })
 }
 
 

@@ -264,7 +264,7 @@ router.post('/edit-banner/:id',(req,res)=>{
 res.redirect('/admin/all-banners')
 if(req.files){
   let image = req.files.Image
-  image.mv('./public/banner-images/' + req.params.id + '.jpg',)
+  image.mv('./public/banner-images/' + id + '.jpg',)
 }
    })
 })
@@ -277,7 +277,7 @@ router.get('/remove-banner/:id',(req,res)=>{
 
 router.get('/removeOrder/:id',(req,res)=>{
  userHelpers.cancelOrder(req.params.id).then(()=>{
-  res.redirect('/admin//all-Orders')
+  res.redirect('/admin/all-Orders')
  })
 })
 
@@ -289,10 +289,32 @@ router.post('/change-user-status/:id',(req,res)=>{
 }
 )
 
+router.get('/admin-profile',async(req,res)=>{
+  let adminProfile=await adminHelpers.getAdminData()
+  res.render('admin/admin-profile',{admin:true,Admin:req.session.admin,adminProfile})
+})
+
+router.get('/edit-adminProfile',async(req,res)=>{
+  let adminProfile=await adminHelpers.getAdminData()
+  res.render('admin/edit-admin',{admin:true,Admin:req.session.admin,adminProfile})
+})
+
+router.post('/edit-adminProfile/:id',(req,res)=>{
+adminHelpers.updateAdmin(req.body,req.params.id).then(()=>{
+  res.redirect('/admin/admin-profile')
+})
+})
+
+router.get('/edit-adminPass',(req,res)=>{
+  res.render('admin/edit-adminPass',{admin:true,Admin:req.session.admin})
+})
 
 
-
-
+router.post('/edit-adminPass',(req,res)=>{
+ adminHelpers.updateAdminPass(req.body,req.session.admin._id).then(()=>{
+  res.redirect('/admin/')
+ })
+})
 
 
 
