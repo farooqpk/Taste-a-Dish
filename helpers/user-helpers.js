@@ -52,6 +52,7 @@ if(userExist){
 else{
 
   userData.Password = await bcrypt.hash(userData.Password, 10);
+userData.userStatus="Unblock"
 
   client.verify.v2
   .services(serviceID)
@@ -135,18 +136,24 @@ if(check.status ===  'approved'){
 
   doLogin: (userData) => {
     return new Promise(async (resolve, reject) => {
-      let loginStatus = false;
+      
       let response = {};
       let user = await db.get().collection(collection.USER_COLLECTIONS).findOne({ Email: userData.Email });
       if (user) {
-        console.log('user und');
-        bcrypt.compare(userData.Password, user.Password).then((status) => {
-          console.log(status);
+        
+
+        bcrypt.compare(userData.Password, user.Password).then((status) => {     
           if (status) {
-            console.log("login success");
-            response.user = user;
-            response.status = true;
-            resolve(response);
+
+if(user.userStatus=="Unblock"){
+  console.log("login success");
+  response.user = user;
+  response.status =true;
+  resolve(response);
+}else{
+  reject()
+}
+           
           } else {
             console.log("login failed");
             resolve({ status: false });
@@ -512,15 +519,22 @@ changePaymentStatus:(orderId)=>{
 },
 
 getRequiredProducts: (category) => {
-  console.log('pro edukkan ponu');
+  
   console.log(category);
   return new Promise(async (resolve, reject) => {
     console.log("cat :"+category);
       let products = await db.get().collection(collection.PRODUCT_COLLECTIONS).find( { Category:category}).toArray()
-      console.log(products);
+     
       resolve(products)
       console.log('pro kitty');
-      console.log(products);
+    
+  })
+},
+
+getRequiredcatName:(category)=>{
+  return new Promise(async (resolve, reject) =>{
+    let cat = await db.get().collection(collection.PRODUCT_COLLECTIONS).findOne( { Category:category})
+    resolve(cat)
   })
 },
 

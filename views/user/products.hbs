@@ -1,8 +1,8 @@
 
 <div class="heading">
-    {{#each products}}
-   <h3>{{this.Category}} menu</h3>
-    {{/each}}
+   
+   <h3>{{ catName.Category}} menu</h3>
+   
    <p><a href="/">home </a> <span> / menu</span></p>
 </div>
 
@@ -24,7 +24,7 @@
           <a  class="cat">{{this.Category}}</a>
          <div class="name">{{this.Name}}</div>
          <div class="flex">
-           <div class="price"><span>₹</span>{{this.Price}}</div>
+           <div class="price"><span>₹</span>{{this.Price}}<span>/-</span></div>
             
          </div>
          </div>

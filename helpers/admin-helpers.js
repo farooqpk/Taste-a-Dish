@@ -216,6 +216,19 @@ removeBanner:(bannerId)=>{
       resolve()
     })
   })
+},
+
+changeUserStatus:(userId,Status)=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.USER_COLLECTIONS).updateOne({_id:objectId(userId)},
+    {
+      $set:{
+        userStatus:Status
+      }
+    }).then(()=>{
+      resolve()
+    })
+  })
 }
 
 

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var productHelpers=require('../helpers/product-helpers')
 var adminHelpers=require('../helpers/admin-helpers')
+var userHelpers=require('../helpers/user-helpers')
 
 const verifyAdmin = (req, res, next) => {
   if (req.session.adminLoggedIn) {
@@ -274,8 +275,19 @@ router.get('/remove-banner/:id',(req,res)=>{
   })
 })
 
+router.get('/removeOrder/:id',(req,res)=>{
+ userHelpers.cancelOrder(req.params.id).then(()=>{
+  res.redirect('/admin//all-Orders')
+ })
+})
 
 
+router.post('/change-user-status/:id',(req,res)=>{
+  adminHelpers.changeUserStatus(req.params.id,req.body.status).then(()=>{
+    res.json({status:true})
+  })
+}
+)
 
 
 

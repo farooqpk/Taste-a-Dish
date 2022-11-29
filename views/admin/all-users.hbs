@@ -32,8 +32,17 @@
                         <td>{{this.Number}}</td>
                         <td>{{this.Email}}</td>
 
+
                         <td>
-                            <a href="" class="btn btn-warning btn-sm">Block</a>
+                             <select class="form-select bg-warning" aria-label="Default select example"
+                                        onchange="ChangeuserStatus(value,'{{this._id}}')"
+                                        style="width: fit-content;">
+                                        <option selected>{{this.userStatus}}</option>
+                                        <option value="Block">Block</option>
+                                        <option value="Unblock">Unblock</option>
+
+
+                                    </select>
                         </td>
                          <td>
                             <a href="/admin/editUser/{{this._id}}" class="btn btn-info btn-sm" onclick="return confirm('Are you sure to edit ')">Edit</a>
@@ -56,9 +65,30 @@
 </section>
 {{else}}
 
-
-
-<h1 class="text-center fw-bold mt-5"> There Is No Users</h1>
-
+<div class="card-header text-center fw-bold "
+    style="font-size:1.8em; font-family: Georgia, 'Times New Roman', Times, serif; margin-top: 7rem;">
+    There Is No Users
+</div>
 {{/if}}
 
+
+<script>
+
+  function ChangeuserStatus(status, userId) {
+    if (confirm('are you sure to change ?') == true) {
+      $.ajax({
+        url: '/admin/change-user-status/' + userId,
+        method: 'post',
+        data: { status: status },
+        success: (response) => {
+          alert('user status changed')
+
+
+        }
+      })
+    } else {
+      return false
+    }
+
+  }
+</script>

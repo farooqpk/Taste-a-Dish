@@ -10,6 +10,7 @@ var router = express.Router();
 var productHelpers = require("../helpers/product-helpers");
 
 const userHelpers = require("../helpers/user-helpers");
+
 let Userdata=null
 
 
@@ -54,8 +55,8 @@ router.get('/products/:id', async (req, res) => {
     wishCount = await userHelpers.getWishCount(req.session.user._id);
    }
   let products = await userHelpers.getRequiredProducts(req.params.id)
-  
-  res.render('user/products', {products, User: req.session.user,cartCount,wishCount})
+  let catName=await userHelpers.getRequiredcatName(req.params.id)
+  res.render('user/products', {products, User: req.session.user,cartCount,wishCount,catName})
 })
 
 
@@ -118,15 +119,23 @@ router.post("/login", (req, res) => {
     if (response.status) {
       
       req.session.user = response.user;
-      req.session.userLoggedIn = true;
+      
+        req.session.userLoggedIn = true;
 
-      res.redirect("/");
+        res.redirect("/");
+      
+     
     } else {
       req.session.userLoginErr = "invalid username or password";
       res.redirect("/login");
     }
-  });
+  }).catch(()=>{
+    req.session.userLoginErr = "user is blocked";
+    res.redirect("/login");
+  })
 });
+
+
 router.get("/logout", (req, res) => {
   req.session.user=null
   req.session.userLoggedIn=false

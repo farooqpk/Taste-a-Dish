@@ -28,7 +28,6 @@
             <th scope="col">products</th>
             <th scope="col">Status </th>
 
-
           </tr>
         </thead>
         {{#each orderList}}
@@ -41,32 +40,30 @@
             <td>{{this.deliveryDetails.mobile}}</td>
             <td>{{this.deliveryDetails.pincode}}</td>
             <td>{{this.deliveryDetails.street}}</td>
-             <td>{{this.deliveryDetails.city}}</td>
-              <td>{{this.deliveryDetails.district}}</td>
-               <td>{{this.deliveryDetails.state}}</td>
-               <td>{{this.deliveryDetails.country}}</td>
+            <td>{{this.deliveryDetails.city}}</td>
+            <td>{{this.deliveryDetails.district}}</td>
+            <td>{{this.deliveryDetails.state}}</td>
+            <td>{{this.deliveryDetails.country}}</td>
             <td>₹{{this.totalPrice}}</td>
             <td>{{this.paymentMethod}}</td>
 
 
             <td>
-              <a href="/admin/orderedProducts/{{this._id}}" class="btn btn-success "
-               >view</a>
+              <a href="/admin/orderedProducts/{{this._id}}" class="btn btn-success ">view</a>
             </td>
             <td>
-              <select  class="form-select bg-secondary btn-sm" aria-label="Default select example" 
-                onchange="changeOrderstatus(value,'{{this._id}}')"   style="width: fit-content; color: white;">
+              <select class="form-select bg-secondary btn-sm" aria-label="Default select example"
+                onchange="changeOrderstatus(value,'{{this._id}}')" style="width: fit-content; color: white;">
                 <option selected>{{this.status}}</option>
                 <option value="shipped">shipped</option>
                 <option value="processing">processing</option>
                 <option value="delivered">delivered</option>
                 <option value="cancelled">cancelled</option>
-
               </select>
-
-
             </td>
-
+            <td>
+              <a href="/admin/removeOrder/{{this._id}}" class="btn btn-danger btn-sm" onclick="return confirm('are you sure to remove this order?')">remove</a>
+            </td>
 
           </tr>
 
@@ -80,10 +77,10 @@
 </section>
 
 {{else}}
-
-
-<h1 class="text-center fw-bold mt-5"> There Is No Orders</h1>
-
+<div class="card-header text-center fw-bold "
+    style="font-size:1.8em; font-family: Georgia, 'Times New Roman', Times, serif; margin-top: 7rem;">
+    There Is No Orders
+</div>
 {{/if}}
 
 
@@ -95,21 +92,21 @@
 <script>
 
   function changeOrderstatus(status, orderId) {
-if(confirm('are you sure to change ?')==true){
- $.ajax({
-      url: '/admin/change-order-status/' + orderId,
-      method: 'post',
-      data: { status: status },
-      success: (response) => {
-        alert('order status changed')
-       
+    if (confirm('are you sure to change ?') == true) {
+      $.ajax({
+        url: '/admin/change-order-status/' + orderId,
+        method: 'post',
+        data: { status: status },
+        success: (response) => {
+          alert('order status changed')
 
-      }
-    })
-}else{
-  return false
-}
-   
+
+        }
+      })
+    } else {
+      return false
+    }
+
   }
 
 
@@ -120,22 +117,21 @@ if(confirm('are you sure to change ?')==true){
 
 
 <style>
+  .btn-success {
+    font-family: Raleway-SemiBold;
+    font-size: 13px;
+    color: black;
+    letter-spacing: 1px;
+    line-height: 15px;
+    border: 2px solid rgba(103, 192, 103, 0.75);
+    border-radius: 40px;
+    background: transparent;
+    transition: all 0.3s ease 0s;
+  }
 
-.btn-success {
-  font-family: Raleway-SemiBold;
-  font-size: 13px;
-  color: black;
-  letter-spacing: 1px;
-  line-height: 15px;
-  border: 2px solid rgba(103, 192, 103, 0.75);
-  border-radius: 40px;
-  background: transparent;
-  transition: all 0.3s ease 0s;
-}
-
-.btn-success:hover {
-  color: #FFF;
-  background: rgb(103, 192, 103, 0.75);
-  border: 2px solid rgb(103, 192, 103, 0.75);
-}
+  .btn-success:hover {
+    color: #FFF;
+    background: rgb(103, 192, 103, 0.75);
+    border: 2px solid rgb(103, 192, 103, 0.75);
+  }
 </style>
