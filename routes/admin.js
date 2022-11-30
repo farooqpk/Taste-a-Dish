@@ -15,12 +15,14 @@ const verifyAdmin = (req, res, next) => {
 
 
 
-router.get('/', verifyAdmin,function(req, res) {
-  let Admin=req.session.admin
-
-  res.render('admin/admin-home',{admin:true,Admin});
-
-
+router.get('/', verifyAdmin,async(req, res)=> {
+ let Admin=req.session.admin
+let usersCount=await adminHelpers.getUserCount()
+let ordersCount=await adminHelpers.getOrderCount()
+let DishCount=await adminHelpers.getDishCount()
+let CategoryCount=await adminHelpers.getCategoryCount()
+ let salesCount=await adminHelpers.getSaleCount()
+  res.render('admin/admin-home',{admin:true,Admin,usersCount,ordersCount,DishCount,CategoryCount,salesCount});
 });
 
 

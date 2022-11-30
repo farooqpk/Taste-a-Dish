@@ -275,7 +275,45 @@ updateAdminPass:(passDetails,adminId)=>{
    }
 
   })
+},
+
+getUserCount:()=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.USER_COLLECTIONS).count().then((count)=>{
+      resolve(count)
+    })
+  })
+},
+
+getOrderCount:()=>{
+  return new Promise(async(resolve,reject)=>{
+   let count=await db.get().collection(collection.ORDER_COLLECTIONS).count()
+    resolve(count)
+  })
+},
+
+getDishCount:()=>{
+  return new Promise(async(resolve,reject)=>{
+   let count=await db.get().collection(collection.PRODUCT_COLLECTIONS).count()
+    resolve(count)
+  })
+},
+getCategoryCount:()=>{
+  return new Promise(async(resolve,reject)=>{
+   let count=await db.get().collection(collection.CATEGORY_COLLECTIONS).count()
+    resolve(count)
+  })
+},
+getSaleCount:()=>{
+  return new Promise(async(resolve,reject)=>{
+db.get().collection(collection.ORDER_COLLECTIONS).count({status:"delivered"}).then((count)=>{
+  resolve(count)
+})
+  })
+
+  
 }
+
 
 
 
