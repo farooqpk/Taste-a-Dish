@@ -1,0 +1,71 @@
+{{#if messages}}
+
+
+<section class="card mb-4 mt-5 container" style="margin-top: 7rem !important; ">
+
+    <div class="card mb-4 mt-5">
+        <div class="card-header text-center fw-bold"
+            style="font-size:1.8em; font-family: Georgia, 'Times New Roman', Times, serif;">
+
+            All Messages
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple" style="">
+                <thead>
+
+                    <tr>
+                        <th scope=" col">Date</th>
+                        <th scope=" col">Name</th>
+
+                        <th scope="col">Number</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Message</th>
+
+                    </tr>
+                </thead>
+                {{#each messages}}
+                <tbody>
+                    <tr>
+
+                        <td>{{this.Date}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.number}}</td>
+
+                        <td>{{this.email}}</td>
+                        <td class="overflow-wrap-hack content">{{this.msg}}</td>
+
+                        <td>
+                            <a href="/admin/removeMsg/{{this._id}}" class="btn btn-danger btn-sm"
+                                onclick="return confirm('are you sure to remove this message?')">remove</a>
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+                {{/each}}
+            </table>
+        </div>
+    </div>
+
+</section>
+{{else}}
+<div class="card-header text-center fw-bold "
+    style="font-size:1.8em; font-family: Georgia, 'Times New Roman', Times, serif; margin-top: 7rem;">
+    There Is No Messages
+</div>
+{{/if}}
+
+
+<style>
+    .content {
+
+        overflow-wrap: break-word !important;
+
+    }
+
+
+    .overflow-wrap-hack {
+        max-width: 15em !important;
+    }
+</style>

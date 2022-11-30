@@ -22,7 +22,10 @@ let ordersCount=await adminHelpers.getOrderCount()
 let DishCount=await adminHelpers.getDishCount()
 let CategoryCount=await adminHelpers.getCategoryCount()
  let salesCount=await adminHelpers.getSaleCount()
-  res.render('admin/admin-home',{admin:true,Admin,usersCount,ordersCount,DishCount,CategoryCount,salesCount});
+ let msgCount=await adminHelpers.getMsgCount()
+ let codCount=await adminHelpers.getCodCount()
+ let onlineCount=await adminHelpers.getOnlineCount()
+  res.render('admin/admin-home',{admin:true,Admin,usersCount,ordersCount,DishCount,CategoryCount,salesCount,msgCount,codCount,onlineCount});
 });
 
 
@@ -182,7 +185,7 @@ if(req.files){
 })
 
 
-router.get('/remove-category/:id',(req,res)=>{
+router.get('/remove-category/:id',verifyAdmin,(req,res)=>{
   adminHelpers.removeCategory(req.params.id).then(()=>{
     res.redirect('/admin/all-category')
   })
@@ -196,14 +199,14 @@ router.post('/popular-dish/:id',(req,res)=>{
    })
 })
 
-router.get('/removeUser/:id',(req,res)=>{
+router.get('/removeUser/:id',verifyAdmin,(req,res)=>{
   console.log(req.params.id);
    adminHelpers.removeUser(req.params.id).then(()=>{
     res.redirect('/admin/all-Users')
    })
 })
 
-router.get('/editUser/:id',async(req,res)=>{
+router.get('/editUser/:id',verifyAdmin,async(req,res)=>{
   let user=await adminHelpers.getoneUser(req.params.id)
   res.render('admin/edit-user',{admin:true,Admin:req.session.admin,user})
 })
@@ -216,14 +219,14 @@ router.post('/editUser/:id',async(req,res)=>{
  })
 })
 
-router.get('/all-products',(req,res)=>{
+router.get('/all-products',verifyAdmin,(req,res)=>{
   productHelpers.getAllProducts().then((products)=>{
     res.render('admin/view-products',{admin:true,products,Admin:req.session.admin});
   
   })
 })
 
-router.get('/add-banner',(req,res)=>{
+router.get('/add-banner',verifyAdmin,(req,res)=>{
   res.render('admin/add-banner',{admin:true,Admin:req.session.admin})
 })
 
@@ -243,14 +246,14 @@ router.post('/add-banner',(req,res)=>{
 })
 
 
-router.get('/all-banners',async(req,res)=>{
+router.get('/all-banners',verifyAdmin,async(req,res)=>{
   let allBanner=await adminHelpers.getBanner()
   if(allBanner){
     res.render('admin/view-banners',{admin:true,Admin:req.session.admin,allBanner})
   }
 })
 
-router.get('/edit-banner/:id',async(req,res)=>{
+router.get('/edit-banner/:id',verifyAdmin,async(req,res)=>{
 
   let banner= await adminHelpers.requiredBanner(req.params.id)
 if(banner){
@@ -271,13 +274,13 @@ if(req.files){
    })
 })
 
-router.get('/remove-banner/:id',(req,res)=>{
+router.get('/remove-banner/:id',verifyAdmin,(req,res)=>{
   adminHelpers.removeBanner(req.params.id).then(()=>{
     res.redirect('/admin/all-banners')
   })
 })
 
-router.get('/removeOrder/:id',(req,res)=>{
+router.get('/removeOrder/:id',verifyAdmin,(req,res)=>{
  userHelpers.cancelOrder(req.params.id).then(()=>{
   res.redirect('/admin/all-Orders')
  })
@@ -291,12 +294,12 @@ router.post('/change-user-status/:id',(req,res)=>{
 }
 )
 
-router.get('/admin-profile',async(req,res)=>{
+router.get('/admin-profile',verifyAdmin,async(req,res)=>{
   let adminProfile=await adminHelpers.getAdminData()
   res.render('admin/admin-profile',{admin:true,Admin:req.session.admin,adminProfile})
 })
 
-router.get('/edit-adminProfile',async(req,res)=>{
+router.get('/edit-adminProfile',verifyAdmin,async(req,res)=>{
   let adminProfile=await adminHelpers.getAdminData()
   res.render('admin/edit-admin',{admin:true,Admin:req.session.admin,adminProfile})
 })
@@ -307,7 +310,7 @@ adminHelpers.updateAdmin(req.body,req.params.id).then(()=>{
 })
 })
 
-router.get('/edit-adminPass',(req,res)=>{
+router.get('/edit-adminPass',verifyAdmin,(req,res)=>{
   res.render('admin/edit-adminPass',{admin:true,Admin:req.session.admin})
 })
 
@@ -318,6 +321,16 @@ router.post('/edit-adminPass',(req,res)=>{
  })
 })
 
+router.get('/all-messages',verifyAdmin,async(req,res)=>{
+  let messages=await adminHelpers.getAllMessages()
+  res.render('admin/all-messages',{admin:true,Admin:req.session.admin,messages})
+})
+
+router.get('/removeMsg/:id',(req,res)=>{
+  adminHelpers.removeMsg(req.params.id).then(()=>{
+    res.redirect('/admin/all-messages')
+  })
+})
 
 
 

@@ -11,55 +11,118 @@
 
 
 
+
+
             <section>
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4">
-                            <div class="card-body"><h2 class="text-center" style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Total Users</h2></div>
+                        <div class="card bg-primary bg-gradient text-white mb-4">
+                            <div class="card-body">
+                                <h2 class="text-center"
+                                    style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">
+                                    Total Users</h2>
+                            </div>
                             <div class="card-footer ">
-                               <h3 class="text-center" >{{usersCount}}</h3>
-                               
+                                <h3 class="text-center">{{usersCount}}</h3>
+
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-warning text-white mb-4">
-                           <div class="card-body"><h2 class="text-center" style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Total Dishes</h2></div>
-                           <div class="card-footer ">
-                               <h3 class="text-center" >{{DishCount}}</h3>
-                               
+                        <div class="card bg-warning bg-gradient text-white mb-4">
+                            <div class="card-body">
+                                <h2 class="text-center"
+                                    style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">
+                                    Total Dishes</h2>
+                            </div>
+                            <div class="card-footer ">
+                                <h3 class="text-center">{{DishCount}}</h3>
+
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-success text-white mb-4">
-                            <div class="card-body"><h2 class="text-center" style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Total Orders</h2></div>
-                           <div class="card-footer ">
-                               <h3 class="text-center" >{{ordersCount}}</h3>
-                               
+                        <div class="card bg-success bg-gradient text-white mb-4">
+                            <div class="card-body">
+                                <h2 class="text-center"
+                                    style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">
+                                    Total Orders</h2>
+                            </div>
+                            <div class="card-footer ">
+                                <h3 class="text-center">{{ordersCount}}</h3>
+
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-danger text-white mb-4">
-                            <div class="card-body"><h2 class="text-center" style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Total Categories</h2></div>
-                            <div class="card-footer ">
-                               <h3 class="text-center" >{{CategoryCount}}</h3>
-                               
+                        <div class="card bg-danger bg-gradient text-white mb-4">
+                            <div class="card-body">
+                                <h2 class="text-center"
+                                    style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">
+                                    Total Categories</h2>
                             </div>
+                            <div class="card-footer ">
+                                <h3 class="text-center">{{CategoryCount}}</h3>
+
                             </div>
                         </div>
-                         <div class="col-xl-3 col-md-6">
-                        <div class="card bg-secondary text-white mb-4">
-                            <div class="card-body"><h2 class="text-center" style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">Total Sales</h2></div>
-                            <div class="card-footer ">
-                               <h3 class="text-center" >{{salesCount}}</h3>
-                               
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-secondary bg-gradient text-white mb-4">
+                            <div class="card-body">
+                                <h2 class="text-center"
+                                    style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">
+                                    Total Sales</h2>
                             </div>
+                            <div class="card-footer ">
+                                <h3 class="text-center">{{salesCount}}</h3>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-info bg-gradient text-white mb-4">
+                            <div class="card-body">
+                                <h2 class="text-center"
+                                    style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">
+                                    Total Messages</h2>
+                            </div>
+                            <div class="card-footer ">
+                                <h3 class="text-center">{{msgCount}}</h3>
+
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="col-xl-3 col-md-6">
+                        <div class="card bg-dark bg-gradient text-white mb-4">
+                            <div class="card-body">
+                                <h2 class="text-center"
+                                    style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">
+                                    Cash On Delivery</h2>
+                            </div>
+                            <div class="card-footer ">
+                                <h3 class="text-center">{{codCount}}</h3>
+
+                            </div>
+                        </div>
+                    </div>
+
+                      <div class="col-xl-3 col-md-6">
+                        <div class="card bg-gradient text-white mb-4" style="background-color: lightsalmon;">
+                            <div class="card-body">
+                                <h2 class="text-center"
+                                    style="font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">
+                                    Online Payment</h2>
+                            </div>
+                            <div class="card-footer ">
+                                <h3 class="text-center">{{onlineCount}}</h3>
+
                             </div>
                         </div>
                     </div>
                 </div>
+
             </section>
 
 
@@ -84,7 +147,10 @@
                         <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                     </div>
                 </div>
+
+                
             </section>
 
-
-            
+        </div>
+    </main>
+</div>

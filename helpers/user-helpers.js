@@ -592,6 +592,13 @@ updatePassword:(passDetails,userId)=>{
 
 userMessage:(userMsg)=>{
 return new Promise((resolve,reject)=>{
+  userMsg.Date=new Date().toLocaleString('en-IN',{
+    day: 'numeric', // numeric, 2-digit
+    year: 'numeric', // numeric, 2-digit
+    month: 'numeric', // numeric, 2-digit,short, narrow
+    hour: 'numeric', // numeric, 2-digit
+    minute: 'numeric', // numeric, 2-digit
+  })
   db.get().collection(collection.USER_MESSAGES).insertOne(userMsg).then(()=>{
     resolve()
   })

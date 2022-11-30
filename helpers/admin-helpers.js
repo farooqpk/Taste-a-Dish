@@ -310,8 +310,48 @@ db.get().collection(collection.ORDER_COLLECTIONS).count({status:"delivered"}).th
   resolve(count)
 })
   })
+},
 
-  
+getAllMessages:()=>{
+  return new Promise((resolve,reject)=>{
+    db.get().collection(collection.USER_MESSAGES).find().sort({Date:-1}).toArray().then((msg)=>{
+      resolve(msg)
+    })
+  })
+},
+
+getMsgCount:()=>{
+  return new Promise(async(resolve,reject)=>{
+    db.get().collection(collection.USER_MESSAGES).count().then((count)=>{
+      resolve(count)
+    })
+      })
+},
+
+
+removeMsg:(msgId)=>{
+  return new Promise(async(resolve,reject)=>{
+    db.get().collection(collection.USER_MESSAGES).deleteOne({_id:objectId(msgId)}).then(()=>{
+      resolve()
+    })
+      })
+},
+
+getCodCount:()=>{
+  return new Promise(async(resolve,reject)=>{
+    db.get().collection(collection.ORDER_COLLECTIONS).count({paymentMethod:"COD"}).then((count)=>{
+      resolve(count)
+    })
+      })
+},
+
+
+getOnlineCount:()=>{
+  return new Promise(async(resolve,reject)=>{
+    db.get().collection(collection.ORDER_COLLECTIONS).count({paymentMethod:"ONLINE"}).then((count)=>{
+      resolve(count)
+    })
+      })
 }
 
 
