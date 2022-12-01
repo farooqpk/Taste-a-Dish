@@ -1,4 +1,12 @@
+
+
+ <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> 
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>  
+  
+
+
 {{#if messages}}
+
 
 
 <section class="card mb-4 mt-5 container" style="margin-top: 7rem !important; ">
@@ -14,6 +22,7 @@
                 <thead>
 
                     <tr>
+                        <th scope="col"></th>
                         <th scope=" col">Date</th>
                         <th scope=" col">Name</th>
 
@@ -26,7 +35,7 @@
                 {{#each messages}}
                 <tbody>
                     <tr>
-
+<td>{{inc @index}}</td>
                         <td>{{this.Date}}</td>
                         <td>{{this.name}}</td>
                         <td>{{this.number}}</td>
@@ -69,3 +78,16 @@
         max-width: 15em !important;
     }
 </style>
+
+<script>
+     window.addEventListener('DOMContentLoaded', event => {
+   
+    const datatablesSimple = new simpleDatatables.DataTable("#datatablesSimple", {
+       searchable: false, 
+        fixedHeight: true,
+         paging: false,
+          
+    });
+  });
+
+</script>

@@ -1,3 +1,9 @@
+
+
+ <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> 
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>  
+  
+
 {{#if allUsers}}
 
 
@@ -15,10 +21,12 @@
 
                     <tr>
 
-                      
+                      <th scope="col">No</th>
                         <th scope="col">Name </th>
                         <th scope="col">Mobile </th>
                         <th scope="col">Email</th>
+                        
+                                               
 
                     </tr>
                 </thead>
@@ -27,7 +35,7 @@
                     <tr>
 
 
-                       
+                       <td>{{inc @index}}</td>
                         <td>{{this.Name}}</td>
                         <td>{{this.Number}}</td>
                         <td>{{this.Email}}</td>
@@ -72,6 +80,12 @@
 {{/if}}
 
 
+
+
+
+
+
+
 <script>
 
   function ChangeuserStatus(status, userId) {
@@ -91,4 +105,19 @@
     }
 
   }
+
+
+
+
+
+     window.addEventListener('DOMContentLoaded', event => {
+   
+    const datatablesSimple = new simpleDatatables.DataTable("#datatablesSimple", {
+        searchable: false, 
+        fixedHeight: true,
+         paging: false
+    });
+  });
+
+
 </script>

@@ -1,3 +1,8 @@
+
+
+ <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> 
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>  
+  
 {{#if category}}
 
 
@@ -58,3 +63,19 @@
     There Is No Categories
 </div>
 {{/if}}
+
+
+
+<script>
+     window.addEventListener('DOMContentLoaded', event => {
+   
+    const datatablesSimple = new simpleDatatables.DataTable("#datatablesSimple", {
+         searchable: false, 
+        fixedHeight: true,
+         paging: false
+        
+          
+    });
+  });
+
+</script>

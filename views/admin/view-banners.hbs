@@ -1,3 +1,9 @@
+
+ <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> 
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>  
+  
+
+
 {{#if allBanner}}
 
 
@@ -48,3 +54,17 @@
     There Is No Banners
 </div>
 {{/if}}
+
+
+
+<script>
+     window.addEventListener('DOMContentLoaded', event => {
+   
+    const datatablesSimple = new simpleDatatables.DataTable("#datatablesSimple", {
+        
+        fixedHeight: true,
+         paging: false
+    });
+  });
+
+</script>
