@@ -395,7 +395,7 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
 
       let data = await db.get().collection(collection.ORDER_COLLECTIONS).aggregate([
-       
+
         {
           $match: {
             $and: [
@@ -450,14 +450,9 @@ module.exports = {
             _id: { date: '$date', product: '$product', price: '$Price', quantity: '$quantity' },
 
 
-            total: { $sum: { $multiply: ['$quantity', { $toInt: '$Price' }] } }
+            total: { $sum: '$totalPrice' }
           }
         }
-       
-
-
-
-
       ]).toArray()
       resolve(data)
     })
