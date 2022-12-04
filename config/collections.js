@@ -7,7 +7,7 @@ module.exports={
     CATEGORY_COLLECTIONS:'category',
     USER_MESSAGES:'userMsg',
     WISHLIST_COLLECTIONS:'wishlist',
-    
+    ABOUT_COLLECTION:'about',
     ADDRESS_COLLECTION:'address',
     BANNER_COLLECTION:'banner'
 }

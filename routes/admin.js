@@ -335,6 +335,17 @@ router.get('/removeMsg/:id', (req, res) => {
   })
 })
 
+router.get('/add-about',async(req,res)=>{
+let about=await adminHelpers.getAbout()
+  res.render('admin/add-about',{admin:true, Admin:req.session.admin,about})
+})
+
+router.post('/add-about',(req,res)=>{
+  console.log(req.body.about);
+  adminHelpers.addUpdateAbout(req.body.about,req.session.admin._id).then(()=>{
+   res.redirect('/admin/')
+   })
+})
 
 
 

@@ -1,0 +1,29 @@
+<section class="mt-5 " style="margin-top: 6rem !important; " >
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 class="text-center fw-bold" style="font-family: Georgia, 'Times New Roman', Times, serif;">Add/Update About</h2>
+        <form action="/admin/add-about" enctype="multipart/form-data" method="post">
+<textarea name="about" placeholder="add or update about us..." id="about" required class="form-control mt-4" cols="29" rows="20" maxlength="700">{{about.about}}</textarea>
+
+          <button type="submit" class="btn btn-success mt-4">Save</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<style>
+  label{
+    font-weight: bolder !important;
+  }
+   textarea{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
+    font-size: 1.3rem !important;
+    
+   }
+ 
+</style>

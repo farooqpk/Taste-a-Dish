@@ -456,6 +456,31 @@ module.exports = {
       ]).toArray()
       resolve(data)
     })
+  },
+
+
+  addUpdateAbout:(about,adminId)=>{
+    return new Promise((resolve,reject)=>{
+      const query = { admin: objectId(adminId) };
+      const update = {
+        $set: {
+          
+          about:about
+        }
+      };
+      const options = { upsert: true };
+      db.get().collection(collection.ABOUT_COLLECTION).updateOne(query, update, options).then(()=>{
+        resolve()
+      })
+    })
+  },
+
+  getAbout:()=>{
+    return new Promise((resolve,reject)=>{
+      db.get().collection(collection.ABOUT_COLLECTION).findOne().then((about)=>{
+        resolve(about)
+      })
+    })
   }
 
 

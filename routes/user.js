@@ -37,7 +37,8 @@ router.get("/", async function (req, res, next) {
    let category=await productHelpers.getAllCategory()
   let popularDishes=await productHelpers.getPopularDishes()
   let banner=await adminHelpers.getBanner()
-  res.render("./user/home", { User, cartCount,category,wishCount,popularDishes,banner});
+  let about=await adminHelpers.getAbout()
+  res.render("./user/home", { User, cartCount,category,wishCount,popularDishes,banner,about});
  
   
  
