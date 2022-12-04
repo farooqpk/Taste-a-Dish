@@ -16,13 +16,22 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID
 const authToken = process.env.TWILIO_AUTH_TOKEN
 
 const client = require('twilio')(accountSid, authToken);
-
+const nodemailer = require("nodemailer");
 
 var instance = new Razorpay({
   key_id: process.env.KEY_ID,
   key_secret: process.env.KEY_SECRET
 
 });
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+         user:process.env.MAIL ,
+         pass: process.env.PASS
+     }
+ });
+
 
 //  function generateOTP() {
 //    // Declare a digits variable 
@@ -83,6 +92,22 @@ module.exports = {
         db.get().collection(collection.USER_COLLECTIONS).insertOne(userData).then((data) => {
           resolve(userData)
         })
+
+
+      const mailOptions = {
+        from: process.env.MAIL,
+        to: userData.Email, 
+        subject: 'Welcome to Taste a Dish! ✨ We’re so glad you’re here', 
+        html:'<h2>Thankyou for becoming the newest member of Taste a Dish. if you love delicious food,you are in the right place!<h2/>'
+      };
+      transporter.sendMail(mailOptions, function (err, info) {
+        if(err)
+          console.log(err)
+        else
+          console.log(info);
+     });
+
+
       } else {
         reject()
       }
@@ -150,6 +175,7 @@ module.exports = {
               response.user = user;
               response.status = true;
               resolve(response);
+
             } else {
               reject()
             }
@@ -439,8 +465,6 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
 
       let orderDetails = await db.get().collection(collection.ORDER_COLLECTIONS).find({ userId: objectId(userId) }).toArray()
-
-      // console.log(orderDetails);
       resolve(orderDetails)
 
     })
@@ -744,7 +768,6 @@ module.exports = {
 
   generateInvoice: (orderId) => {
     return new Promise(async (resolve, reject) => {
-      console.log(orderId);
       let orderDetails = await db.get().collection(collection.ORDER_COLLECTIONS).findOne({ _id: objectId(orderId) })
       resolve(orderDetails)
 
@@ -779,9 +802,7 @@ module.exports = {
       let address = await db.get().collection(collection.ADDRESS_COLLECTION).findOne({ user: objectId(userId) })
       resolve(address)
     })
-  }
-
-
+  },
 
 
 

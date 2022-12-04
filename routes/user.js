@@ -200,11 +200,11 @@ router.get("/place-order", verifyLogin, async (req, res) => {
 
 
 router.post("/place-order", async (req, res) => {
-   console.log(req.body);
+
    let products = await userHelpers.getCartProductList(req.body.userId);
    let totalPrice = await userHelpers.getTotalAmount(req.body.userId);
    userHelpers.placeOrder(req.body, products, totalPrice).then((orderId) => {
-    console.log('useril ethy');
+    
      if (req.body["payment-method"] === "COD") {
        res.json({successCOD:true });
      } else {
@@ -212,10 +212,15 @@ router.post("/place-order", async (req, res) => {
          res.json(response);
       });
      }
+
+
    });
 });
 
+
+
 router.get("/success", (req,res) => {
+
   res.render("user/success", { User: req.session.user });
 });
 
