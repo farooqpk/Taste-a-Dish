@@ -42,7 +42,7 @@
 
 
                         <td>
-                             <select class="form-select bg-warning" aria-label="Default select example"
+                             <select class="form-select bg-warning btn-sm" aria-label="Default select example"
                                         onchange="ChangeuserStatus(value,'{{this._id}}')"
                                         style="width: fit-content;">
                                         <option selected>{{this.userStatus}}</option>
@@ -95,9 +95,8 @@
         method: 'post',
         data: { status: status },
         success: (response) => {
-          alert('user status changed')
-
-
+         
+  swal("user status changed", "", "success");
         }
       })
     } else {

@@ -127,35 +127,8 @@
 
 
 
-
-            <section class="row mt-5">
-                <div class="col-xl-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-chart-area me-1"></i>
-                            Area Chart Example
-                        </div>
-                        <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                    </div>
-                </div>
-                <div class="col-xl-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-chart-bar me-1"></i>
-                            Bar Chart Example
-                        </div>
-                        <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                    </div>
-                </div>
-
-
-            </section>
-
-            {{#if salesReport}}
+            {{#if salesreport}}
             <section>
-
-
-
                 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
                 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 
@@ -171,7 +144,7 @@
                             <thead>
                                 <tr>
 
-                                  
+
                                     <th>Date</th>
                                     <th>Dish Name</th>
                                     <th>Price</th>
@@ -182,10 +155,10 @@
                             </thead>
 
                             <tbody id="locate">
-                                {{#each salesReport}}
+                                {{#each salesreport}}
 
                                 <tr>
-                                    
+
                                     <td>{{this._id.date}}</td>
 
                                     <td>{{this._id.product}}</td>
@@ -204,8 +177,8 @@
                     </div>
                 </div>
             </section>
-            {{/if}}
 
+            {{/if}}
 
         </div>
     </main>

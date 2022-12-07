@@ -34,7 +34,7 @@
        <input type="text" maxlength="15" placeholder="district name" required class="box" name="district" value="{{getAddress.district}}">
       <input type="text" maxlength="15" placeholder="state name" required class="box" name="state" value="{{getAddress.state}}">
       <input type="text" maxlength="10" placeholder="country name" required class="box" name="country" value="{{getAddress.country}}">
-      <input type="tel" maxlength="6" minlength="6"  placeholder="pin code" required class="box" name="pincode" value="{{getAddress.pincode}}">
+      <input type="tel" minlength="6"  maxlength="6"  placeholder="pin code" required class="box" name="pincode" value="{{getAddress.pincode}}">
 
           
 
@@ -80,6 +80,7 @@ $("#checkout-form").submit((e)=>{
     method:'post',
      data:$('#checkout-form').serialize(),
      
+     
      success:(response)=>{
  
  
@@ -87,9 +88,12 @@ $("#checkout-form").submit((e)=>{
  
    location.href='/success'
  }else{
-   
+  
     razorpayPayment(response)
  }
+    
+   
+     
     
      }
    })
@@ -105,7 +109,7 @@ function razorpayPayment(order){
     "key":"rzp_test_DAYSovsG3ZoCcH" , // Enter the Key ID generated from the Dashboard
     "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
-    "name": "Farooq Store",
+    "name": "Taste a Dish",
     "description": "Test Transaction",
     "image": "https://example.com/your_logo",
     "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
@@ -113,7 +117,7 @@ function razorpayPayment(order){
         // alert(response.razorpay_payment_id);
         // alert(response.razorpay_order_id);
         // alert(response.razorpay_signature)
-
+   
          verifyPayment(response,order)
     },
     "prefill": {
@@ -130,14 +134,17 @@ function razorpayPayment(order){
 };
 
 var rzp1 = new Razorpay(options);
-rzp1.open();
 
+
+rzp1.open();
+ 
 }
 
 
 
 
 function verifyPayment(payment,order){
+ 
   $.ajax({
     url:'/verify-payment',
     data:{
@@ -149,7 +156,9 @@ function verifyPayment(payment,order){
           if (response.status) {
             location.href='/success'
           }else{
+            
             alert('payment failed')
+            location.href='/'
           }
     }
   })

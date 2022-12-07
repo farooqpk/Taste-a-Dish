@@ -25,10 +25,9 @@ router.get('/', verifyAdmin, async (req, res) => {
   let codCount = await adminHelpers.getCodCount()
   let onlineCount = await adminHelpers.getOnlineCount()
   let earnings = await adminHelpers.totalEarnings()
-  let salesReport=await adminHelpers.SalesReport()
-
-  console.log(salesReport);
-  res.render('admin/admin-home', { admin: true, Admin, usersCount, ordersCount, DishCount, salesCount, msgCount, codCount, onlineCount, earnings ,salesReport});
+  let salesreport=await adminHelpers.SalesReport()
+  
+  res.render('admin/admin-home', { admin: true, Admin, usersCount, ordersCount, DishCount, salesCount, msgCount, codCount, onlineCount, earnings ,salesreport});
 });
 
 
@@ -37,6 +36,7 @@ router.get('/add-product', verifyAdmin, async (req, res) => {
   let category = await adminHelpers.allCategory()
 
   res.render('admin/add-product', { admin: true, Admin: req.session.admin, category })
+  
 
 })
 
@@ -60,7 +60,7 @@ router.get('/delete-product/:id', verifyAdmin, (req, res) => {
   let prodId = req.params.id
   console.log(prodId);
   productHelpers.deleteProduct(prodId).then((response) => {
-    res.redirect('/admin/')
+    res.redirect('/admin/all-products')
   })
 })
 
@@ -139,7 +139,7 @@ router.get("/Logout", (req, res) => {
   req.session.admin = null
   req.session.adminLoggedIn = false
   res.redirect("/admin/");
-  alert('poyi')
+ 
 });
 
 
@@ -235,16 +235,15 @@ router.get('/add-banner', verifyAdmin, (req, res) => {
 
 router.post('/add-banner', (req, res) => {
   adminHelpers.addbanner(req.body).then((id) => {
+   res.redirect('/admin/all-banners')
+   if(req.files){
     let image = req.files.Image
-    if (image) {
-      image.mv('./public/banner-images/' + id + '.jpg', (err, done) => {
-        if (!err) {
-          res.redirect('/admin/')
-        } else {
-          console.log(err);
-        }
-      })
+    image.mv('./public/banner-images/' + id + '.jpg',)
+     
+    }else{
+      res.redirect('/admin/')
     }
+   
   })
 })
 
@@ -285,6 +284,7 @@ router.get('/remove-banner/:id', verifyAdmin, (req, res) => {
 
 router.get('/removeOrder/:id', verifyAdmin, (req, res) => {
   userHelpers.cancelOrder(req.params.id).then(() => {
+    
     res.redirect('/admin/all-Orders')
   })
 })

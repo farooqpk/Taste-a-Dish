@@ -16,7 +16,7 @@
         <thead>
 
           <tr>
-<th scope="col">No</th>
+            <th scope="col">No</th>
             <th scope="col">Date </th>
             <th scope="col">Name </th>
             <th scope="col">Mobile </th>
@@ -30,7 +30,7 @@
             <th scope="col">method</th>
             <th scope="col">products</th>
             <th scope="col">Status </th>
-          
+
 
           </tr>
         </thead>
@@ -38,7 +38,7 @@
         <tbody>
           <tr>
 
-<td>{{inc @index}}</td>
+            <td>{{inc @index}}</td>
             <td>{{this.date}}</td>
             <td>{{this.name}}</td>
             <td>{{this.deliveryDetails.mobile}}</td>
@@ -55,7 +55,10 @@
             <td>
               <a href="/admin/orderedProducts/{{this._id}}" class="btn btn-success ">view</a>
             </td>
+
+            
             <td>
+               {{#ifnoteq this.status "pending"}} 
               <select class="form-select bg-secondary btn-sm" aria-label="Default select example"
                 onchange="changeOrderstatus(value,'{{this._id}}')" style="width: fit-content; color: white;">
                 <option selected>{{this.status}}</option>
@@ -64,9 +67,17 @@
                 <option value="delivered">delivered</option>
                 <option value="cancelled">cancelled</option>
               </select>
+                {{/ifnoteq}}
+
+                {{#ifeq this.status "pending"}}
+                   
+                   <button disabled="disabled" class="btn btn-warning btn-sm">{{this.status}}</button>
+                {{/ifeq}}
             </td>
+          
             <td>
-              <a href="/admin/removeOrder/{{this._id}}" class="btn btn-danger btn-sm" onclick="return confirm('are you sure to remove this order?')">remove</a>
+              <a href="/admin/removeOrder/{{this._id}}" class="btn btn-danger btn-sm"
+                onclick="return confirm('are you sure to remove this order?')">remove</a>
             </td>
 
           </tr>
@@ -82,8 +93,8 @@
 
 {{else}}
 <div class="card-header text-center fw-bold "
-    style="font-size:1.8em; font-family: Georgia, 'Times New Roman', Times, serif; margin-top: 7rem;">
-    There Is No Orders
+  style="font-size:1.8em; font-family: Georgia, 'Times New Roman', Times, serif; margin-top: 7rem;">
+  There Is No Orders
 </div>
 {{/if}}
 
@@ -102,27 +113,29 @@
         method: 'post',
         data: { status: status },
         success: (response) => {
-          alert('order status changed')
+        
+         swal("order status changed", "", "success");
+        
         }
       })
     } else {
       return false
     }
-    }
+  }
 
 
 
 
 
-     window.addEventListener('DOMContentLoaded', event => {
-   
+  window.addEventListener('DOMContentLoaded', event => {
+
     const datatablesSimple = new simpleDatatables.DataTable("#datatablesSimple", {
-         searchable: false, 
-        fixedHeight: true,
-       paging: false,
-      
-        
-        
+      searchable: false,
+      fixedHeight: true,
+      paging: false,
+
+
+
     });
   });
 

@@ -1,8 +1,6 @@
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 
-
- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> 
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>  
-  
 {{#if category}}
 
 
@@ -20,31 +18,33 @@
 
                     <tr>
 
-                        <th scope=" col">Name</th>
-
-                <th scope="col">Image </th>
-
+                      
+ <th scope=" col">No</th>
+                <th scope=" col">Image </th>
+                <th scope=" col">Name</th>
 
                 </tr>
                 </thead>
                 {{#each category}}
                 <tbody>
                     <tr>
+                        <td>{{inc @index}}</td>
+                        <td><img style="width:50px; height: 50px;" src="/images/{{this._id}}.jpg" alt=""></td>
+
 
                         <td>{{this.cat_name}}</td>
-
-                        <td><img style="width: 50px; height: 50px;" src="/images/{{this._id}}.jpg" alt=""></td>
 
 
 
                         <td>
-                            <a href="/admin/edit-category/{{this._id}}" class="btn btn-primary ">Edit</a>
+                            <a href="/admin/edit-category/{{this._id}}" class="btn btn-primary btn-sm">Edit</a>
 
                         </td>
 
 
                         <td>
-                            <a href="/admin/remove-category/{{this._id}}" class="btn btn-danger "onclick="return confirm('Are you want to delete {{this.cat_name}}')">Delete</a>
+                            <a href="/admin/remove-category/{{this._id}}" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Are you want to delete {{this.cat_name}}')">Delete</a>
                         </td>
 
                     </tr>
@@ -67,15 +67,15 @@
 
 
 <script>
-     window.addEventListener('DOMContentLoaded', event => {
-   
-    const datatablesSimple = new simpleDatatables.DataTable("#datatablesSimple", {
-         searchable: false, 
-        fixedHeight: true,
-         paging: false
-        
-          
+    window.addEventListener('DOMContentLoaded', event => {
+
+        const datatablesSimple = new simpleDatatables.DataTable("#datatablesSimple", {
+            searchable: false,
+            fixedHeight: true,
+            paging: false
+
+
+        });
     });
-  });
 
 </script>

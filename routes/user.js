@@ -190,6 +190,16 @@ router.delete("/remove-cart", (req, res, next) => {
   });
 });
 
+
+router.delete('/remove-cart-noProduct',(req,res)=>{
+  userHelpers.removeCartWhenNoPRODUCT(req.body.cart).then(()=>{
+    res.json({status:true})
+  })
+})
+
+
+
+
 router.get("/place-order", verifyLogin, async (req, res) => {
   let total = await userHelpers.getTotalAmount(req.session.user._id);
   let cartItems=await userHelpers.getCartProducts(req.session.user._id)
@@ -202,31 +212,51 @@ router.get("/place-order", verifyLogin, async (req, res) => {
 
 router.post("/place-order", async (req, res) => {
 
-   let products = await userHelpers.getCartProductList(req.body.userId);
+ 
+let products=await userHelpers.getCartProductList(req.body.userId)
    let totalPrice = await userHelpers.getTotalAmount(req.body.userId);
-   userHelpers.placeOrder(req.body, products, totalPrice).then((orderId) => {
-    
-     if (req.body["payment-method"] === "COD") {
-       res.json({successCOD:true });
-     } else {
-      userHelpers.generateRazorpay(orderId, totalPrice).then((response) => {
-         res.json(response);
-      });
-     }
-
-
-   });
+   
+   
+    userHelpers.placeOrder(req.body,products,totalPrice).then((orderId) => {
+      
+       if (req.body["payment-method"] === "COD") {
+         res.json({successCOD:true });
+       } else {
+        userHelpers.generateRazorpay(orderId, totalPrice).then((response) => {
+         
+            res.json(response);
+         
+           
+        }).catch((err)=>{
+         
+          res.redirect('/')
+        })
+       }
+  
+  
+     }).catch(()=>{
+      
+      res.redirect('/')
+     })
+   
+  
 });
 
 
 
 router.get("/success", (req,res) => {
 
-  res.render("user/success", { User: req.session.user });
+  
+
+  userHelpers.clearCart(req.session.user._id).then(()=>{
+
+    res.render("user/success", { User: req.session.user });
+  })
 });
 
 router.get("/view-order", verifyLogin, async (req, res) => {
   let orders = await userHelpers.viewOrderDetails(req.session.user._id);
+ 
   res.render("user/order", { User:req.session.user,orders });
 });
 
@@ -296,7 +326,6 @@ router.post('/update-password',(req,res)=>{
 })
 
 router.post('/contact-us',(req,res)=>{
-  console.log(req.body);
   userHelpers.userMessage(req.body).then(()=>{
     res.json({status:true})
   })
@@ -325,6 +354,14 @@ router.get('/add-wishList/:id',(req,res)=>{
 router.delete('/remove-wish',(req,res)=>{
   console.log(req.body);
   userHelpers.removeWish(req.body).then(()=>{
+    res.json({status:true})
+  })
+})
+
+
+router.delete('/remove-wish-noProduct',(req,res)=>{
+  console.log((req.body.wish));
+  userHelpers.removeWishWHENnoPRODUCT(req.body.wish).then(()=>{
     res.json({status:true})
   })
 })

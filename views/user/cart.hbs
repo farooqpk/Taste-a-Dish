@@ -21,7 +21,10 @@
        {{#each products}}
       <div class="box">
          
-         <button class="fas fa-times"   onclick="removeCart('{{this._id}}','{{this.product._id}}','{{this.product.Name}}')"></button>
+        
+       
+         <button class="fas fa-times"  onclick="removeCart('{{this._id}}','{{this.product._id}}','{{this.product.Name}}')" > </button> 
+   
          <img src="/product-images/{{product._id}}.jpg" alt="">
          <div class="name">{{this.product.Name}}</div>
          <div class="flex">

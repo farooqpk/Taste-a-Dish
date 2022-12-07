@@ -1,4 +1,7 @@
 
+{{#if products}}
+
+
 <div class="heading">
    
    <h3>{{ catName.Category}} menu</h3>
@@ -14,7 +17,7 @@
     
      {{#each products}}
    
-         <div class="box"> 
+         <div class="box" style="height: 43rem;"> 
          
          <button class="fas fa-heart" onclick="addWishlist('{{this._id}}'); checkUser();"></button>
           <button class="fas fa-shopping-cart"  onclick="addToCart('{{this._id}}'); checkUser();" ></button> 
@@ -33,13 +36,20 @@
    </div>
 
 </section>
+{{else}}
+
+
+<div class="heading">
+   
+   <h3>There Is No Dishes
+   </h3>
+   
+   <p><a href="/">home </a> <span></span></p>
+</div>
 
 
 
-
-
-
-
+{{/if}}
 
 
 

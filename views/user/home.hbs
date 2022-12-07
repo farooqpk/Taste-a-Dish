@@ -39,9 +39,9 @@
 {{#if category}}
 <section class="category">
 
-   <h1 class="title">food category</h1>
+   <h1 class="title">Categories</h1>
 
-   <div class="box-container">
+   <div class="box-container" id="category">
       {{#each category}}
       <a href="/products/{{this.cat_name}}" class="box">
          <img src="/images/{{this._id}}.jpg" alt="">
@@ -69,9 +69,9 @@
         <button class="fas fa-heart" onclick="addWishlist('{{this._id}}'); checkUser();"></button>
           <button class="fas fa-shopping-cart"  onclick="addToCart('{{this._id}}'); checkUser();" ></button> 
          <img src="/product-images/{{this._id}}.jpg" alt="">
-         <a href="" class="cat">{{this.Description}}</a>
+       
          <br>
-          <a href="" class="cat">{{this.Category}}</a>
+          <a href="" class="cat"  style="font-weight: bold;">"{{this.Category}}"</a>
          <div class="name">{{this.Name}}</div>
          <div class="flex">
            <div class="price"><span>₹</span>{{this.Price}}<span>/-</span></div>
@@ -80,11 +80,13 @@
          </div>
       
        {{/each}}
+      
    </div>
+
+  
     <div class="more-btn">
       <a href="/all-products" class="btn">veiw all</a>
    </div>
-  
 </section>
 
 
@@ -121,119 +123,25 @@
       <div class="box">
          <img src="/images/step-1.png" alt="">
          <h3>select food</h3>
-         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, hic.</p>
+        
       </div>
 
       <div class="box">
          <img src="/images/step-2.png" alt="">
          <h3>30 minutes delivery</h3>
-         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, hic.</p>
+        
       </div>
 
       <div class="box">
          <img src="/images/step-3.png" alt="">
          <h3>enjoy food!</h3>
-         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, hic.</p>
+        
       </div>
 
    </div>
 
 </section>
 
-
-<section class="reviews">
-
-   <h1 class="title">customer's reviews</h1>
-
-   <div class="swiper reviews-slider">
-
-      <div class="swiper-wrapper">
-
-         <div class="swiper-slide slide">
-            <img src="images/pic-1.png" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo exercitationem ullam esse quia iusto in.</p>
-            <div class="stars">
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star-half-alt"></i>
-            </div>
-            <h3>john deo</h3>
-         </div>
-
-         <div class="swiper-slide slide">
-            <img src="images/pic-2.png" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo exercitationem ullam esse quia iusto in.</p>
-            <div class="stars">
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star-half-alt"></i>
-            </div>
-            <h3>john deo</h3>
-         </div>
-
-         <div class="swiper-slide slide">
-            <img src="images/pic-3.png" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo exercitationem ullam esse quia iusto in.</p>
-            <div class="stars">
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star-half-alt"></i>
-            </div>
-            <h3>john deo</h3>
-         </div>
-
-         <div class="swiper-slide slide">
-            <img src="images/pic-4.png" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo exercitationem ullam esse quia iusto in.</p>
-            <div class="stars">
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star-half-alt"></i>
-            </div>
-            <h3>john deo</h3>
-         </div>
-
-         <div class="swiper-slide slide">
-            <img src="images/pic-5.png" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo exercitationem ullam esse quia iusto in.</p>
-            <div class="stars">
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star-half-alt"></i>
-            </div>
-            <h3>john deo</h3>
-         </div>
-
-         <div class="swiper-slide slide">
-            <img src="images/pic-6.png" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo exercitationem ullam esse quia iusto in.</p>
-            <div class="stars">
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star"></i>
-               <i class="fas fa-star-half-alt"></i>
-            </div>
-            <h3>john deo</h3>
-         </div>
-
-      </div>
-
-      <div class="swiper-pagination"></div>
-
-   </div>
-
-</section>
 
 
 
@@ -249,7 +157,6 @@
          <h3>tell us something!</h3>
          <input type="text" name="name"  id="name" required placeholder="enter your name"  class="box">
          <input type="tel" name="number" id="number" required minlength="10" maxlength="10" placeholder="enter your number"  class="box" >
-         <input type="email" name="email" id="email" required placeholder="enter your email" class="box">
          <textarea name="msg" placeholder="enter your message" id="message" required class="box" cols="30" rows="10" maxlength="500"></textarea>
          <input type="submit" value="send message" class="btn" name="send">
       </form>
@@ -300,8 +207,8 @@ $.ajax({
     method:"post",
    success:(response)=>{
       if(response.status){
-         window.alert('thankyou for your message ')
-         
+        
+         swal("Thanks for your message", "", "success");
       }
    }
 })
@@ -321,24 +228,5 @@ var swiper = new Swiper(".home-slider", {
 
 
 
-var swiper = new Swiper(".reviews-slider", {
-   loop:true,
-   grabCursor:true,
-            spaceBetween: 20,
-   pagination: {
-      el: ".swiper-pagination",
-   },
-   breakpoints: {
-      550: {
-        slidesPerView: 1,
-      },
-      768: {
-        slidesPerView: 2,
-      },
-      1024: {
-        slidesPerView: 3,
-      },
-   },
-});
 
 </script>

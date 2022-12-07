@@ -1,4 +1,4 @@
-
+{{#if allProducts}}
 <div class="heading">
    <h3>all menu</h3>
    <p><a href="/">home </a> <span> / menu</span></p>
@@ -7,17 +7,18 @@
 
   <!-- <h1 class="title">latest dishes</h1> -->
  
-   <div class="box-container">
+   <div class="box-container" >
     {{#each allProducts}}
      
      
-         <div class="box"> 
+         <div class="box" style="height: 46rem;"> 
         <button class="fas fa-heart" onclick="addWishlist('{{this._id}}'); checkUser();"></button>
           <button class="fas fa-shopping-cart"  onclick="addToCart('{{this._id}}'); checkUser();" ></button> 
          <img src="/product-images/{{this._id}}.jpg" alt="">
          <a href="" class="cat">{{this.Description}}</a>
          <br>
-          <a href="" class="cat">{{this.Category}}</a>
+         <br>
+          <a href="" class="cat" style="font-weight: bold;">"{{this.Category}}"</a>
          <div class="name">{{this.Name}}</div>
          <div class="flex">
            <div class="price"><span>₹</span>{{this.Price}}<span>/-</span></div>
@@ -30,4 +31,13 @@
  
 </section>
 
+{{else}}
+<div class="heading">
+   
+   <h3>There Is No Dishes</h3>
+   
+   <p><a href="/">home </a> <span></span></p>
+</div>
 
+
+{{/if}}

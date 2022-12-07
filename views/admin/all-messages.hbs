@@ -1,8 +1,6 @@
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 
-
- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> 
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>  
-  
 
 
 {{#if messages}}
@@ -27,7 +25,7 @@
                         <th scope=" col">Name</th>
 
                         <th scope="col">Number</th>
-                        <th scope="col">Email</th>
+
                         <th scope="col">Message</th>
 
                     </tr>
@@ -35,12 +33,12 @@
                 {{#each messages}}
                 <tbody>
                     <tr>
-<td>{{inc @index}}</td>
+                        <td>{{inc @index}}</td>
                         <td>{{this.Date}}</td>
                         <td>{{this.name}}</td>
                         <td>{{this.number}}</td>
 
-                        <td>{{this.email}}</td>
+
                         <td class="overflow-wrap-hack content">{{this.msg}}</td>
 
                         <td>
@@ -80,14 +78,14 @@
 </style>
 
 <script>
-     window.addEventListener('DOMContentLoaded', event => {
-   
-    const datatablesSimple = new simpleDatatables.DataTable("#datatablesSimple", {
-       searchable: false, 
-        fixedHeight: true,
-         paging: false,
-          
+    window.addEventListener('DOMContentLoaded', event => {
+
+        const datatablesSimple = new simpleDatatables.DataTable("#datatablesSimple", {
+            searchable: false,
+            fixedHeight: true,
+            paging: false,
+
+        });
     });
-  });
 
 </script>

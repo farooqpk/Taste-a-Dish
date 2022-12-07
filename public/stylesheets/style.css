@@ -525,41 +525,6 @@ section{
 }
 
 
-.reviews .slide{
-   margin-bottom: 4rem;
-   border:var(--border);
-   text-align: center;
-   padding:2rem;
-}
-
-.reviews .slide img{
-   height: 10rem;
-   width: 10rem;
-   border-radius: 50%;
-   object-fit: cover;
-}
-
-.reviews .slide p{
-   padding:1rem 0;
-   line-height: 2;
-   font-size: 1.6rem;
-   color:var(--light-color);
-}
-
-.reviews .slide .stars{
-   margin-top: .5rem;
-}
-
-.reviews .slide .stars i{
-   font-size:1.7rem;
-   color:var(--yellow);
-}
-
-.reviews .slide h3{
-   font-size: 2rem;
-   color:var(--black);
-   margin-top: 1.5rem;
-}
 
 
 .contact .row{

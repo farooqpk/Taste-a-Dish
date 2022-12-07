@@ -27,10 +27,23 @@ app.use(function(req, res, next) {
  });
  
 
- Handlebars.registerHelper("inc", function(value, options)
- {
+
+//handlebars custom helpers
+ Handlebars.registerHelper("inc", function(value, options){
      return parseInt(value) + 1;
  });
+
+ Handlebars.registerHelper('ifeq', function (a, b, options) {
+  if (a == b) { return options.fn(this); }
+  return options.inverse(this);
+});
+
+Handlebars.registerHelper('ifnoteq', function (a, b, options) {
+  if (a != b) { return options.fn(this); }
+  return options.inverse(this);
+});
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

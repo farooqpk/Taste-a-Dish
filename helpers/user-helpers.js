@@ -287,7 +287,12 @@ module.exports = {
 
         ]).toArray();
 
-      resolve(cartItems);
+        if(cartItems){
+          resolve(cartItems);
+        }else{
+          reject()
+        }
+     
     });
   },
 
@@ -337,16 +342,32 @@ module.exports = {
 
   removeCart: (details) => {
     return new Promise((resolve, reject) => {
-      db.get().collection(collection.CART_COLLECTIONS).updateOne({ _id: objectId(details.cart) },
+     
+        db.get().collection(collection.CART_COLLECTIONS).updateOne({ _id: objectId(details.cart) },
 
         {
           $pull: { products: { item: objectId(details.product) } }
         }
       ).then(() => {
         resolve()
+      }).catch(()=>{
+        reject()
+      })
+     
+      
+    })
+  },
+
+  removeCartWhenNoPRODUCT:(cartId)=>{
+    return new Promise((resolve,reject)=>{
+      db.get().collection(collection.CART_COLLECTIONS).deleteOne({_id:objectId(cartId)}).then(()=>{
+        resolve()
       })
     })
   },
+
+
+
 
   getTotalAmount: (userId) => {
     console.log(userId);
@@ -434,14 +455,10 @@ module.exports = {
             minute: 'numeric', // numeric, 2-digit
             //second: 'numeric', // numeric, 2-digit
           })
-
-
-
-
       }
 
       db.get().collection(collection.ORDER_COLLECTIONS).insertOne(orderObj).then((response) => {
-        db.get().collection(collection.CART_COLLECTIONS).deleteOne({ user: objectId(orderDetails.userId) })
+       
         resolve(response.insertedId)
       })
     })
@@ -449,12 +466,12 @@ module.exports = {
 
   getCartProductList: (userId) => {
     return new Promise(async (resolve, reject) => {
-      let cart = await db.get().collection(collection.CART_COLLECTIONS).findOne({ user: objectId(userId) })
-      if (cart) {
+      db.get().collection(collection.CART_COLLECTIONS).findOne({ user: objectId(userId) }).then((cart)=>{
         resolve(cart.products)
-      } else {
+      }).catch(()=>{
         reject()
-      }
+      })
+     
 
 
     })
@@ -506,6 +523,7 @@ module.exports = {
   },
 
   generateRazorpay: (orderId, total) => {
+    
     return new Promise((resolve, reject) => {
 
       var options = {
@@ -516,8 +534,11 @@ module.exports = {
       instance.orders.create(options, function (err, order) {
         if (err) {
           console.log(err);
+         
+          reject(err)
         } else {
           console.log('new order:', order);
+          
           resolve(order)
         }
       })
@@ -536,6 +557,14 @@ module.exports = {
         reject()
       }
     })
+  },
+
+  clearCart:(userId)=>{
+return new Promise((resolve,reject)=>{
+  db.get().collection(collection.CART_COLLECTIONS).deleteOne({user:objectId(userId)}).then(()=>{
+    resolve()
+  })
+})
   },
 
   changePaymentStatus: (orderId) => {
@@ -757,6 +786,20 @@ module.exports = {
 
   },
 
+  removeWishWHENnoPRODUCT:(wishid)=>{
+return new Promise((resolve,reject)=>{
+  db.get().collection(collection.WISHLIST_COLLECTIONS).deleteOne({_id:objectId(wishid)}).then(()=>{
+    resolve()
+  })
+})
+  },
+
+
+
+
+
+
+
   cancelOrder: (orderId) => {
     return new Promise((resolve, reject) => {
       db.get().collection(collection.ORDER_COLLECTIONS).deleteOne({ _id: objectId(orderId) }).then((res) => {
@@ -803,8 +846,6 @@ module.exports = {
       resolve(address)
     })
   },
-
-
 
 
 
