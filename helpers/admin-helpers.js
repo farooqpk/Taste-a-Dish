@@ -49,8 +49,8 @@ module.exports = {
   },
 
   changeOrderStatus: (orderId, status) => {
-    console.log(status);
-    console.log(orderId);
+    // console.log(status);
+    // console.log(orderId);
     return new Promise((resolve, reject) => {
       db.get().collection(collection.ORDER_COLLECTIONS).updateOne({ _id: objectId(orderId) },
         {
@@ -75,17 +75,17 @@ module.exports = {
       if (admin) {
         bcrypt.compare(adminData.Password, admin.Password).then((status) => {
           if (status) {
-            console.log("login success");
+            // console.log("login success");
             response.admin = admin;
             response.status = true;
             resolve(response);
           } else {
-            console.log("login failed");
+            // console.log("login failed");
             resolve({ status: false });
           }
         });
       } else {
-        console.log("login failed");
+        // console.log("login failed");
         resolve({ status: false });
       }
     });
@@ -110,7 +110,7 @@ module.exports = {
 
   specificCategory: (catId) => {
     return new Promise((resolve, reject) => {
-      console.log(catId);
+      // console.log(catId);
       db.get().collection(collection.CATEGORY_COLLECTIONS).findOne({ _id: objectId(catId) }).then((category) => {
         resolve(category)
       })
@@ -381,7 +381,7 @@ module.exports = {
       if (total[0]) {
         resolve(total[0].total);
       } else {
-        console.log('total zero');
+        // console.log('total zero');
         resolve(0)
       }
 
@@ -454,31 +454,31 @@ module.exports = {
           }
         }
       ]).toArray()
-      
+
       resolve(data)
     })
   },
 
 
-  addUpdateAbout:(about,adminId)=>{
-    return new Promise((resolve,reject)=>{
+  addUpdateAbout: (about, adminId) => {
+    return new Promise((resolve, reject) => {
       const query = { admin: objectId(adminId) };
       const update = {
         $set: {
-          
-          about:about
+
+          about: about
         }
       };
       const options = { upsert: true };
-      db.get().collection(collection.ABOUT_COLLECTION).updateOne(query, update, options).then(()=>{
+      db.get().collection(collection.ABOUT_COLLECTION).updateOne(query, update, options).then(() => {
         resolve()
       })
     })
   },
 
-  getAbout:()=>{
-    return new Promise((resolve,reject)=>{
-      db.get().collection(collection.ABOUT_COLLECTION).findOne().then((about)=>{
+  getAbout: () => {
+    return new Promise((resolve, reject) => {
+      db.get().collection(collection.ABOUT_COLLECTION).findOne().then((about) => {
         resolve(about)
       })
     })

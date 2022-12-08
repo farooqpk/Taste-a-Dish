@@ -27,10 +27,10 @@ var instance = new Razorpay({
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-         user:process.env.MAIL ,
-         pass: process.env.PASS
-     }
- });
+    user: process.env.MAIL,
+    pass: process.env.PASS
+  }
+});
 
 
 //  function generateOTP() {
@@ -86,7 +86,7 @@ module.exports = {
           reject()
         })
 
-      console.log(check.status);
+      // console.log(check.status);
 
       if (check.status === 'approved') {
         db.get().collection(collection.USER_COLLECTIONS).insertOne(userData).then((data) => {
@@ -94,18 +94,18 @@ module.exports = {
         })
 
 
-      const mailOptions = {
-        from: process.env.MAIL,
-        to: userData.Email, 
-        subject: 'Welcome to Taste a Dish! ✨ We’re so glad you’re here', 
-        html:'<h2>Thankyou for becoming the newest member of Taste a Dish. if you love delicious food,you are in the right place!<h2/>'
-      };
-      transporter.sendMail(mailOptions, function (err, info) {
-        if(err)
-          console.log(err)
-        else
-          console.log(info);
-     });
+        const mailOptions = {
+          from: process.env.MAIL,
+          to: userData.Email,
+          subject: 'Welcome to Taste a Dish! ✨ We’re so glad you’re here',
+          html: '<h2>Thankyou for becoming the newest member of Taste a Dish. if you love delicious food,you are in the right place!<h2/>'
+        };
+        transporter.sendMail(mailOptions, function (err, info) {
+          if (err)
+            console.log(err)
+          else
+            console.log(info);
+        });
 
 
       } else {
@@ -171,7 +171,7 @@ module.exports = {
           if (status) {
 
             if (user.userStatus == "Unblock") {
-              console.log("login success");
+              // console.log("login success");
               response.user = user;
               response.status = true;
               resolve(response);
@@ -181,12 +181,12 @@ module.exports = {
             }
 
           } else {
-            console.log("login failed");
+            // console.log("login failed");
             resolve({ status: false });
           }
         });
       } else {
-        console.log("login failed");
+        // console.log("login failed");
         resolve({ status: false });
       }
     });
@@ -201,7 +201,7 @@ module.exports = {
     };
     return new Promise(async (resolve, reject) => {
 
-      //to remove wishlist when user add to cart
+      //to remove wishlist when user cart add!
       let userWish = await db.get().collection(collection.WISHLIST_COLLECTIONS).findOne({ user: objectId(userId) })
       if (userWish) {
         db.get().collection(collection.WISHLIST_COLLECTIONS).updateOne({ user: objectId(userId) }, {
@@ -215,7 +215,7 @@ module.exports = {
       let userCart = await db.get().collection(collection.CART_COLLECTIONS).findOne({ user: objectId(userId) });
       if (userCart) {
         let proExist = userCart.products.findIndex(product => product.item == proId)
-        console.log(proExist);
+        // console.log(proExist);
         if (proExist != -1) {
           db.get().collection(collection.CART_COLLECTIONS)
             .updateOne({ user: objectId(userId), 'products.item': objectId(proId) },
@@ -287,12 +287,12 @@ module.exports = {
 
         ]).toArray();
 
-        if(cartItems){
-          resolve(cartItems);
-        }else{
-          reject()
-        }
-     
+      if (cartItems) {
+        resolve(cartItems);
+      } else {
+        reject()
+      }
+
     });
   },
 
@@ -342,25 +342,25 @@ module.exports = {
 
   removeCart: (details) => {
     return new Promise((resolve, reject) => {
-     
-        db.get().collection(collection.CART_COLLECTIONS).updateOne({ _id: objectId(details.cart) },
+
+      db.get().collection(collection.CART_COLLECTIONS).updateOne({ _id: objectId(details.cart) },
 
         {
           $pull: { products: { item: objectId(details.product) } }
         }
       ).then(() => {
         resolve()
-      }).catch(()=>{
+      }).catch(() => {
         reject()
       })
-     
-      
+
+
     })
   },
 
-  removeCartWhenNoPRODUCT:(cartId)=>{
-    return new Promise((resolve,reject)=>{
-      db.get().collection(collection.CART_COLLECTIONS).deleteOne({_id:objectId(cartId)}).then(()=>{
+  removeCartWhenNoPRODUCT: (cartId) => {
+    return new Promise((resolve, reject) => {
+      db.get().collection(collection.CART_COLLECTIONS).deleteOne({ _id: objectId(cartId) }).then(() => {
         resolve()
       })
     })
@@ -370,7 +370,7 @@ module.exports = {
 
 
   getTotalAmount: (userId) => {
-    console.log(userId);
+    // console.log(userId);
 
     return new Promise(async (resolve, reject) => {
 
@@ -411,10 +411,10 @@ module.exports = {
         ]).toArray();
 
       if (total[0]) {
-        console.log(total[0].total);
+        // console.log(total[0].total);
         resolve(total[0].total);
       } else {
-        console.log('total zero');
+        // console.log('total zero');
         resolve(0)
       }
 
@@ -445,7 +445,7 @@ module.exports = {
         products: products,
         totalPrice: totalPrice,
         status: orderStatus,
-       
+
         date: new Date()
           .toLocaleString('en-IN', {
             day: 'numeric', // numeric, 2-digit
@@ -458,7 +458,7 @@ module.exports = {
       }
 
       db.get().collection(collection.ORDER_COLLECTIONS).insertOne(orderObj).then((response) => {
-       
+
         resolve(response.insertedId)
       })
     })
@@ -466,19 +466,19 @@ module.exports = {
 
   getCartProductList: (userId) => {
     return new Promise(async (resolve, reject) => {
-      db.get().collection(collection.CART_COLLECTIONS).findOne({ user: objectId(userId) }).then((cart)=>{
+      db.get().collection(collection.CART_COLLECTIONS).findOne({ user: objectId(userId) }).then((cart) => {
         resolve(cart.products)
-      }).catch(()=>{
+      }).catch(() => {
         reject()
       })
-     
+
 
 
     })
   },
 
   viewOrderDetails: (userId) => {
-    console.log('id is ' + userId);
+    // console.log('id is ' + userId);
     return new Promise(async (resolve, reject) => {
 
       let orderDetails = await db.get().collection(collection.ORDER_COLLECTIONS).find({ userId: objectId(userId) }).toArray()
@@ -523,7 +523,7 @@ module.exports = {
   },
 
   generateRazorpay: (orderId, total) => {
-    
+
     return new Promise((resolve, reject) => {
 
       var options = {
@@ -533,12 +533,12 @@ module.exports = {
       };
       instance.orders.create(options, function (err, order) {
         if (err) {
-          console.log(err);
-         
+           console.log(err);
+
           reject(err)
         } else {
           console.log('new order:', order);
-          
+
           resolve(order)
         }
       })
@@ -559,12 +559,12 @@ module.exports = {
     })
   },
 
-  clearCart:(userId)=>{
-return new Promise((resolve,reject)=>{
-  db.get().collection(collection.CART_COLLECTIONS).deleteOne({user:objectId(userId)}).then(()=>{
-    resolve()
-  })
-})
+  clearCart: (userId) => {
+    return new Promise((resolve, reject) => {
+      db.get().collection(collection.CART_COLLECTIONS).deleteOne({ user: objectId(userId) }).then(() => {
+        resolve()
+      })
+    })
   },
 
   changePaymentStatus: (orderId) => {
@@ -585,13 +585,13 @@ return new Promise((resolve,reject)=>{
 
   getRequiredProducts: (category) => {
 
-    console.log(category);
+    // console.log(category);
     return new Promise(async (resolve, reject) => {
-      console.log("cat :" + category);
+      
       let products = await db.get().collection(collection.PRODUCT_COLLECTIONS).find({ Category: category }).toArray()
 
       resolve(products)
-      console.log('pro kitty');
+     
 
     })
   },
@@ -604,18 +604,18 @@ return new Promise((resolve,reject)=>{
   },
 
   getUserProfile: (userId) => {
-    console.log(userId);
+    // console.log(userId);
     return new Promise(async (resolve, reject) => {
       let userProfile = await db.get().collection(collection.USER_COLLECTIONS).findOne({ _id: objectId(userId) })
 
-      console.log(userProfile);
+      // console.log(userProfile);
       resolve(userProfile)
     })
   },
 
 
   updateProfile: (userDetails, userId) => {
-    console.log(userId);
+    // console.log(userId);
     return new Promise((resolve, reject) => {
       db.get().collection(collection.USER_COLLECTIONS).updateOne({ _id: objectId(userId) },
         {
@@ -786,12 +786,12 @@ return new Promise((resolve,reject)=>{
 
   },
 
-  removeWishWHENnoPRODUCT:(wishid)=>{
-return new Promise((resolve,reject)=>{
-  db.get().collection(collection.WISHLIST_COLLECTIONS).deleteOne({_id:objectId(wishid)}).then(()=>{
-    resolve()
-  })
-})
+  removeWishWHENnoPRODUCT: (wishid) => {
+    return new Promise((resolve, reject) => {
+      db.get().collection(collection.WISHLIST_COLLECTIONS).deleteOne({ _id: objectId(wishid) }).then(() => {
+        resolve()
+      })
+    })
   },
 
 
