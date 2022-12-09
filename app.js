@@ -8,6 +8,8 @@ const hbs=require('express-handlebars')
 const HBS=hbs.create({})
 var db=require('./config/connection')
 var session=require('express-session')
+//its used to store session in hosting db
+const { CyclicSessionStore } = require("@cyclic.sh/session-store");
 var Handlebars=require('handlebars')
 
 var userRouter = require('./routes/user');
@@ -58,14 +60,31 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
-app.use(session({
-  secret:'key',
-  
- cookie: { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' }
-  
-  
 
-}))
+//its used to store session in hosting db
+const options = {
+  table: {
+    name: process.env.CYCLIC_DB,
+  }
+};
+
+app.use(
+  session({
+    store: new CyclicSessionStore(options),
+    secret:'key',
+    resave:false,
+    cookie:{maxAge:6000000},
+    saveUninitialized:false
+
+  })
+);
+
+// app.use(session({
+//   secret:'key',
+  
+//  cookie: { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' }
+  
+// }))
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
