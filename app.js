@@ -20,6 +20,7 @@ const { dirname } = require('path');
 
 
 
+
 //its used to remove cache of browser when clicking back button
 app.use(function(req, res, next) { 
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
@@ -27,10 +28,6 @@ app.use(function(req, res, next) {
  });
  
 
- db.connect((err)=>{
-  if(err) console.log('connection error'+err);
-  else console.log('database connected');
-})
 
 //handlebars custom helpers
  Handlebars.registerHelper("inc", function(value, options){
@@ -73,6 +70,14 @@ app.use('/', userRouter);
 app.use('/admin', adminRouter);
 
 
+db.connect((err)=>{
+  if(err) console.log('connection error'+err);
+  else console.log('database connected');
+  app.listen(process.env.PORT,()=>{
+    
+    console.log('listening for request');
+  })
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
