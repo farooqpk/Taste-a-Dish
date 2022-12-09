@@ -60,8 +60,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
 app.use(session({
   secret:'key',
- 
-  cookie:{maxAge:6000000},
+   resave: false,
+    saveUninitialized: true,
+ name: 'MygoodWebCookieName',
+  cookie:{maxAge:6000000,
+          secure: true, // required for cookies to work on HTTPS
+      httpOnly: false,
+      sameSite: 'none' },
+  
   
 
 }))
