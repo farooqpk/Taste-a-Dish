@@ -27,6 +27,10 @@ app.use(function(req, res, next) {
  });
  
 
+ db.connect((err)=>{
+  if(err) console.log('connection error'+err);
+  else console.log('database connected');
+})
 
 //handlebars custom helpers
  Handlebars.registerHelper("inc", function(value, options){
@@ -65,10 +69,6 @@ app.use(session({
 
 }))
 
-db.connect((err)=>{
-  if(err) console.log('connection error'+err);
-  else console.log('database connected');
-})
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
 
