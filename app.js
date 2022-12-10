@@ -65,7 +65,10 @@ app.use(fileUpload())
 const options = {
   table: {
     name: process.env.CYCLIC_DB,
-  }
+  },
+  keepExpired:false,
+  touchInterval: 30000,//30 second
+  tt1:86400000 //one day
 };
 
 app.use(
@@ -73,8 +76,9 @@ app.use(
     store: new CyclicSessionStore(options),
     secret:'key',
     resave:false,
-    cookie:{maxAge:6000000},
-    saveUninitialized:false
+    cookie:{maxAge:6000000,sameSite:'none'},
+    saveUninitialized:false,
+    
 
   })
 );
