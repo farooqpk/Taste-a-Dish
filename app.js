@@ -68,7 +68,7 @@ const options = {
   },
   keepExpired:false,
   touchInterval: 30000,//30 second
-  tt1:86400000 //one day
+  ttl:86400000 //one day
 };
 
 app.use(
