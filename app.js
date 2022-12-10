@@ -10,6 +10,7 @@ var db=require('./config/connection')
 var session=require('express-session')
 //its used to store session in hosting db
 const { CyclicSessionStore } = require("@cyclic.sh/session-store");
+
 var Handlebars=require('handlebars')
 
 var userRouter = require('./routes/user');
@@ -66,42 +67,30 @@ const options = {
   table: {
     name: process.env.CYCLIC_DB,
   },
-  keepExpired:false,
-  touchInterval: 30000,//30 second
-  ttl:86400000 //one day
+  keepExpired: false,
+  touchInterval: oneHourMs,
+  ttl: oneDayMs
 };
 
-app.use(
-  session({
-    store: new CyclicSessionStore(options),
-    secret:'key',
-    resave:false,
-    cookie:{maxAge:6000000,sameSite:'none'},
-    saveUninitialized:false,
-    
 
-  })
-);
+app.set('trust-proxy', 1)
+app.use(session({
+  store: new CyclicSessionStore(options),
+  secret: 'key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: 'auto', // (process.env.NODE_ENV != 'development'),
+    maxAge: oneDayMs
+  }
+  // unset: "destroy"
+}))
 
-// app.use(session({
-//   secret:'key',
-  
-//  cookie: { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60 * 48, sameSite: 'none' }
-  
-// }))
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
 
 
-db.connect((err)=>{
-  if(err) console.log('connection error'+err);
-  else console.log('database connected');
-  app.listen(process.env.PORT,()=>{
-    
-    console.log('listening for request');
-  })
-})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -123,5 +112,13 @@ app.use(function (err, req, res, next) {
 });
 
 
+db.connect((err)=>{
+  if(err) console.log('connection error'+err);
+  else console.log('database connected');
+  app.listen(process.env.PORT,()=>{
+    
+    console.log('listening for request');
+  })
+})
 
 module.exports = app;
