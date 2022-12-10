@@ -68,8 +68,8 @@ const options = {
     name: process.env.CYCLIC_DB,
   },
   keepExpired: false,
-  touchInterval: oneHourMs,
-  ttl: oneDayMs
+  touchInterval: 30000, // milliseconds (30 seconds)
+  ttl: 86400000 // milliseconds (1 day)
 };
 
 
@@ -81,7 +81,7 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     secure: 'auto', // (process.env.NODE_ENV != 'development'),
-    maxAge: oneDayMs
+    maxAge: 2000000
   }
   // unset: "destroy"
 }))
