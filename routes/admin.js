@@ -271,7 +271,7 @@ router.post('/edit-banner/:id', (req, res) => {
     res.redirect('/admin/all-banners')
     if (req.files) {
       let image = req.files.Image
-      image.mv('./public/banner-images/' + id + '.jpg',)
+      image.mv('./public/banner-images/' + req.params.id + '.jpg',)
     }
   })
 })
