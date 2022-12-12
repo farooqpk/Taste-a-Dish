@@ -446,15 +446,17 @@ module.exports = {
         totalPrice: totalPrice,
         status: orderStatus,
 
-        date: new Date()
-          .toLocaleString('en-IN', {
-            day: 'numeric', // numeric, 2-digit
-            year: 'numeric', // numeric, 2-digit
-            month: 'numeric', // numeric, 2-digit,short, narrow
-            hour: 'numeric', // numeric, 2-digit
-            minute: 'numeric', // numeric, 2-digit
-            //second: 'numeric', // numeric, 2-digit
-          })
+        date: new Date().toLocaleString("en-Us", {timeZone: 'Asia/Kolkata'})
+        
+        // new Date()
+        //   .toLocaleString('en-IN', {
+        //     day: 'numeric', // numeric, 2-digit
+        //     year: 'numeric', // numeric, 2-digit
+        //     month: 'numeric', // numeric, 2-digit,short, narrow
+        //     hour: 'numeric', // numeric, 2-digit
+        //     minute: 'numeric', // numeric, 2-digit
+        //     //second: 'numeric', // numeric, 2-digit
+        //   })
       }
 
       db.get().collection(collection.ORDER_COLLECTIONS).insertOne(orderObj).then((response) => {
