@@ -12,10 +12,10 @@
 
                     <label style="" for="">head name</label>
                     <input type="text" name="head_name" id="" value="{{banner.head_name}}" class="form-control" />
-
+<input type="text" name="publicId" value="{{banner.publicId}}" hidden> 
 
                     <label for="">Image Upload</label>
-                    <img src="/banner-images/{{banner._id}}.jpg" alt="" style="width: 100px; height: auto;" id="imgView"
+                    <img src="{{banner.url}}" alt="" style="width: 100px; height: auto;" id="imgView"
                         class="pt-3">
                     <input type="file" name="Image" id="image" class="form-control" onchange="viewImage(event)">
 

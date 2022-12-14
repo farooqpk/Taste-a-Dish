@@ -28,13 +28,13 @@
                 {{#each allBanner}}
 
                 <tr>
-                    <td><img style="width: 50px; height: 50px;" src="/banner-images/{{this._id}}.jpg" alt=""></td>
+                    <td><img style="width: 50px; height: 50px;" src="{{this.url}}" alt=""></td>
                     <td>{{this.short_name}}</td>
                     <td>{{this.head_name}}</td>
 
 
                     <td> <a href="/admin/edit-banner/{{this._id}}" class="btn btn-primary btn-sm">Edit</a></td>
-                    <td> <a href="/admin/remove-banner/{{this._id}}" class="btn btn-danger btn-sm"
+                    <td> <a href="/admin/remove-banner/{{this._id}}/{{this.publicId}}" class="btn btn-danger btn-sm"
                             onclick="return confirm('Are you want to delete')">Delete</a>
                     </td>
 

@@ -117,16 +117,35 @@ module.exports = {
     })
   },
 
-  editCategory: (catId, catName) => {
+  editCategory: (catId, catDetails) => {
     return new Promise((resolve, reject) => {
-      db.get().collection(collection.CATEGORY_COLLECTIONS).updateOne({ _id: objectId(catId) },
-        {
-          $set: {
-            cat_name: catName
-          }
-        }).then(() => {
-          resolve()
-        })
+      if (catDetails.url == null) {
+
+        db.get().collection(collection.CATEGORY_COLLECTIONS).updateOne({ _id: objectId(catId) },
+
+          {
+            $set: {
+              cat_name: catDetails.cat_name,
+
+            }
+          }).then(() => {
+            resolve()
+          })
+
+      } else {
+        db.get().collection(collection.CATEGORY_COLLECTIONS).updateOne({ _id: objectId(catId) },
+
+          {
+            $set: {
+              cat_name: catDetails.cat_name,
+              url: catDetails.url,
+              publicId: catDetails.publicId
+            }
+          }).then(() => {
+            resolve()
+          })
+      }
+
     })
   },
 
@@ -174,8 +193,8 @@ module.exports = {
 
   addbanner: (details) => {
     return new Promise((resolve, reject) => {
-      db.get().collection(collection.BANNER_COLLECTION).insertOne(details).then((data) => {
-        resolve(data.insertedId)
+      db.get().collection(collection.BANNER_COLLECTION).insertOne(details).then(() => {
+        resolve()
       })
     })
   },
@@ -198,20 +217,40 @@ module.exports = {
 
   editBanner: (bannerId, bannerDetail) => {
     return new Promise((resolve, reject) => {
-      db.get().collection(collection.BANNER_COLLECTION).updateOne({ _id: objectId(bannerId) },
-        {
-          $set: {
-            short_name: bannerDetail.short_name,
-            head_name: bannerDetail.head_name
-          }
-        }).then((data) => {
-          resolve(data.insertedId)
-        })
+
+      if (bannerDetail.url == null) {
+
+        db.get().collection(collection.BANNER_COLLECTION).updateOne({ _id: objectId(bannerId) },
+
+          {
+            $set: {
+                    short_name: bannerDetail.short_name,
+                    head_name: bannerDetail.head_name
+                  }
+          }).then(() => {
+            resolve()
+          })
+
+      } else {
+        db.get().collection(collection.BANNER_COLLECTION).updateOne({ _id: objectId(bannerId) },
+
+          {
+            $set: {
+              short_name: bannerDetail.short_name,
+              head_name: bannerDetail.head_name,
+              url:bannerDetail.url,
+              publicId:bannerDetail.publicId
+            }
+          }).then(() => {
+            resolve()
+          })
+      }
     })
   },
 
   removeBanner: (bannerId) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+
       db.get().collection(collection.BANNER_COLLECTION).deleteOne({ _id: objectId(bannerId) }).then(() => {
         resolve()
       })

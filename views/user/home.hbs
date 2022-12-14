@@ -16,7 +16,7 @@
                <a href="/all-products" class="btn">see menus</a>
             </div>
             <div class="image">
-               <img src="/banner-images/{{this._id}}.jpg" alt="">
+               <img src="{{this.url}}" alt="">
             </div>
          </div>
          {{/each}}
@@ -44,7 +44,7 @@
    <div class="box-container" id="category">
       {{#each category}}
       <a href="/products/{{this.cat_name}}" class="box">
-         <img src="/images/{{this._id}}.jpg" alt="">
+         <img src="{{this.url}}" alt="">
          <h3>{{this.cat_name}}</h3>
       </a>
 
@@ -68,7 +68,7 @@
          <div class="box"> 
         <button class="fas fa-heart" onclick="addWishlist('{{this._id}}'); checkUser();"></button>
           <button class="fas fa-shopping-cart"  onclick="addToCart('{{this._id}}'); checkUser();" ></button> 
-         <img src="/product-images/{{this._id}}.jpg" alt="">
+         <img src="{{this.url}}" alt="">
        
          <br>
           <a href="" class="cat"  style="font-weight: bold;">"{{this.Category}}"</a>

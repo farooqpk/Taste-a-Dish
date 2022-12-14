@@ -4,19 +4,14 @@ var collection = require('../config/collections')
 var objectId = require('mongodb').ObjectId
 module.exports = {
 
-    addProduct: (product, callback) => {
-        let prodDetails = {
-            Name: product.Name,
-            Category: product.Category,
-            Price: product.Price,
-            Description: product.Description,
-            popular: "false",
-            Date: new Date()
-        }
-        db.get().collection('product').insertOne(prodDetails).then((data) => {
+    addProduct: (product) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection('product').insertOne(product).then(() => {
 
-            callback(data.insertedId)
+                resolve()
+            })
         })
+
     },
     getAllProducts: () => {
         return new Promise(async (resolve, reject) => {
@@ -43,16 +38,34 @@ module.exports = {
     },
     updateProduct: (prodId, proDetails) => {
         return new Promise((resolve, reject) => {
-            db.get().collection(collection.PRODUCT_COLLECTIONS).updateOne({ _id: objectId(prodId) }, {
-                $set: {
-                    Name: proDetails.Name,
-                    Description: proDetails.Description,
-                    Price: proDetails.Price,
-                    Category: proDetails.Category
-                }
-            }).then((response) => {
-                resolve()
-            })
+
+            if (proDetails.url == null) {
+
+                db.get().collection(collection.PRODUCT_COLLECTIONS).updateOne({ _id: objectId(prodId) }, {
+                    $set: {
+                        Name: proDetails.Name,
+                        Description: proDetails.Description,
+                        Price: proDetails.Price,
+                        Category: proDetails.Category
+                    }
+                }).then((response) => {
+                    resolve()
+                })
+            } else {
+
+                db.get().collection(collection.PRODUCT_COLLECTIONS).updateOne({ _id: objectId(prodId) }, {
+                    $set: {
+                        Name: proDetails.Name,
+                        Description: proDetails.Description,
+                        Price: proDetails.Price,
+                        Category: proDetails.Category,
+                        publicId: proDetails.publicId,
+                        url: proDetails.url
+                    }
+                }).then((response) => {
+                    resolve()
+                })
+            }
         })
     },
 
@@ -84,8 +97,8 @@ module.exports = {
 
     addCategory: (category) => {
         return new Promise((resolve, reject) => {
-            db.get().collection(collection.CATEGORY_COLLECTIONS).insertOne(category).then((data) => {
-                resolve(data.insertedId)
+            db.get().collection(collection.CATEGORY_COLLECTIONS).insertOne(category).then(() => {
+                resolve()
             })
         })
     },

@@ -12,7 +12,9 @@
           <input type="text" name="Price" id="price" class="form-control" value="{{product.Price}}">
 
           <label for="">Description</label>
+
           <input type="text" name="Description" id="description" class="form-control" value="{{product.Description}}">
+          <input type="text" name="publicId" value="{{product.publicId}}" hidden>
 
           <label for="">Category</label>
           <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="Category">
@@ -22,10 +24,8 @@
             {{/each}}
           </select>
 
-
           <label for="">Image</label>
-          <img src="/product-images/{{product._id}}.jpg" alt="" style="width: 100px; height: auto;" id="imgView"
-            class="pt-3">
+          <img src="{{product.url}}" alt="" style="width: 100px; height: auto;" id="imgView" class="pt-3">
           <input type="file" name="Image" id="image" class="form-control" onchange="viewImage(event)">
 
           <button type="submit" class="btn btn-success mt-4">Save</button>

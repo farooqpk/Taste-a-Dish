@@ -17,7 +17,7 @@
           <button class="fa fa-close" onclick="removeWish('{{this._id}}','{{product._id}}')"></button>
            <button class="fas fa-shopping-cart"  onclick="addWishCart('{{product._id}}');" ></button> 
          
-         <img src="/product-images/{{product._id}}.jpg" alt="">
+         <img src="{{product.url}}" alt="">
          <div class="name">{{product.Name}}</div>
          <div class="flex">
             <div class="price"><span>₹</span>{{product.Price}}</div>

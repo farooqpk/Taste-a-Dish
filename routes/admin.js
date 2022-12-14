@@ -3,6 +3,15 @@ var router = express.Router();
 var productHelpers = require('../helpers/product-helpers')
 var adminHelpers = require('../helpers/admin-helpers')
 var userHelpers = require('../helpers/user-helpers')
+const cloudinary = require('cloudinary').v2
+var fs = require('fs');
+
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET_KEY
+});
 
 const verifyAdmin = (req, res, next) => {
   if (req.session.adminLoggedIn) {
@@ -34,35 +43,45 @@ router.get('/', verifyAdmin, async (req, res) => {
 
 router.get('/add-product', verifyAdmin, async (req, res) => {
   let category = await adminHelpers.allCategory()
-
   res.render('admin/add-product', { admin: true, Admin: req.session.admin, category })
 
-
 })
 
 
-router.post('/add-product', verifyAdmin, (req, res) => {
-  // console.log(req.body);
-  productHelpers.addProduct(req.body, (id) => {
-    let image = req.files.Image
-    // console.log(id);
-    image.mv('./public/product-images/' + id + '.jpg', (err, done) => {
-      if (!err) {
+router.post('/add-product', async (req, res) => {
+
+  try {
+
+    const file = req.files.Image
+    let result = await cloudinary.uploader.upload(file.tempFilePath)
+
+    let proDetails = req.body
+    proDetails.publicId = result.public_id
+    proDetails.url = result.secure_url
+    proDetails.popular = "false",
+
+
+      productHelpers.addProduct(proDetails).then(() => {
         res.redirect('/admin/')
-      } else {
-        // console.log(err);
-      }
-    })
-  })
+      })
+
+  } catch (error) {
+    console.log(error);
+  }
 })
 
-router.get('/delete-product/:id', verifyAdmin, (req, res) => {
 
+
+
+router.get('/delete-product/:id/:imgId', verifyAdmin, (req, res) => {
 
   productHelpers.deleteProduct(req.params.id).then((response) => {
+    cloudinary.uploader.destroy(req.params.imgId)
     res.redirect('/admin/all-products')
   })
 })
+
+
 
 router.get('/edit-product/:id', verifyAdmin, async (req, res) => {
   let product = await productHelpers.getProductDetails(req.params.id)
@@ -70,16 +89,37 @@ router.get('/edit-product/:id', verifyAdmin, async (req, res) => {
   res.render('admin/edit-product', { product, admin: true, Admin: req.session.admin, category })
 })
 
-router.post('/edit-product/:id', verifyAdmin, (req, res) => {
 
-  productHelpers.updateProduct(req.params.id, req.body).then(() => {
 
-    res.redirect('/admin/all-products')
-    if (req.files) {
-      let image = req.files.Image
-      image.mv('./public/product-images/' + req.params.id + '.jpg',)
+router.post('/edit-product/:id', verifyAdmin, async (req, res) => {
+
+  try {
+    let result = null
+    let proDetails = req.body
+
+    if (!req.files) {
+      productHelpers.updateProduct(req.params.id, proDetails).then(() => {
+        res.redirect('/admin/all-products')
+      })
     }
-  })
+    else {
+
+      let file = req.files.Image
+      cloudinary.uploader.destroy(proDetails.publicId)
+
+      result = await cloudinary.uploader.upload(file.tempFilePath)
+
+      proDetails.url = result.url
+      proDetails.publicId = result.public_id
+
+      productHelpers.updateProduct(req.params.id, proDetails).then(() => {
+        res.redirect('/admin/all-products')
+      })
+    }
+
+  } catch (error) {
+    res.json({ error })
+  }
 })
 
 
@@ -97,7 +137,7 @@ router.get('/all-Orders', verifyAdmin, function (req, res) {
 
 router.get('/orderedProducts/:id', verifyAdmin, (req, res) => {
   // console.log(req.params.id);
-  
+
   adminHelpers.getOrderedProducts(req.params.id).then((orderItems) => {
     res.render('admin/order-products', { admin: true, orderItems, Admin: req.session.admin })
   })
@@ -147,22 +187,30 @@ router.get('/add-category', verifyAdmin, (req, res) => {
   res.render('admin/add-category', { admin: true, Admin: req.session.admin })
 })
 
-router.post('/add-category', verifyAdmin, (req, res) => {
 
-  productHelpers.addCategory(req.body).then((id) => {
 
-    let image = req.files.Image
-    if (image) {
-      image.mv('./public/images/' + id + '.jpg', (err, done) => {
-        if (!err) {
-          res.redirect('/admin/')
-        } else {
-          console.log(err);
-        }
-      })
-    }
-  })
+router.post('/add-category', verifyAdmin, async (req, res) => {
+
+  try {
+
+    const file = req.files.Image
+    let result = await cloudinary.uploader.upload(file.tempFilePath)
+
+    let catDetails = req.body
+    catDetails.publicId = result.public_id
+    catDetails.url = result.secure_url
+
+    productHelpers.addCategory(catDetails).then(() => {
+      res.redirect('/admin/')
+    })
+
+  } catch (error) {
+    console.log(error);
+  }
 })
+
+
+
 
 router.get('/all-category', verifyAdmin, async (req, res) => {
   let category = await adminHelpers.allCategory()
@@ -177,19 +225,56 @@ router.get('/edit-category/:id', (req, res) => {
   })
 })
 
-router.post('/edit-category/:id', (req, res) => {
-  adminHelpers.editCategory(req.params.id, req.body.cat_name).then(() => {
-    res.redirect('/admin/all-category')
-    if (req.files) {
-      let image = req.files.Image
-      image.mv('./public/images/' + req.params.id + '.jpg',)
+
+router.post('/edit-category/:id', async (req, res) => {
+  try {
+    let result = null
+    let catDetails = req.body
+    // console.log(catDetails.publicId);
+
+    if (!req.files) {
+      adminHelpers.editCategory(req.params.id, catDetails).then(() => {
+        res.redirect('/admin/all-category')
+      })
     }
-  })
+
+    else {
+
+      let file = req.files.Image
+      cloudinary.uploader.destroy(catDetails.publicId)
+
+      result = await cloudinary.uploader.upload(file.tempFilePath)
+
+      catDetails.url = result.url
+      catDetails.publicId = result.public_id
+      // console.log(catDetails);
+      adminHelpers.editCategory(req.params.id, catDetails).then(() => {
+        res.redirect('/admin/all-category')
+      })
+    }
+
+  } catch (error) {
+    res.json({ error })
+  }
 })
 
 
-router.get('/remove-category/:id', verifyAdmin, (req, res) => {
+
+// router.post('/edit-category/:id', (req, res) => {
+//   adminHelpers.editCategory(req.params.id, req.body.cat_name).then(() => {
+//     res.redirect('/admin/all-category')
+//     if (req.files) {
+//       let image = req.files.Image
+//       image.mv('./public/images/' + req.params.id + '.jpg',)
+//     }
+//   })
+// })
+
+
+router.get('/remove-category/:id/:imgId', verifyAdmin, (req, res) => {
+
   adminHelpers.removeCategory(req.params.id).then(() => {
+    cloudinary.uploader.destroy(req.params.imgId)
     res.redirect('/admin/all-category')
   })
 })
@@ -233,19 +318,28 @@ router.get('/add-banner', verifyAdmin, (req, res) => {
   res.render('admin/add-banner', { admin: true, Admin: req.session.admin })
 })
 
-router.post('/add-banner', (req, res) => {
-  adminHelpers.addbanner(req.body).then((id) => {
-    res.redirect('/admin/all-banners')
-    if (req.files) {
-      let image = req.files.Image
-      image.mv('./public/banner-images/' + id + '.jpg',)
 
-    } else {
+
+router.post('/add-banner', async (req, res) => {
+  try {
+
+    const file = req.files.Image
+    let result = await cloudinary.uploader.upload(file.tempFilePath)
+
+    let banner = req.body
+    banner.publicId = result.public_id
+    banner.url = result.secure_url
+
+    adminHelpers.addbanner(banner).then(() => {
       res.redirect('/admin/')
-    }
 
-  })
+    })
+
+  } catch (error) {
+    console.log(error);
+  }
 })
+
 
 
 router.get('/all-banners', verifyAdmin, async (req, res) => {
@@ -265,19 +359,44 @@ router.get('/edit-banner/:id', verifyAdmin, async (req, res) => {
 })
 
 
-router.post('/edit-banner/:id', (req, res) => {
-  
-  adminHelpers.editBanner(req.params.id, req.body).then((id) => {
-    res.redirect('/admin/all-banners')
-    if (req.files) {
-      let image = req.files.Image
-      image.mv('./public/banner-images/' + req.params.id + '.jpg',)
+router.post('/edit-banner/:id', async (req, res) => {
+
+  try {
+    let result = null
+    let bannerDetails = req.body
+
+
+    if (!req.files) {
+      adminHelpers.editBanner(req.params.id, bannerDetails).then(() => {
+        res.redirect('/admin/all-banners')
+      })
     }
-  })
+
+    else {
+
+      let file = req.files.Image
+      cloudinary.uploader.destroy(bannerDetails.publicId)
+
+      result = await cloudinary.uploader.upload(file.tempFilePath)
+
+      bannerDetails.url = result.url
+      bannerDetails.publicId = result.public_id
+
+      adminHelpers.editBanner(req.params.id, bannerDetails).then(() => {
+        res.redirect('/admin/all-banners')
+      })
+    }
+
+  } catch (error) {
+    res.json({ error })
+  }
+
 })
 
-router.get('/remove-banner/:id', verifyAdmin, (req, res) => {
+
+router.get('/remove-banner/:id/:imgId', verifyAdmin, (req, res) => {
   adminHelpers.removeBanner(req.params.id).then(() => {
+    cloudinary.uploader.destroy(req.params.imgId)
     res.redirect('/admin/all-banners')
   })
 })

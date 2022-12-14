@@ -7,6 +7,7 @@ const state={
 }
 module.exports.connect = function(done){
     const url = process.env.CLUSTER_URL
+    // 'mongodb://localhost:27017'
     const dbname='shopping'
 
     MongoClient.connect(url,(err,data)=>{
